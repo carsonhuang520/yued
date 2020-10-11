@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/carsonhuang520/yued/issues"
   },
-  "homepage": "https://github.com/carsonhuang520/yued#readme"
+  "homepage": "https://github.com/carsonhuang520/yued#readme",
+  "dependencies": {
+    "vue": "^2.6.12"
+  }
 }
