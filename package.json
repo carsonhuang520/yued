@@ -1,0 +1,23 @@
+{
+  "name": "yued",
+  "version": "0.0.1",
+  "description": "这是一个 UI 框架",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carsonhuang520/yued.git"
+  },
+  "keywords": [
+    "vue",
+    "ui"
+  ],
+  "author": "carson huang",
+  "license": " MIT",
+  "bugs": {
+    "url": "https://github.com/carsonhuang520/yued/issues"
+  },
+  "homepage": "https://github.com/carsonhuang520/yued#readme"
+}
