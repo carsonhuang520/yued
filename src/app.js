@@ -7,4 +7,7 @@ Vue.component("y-icon", Icon);
 
 new Vue({
   el: "#app",
+  data: {
+    loading: false
+  }
 });

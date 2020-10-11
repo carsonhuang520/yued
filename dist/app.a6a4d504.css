@@ -1,3 +1,11 @@
+@keyframes spin-data-v-56abb4 {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
 .y-button[data-v-56abb4] {
   font-size: var(--font-size);
   height: var(--button-height);
@@ -34,6 +42,9 @@
   order: 2;
   margin-right: 0;
   margin-left: 0.3em;
+}
+.y-button .loading[data-v-56abb4] {
+  animation: spin-data-v-56abb4 2s infinite linear;
 }
 .y-icon[data-v-e41657] {
   height: 1em;

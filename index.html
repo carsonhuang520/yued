@@ -38,14 +38,20 @@
 
   <body>
     <div id="app">
-      <y-button icon="settings">
+      <y-button icon="settings" :loading="loading" @click="loading = !loading">
         点我
       </y-button>
       <y-button icon="settings" icon-position="right">
         点我
       </y-button>
+      <y-button :loading="true">
+        加载中
+      </y-button>
+      <y-button :loading="true" icon-position="right">
+        加载中
+      </y-button>
     </div>
     <script src="./src/app.js"></script>
-    <script src="//at.alicdn.com/t/font_2121393_ejq3bws4vmc.js"></script>
+    <script src="//at.alicdn.com/t/font_2121393_0k0jdsww56pf.js"></script>
   </body>
 </html>
