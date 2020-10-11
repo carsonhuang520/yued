@@ -11,6 +11,7 @@
         padding: 0;
         box-sizing: border-box;
       }
+
       :root {
         --button-height: 32px;
         --font-size: 14px;
@@ -21,19 +22,33 @@
         --border-color: #999999;
         --border-color-hover: #666666;
       }
+
       #app {
         margin: 20px;
       }
+
       body {
         font-size: var(--font-size);
+      }
+    </style>
+    <style>
+      .icon {
+        height: 1em;
+        width: 1em;
       }
     </style>
   </head>
 
   <body>
     <div id="app">
-      <y-button></y-button>
+      <y-button icon="settings">
+        点我
+      </y-button>
+      <y-button icon="settings" icon-position="right">
+        点我
+      </y-button>
     </div>
     <script src="./src/app.js"></script>
+    <script src="//at.alicdn.com/t/font_2121393_ejq3bws4vmc.js"></script>
   </body>
 </html>
