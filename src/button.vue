@@ -1,9 +1,7 @@
 <template>
   <div class="">
-    <button class="y-button" :class="{[`icon-${iconPosition}`]: true}">
-      <svg v-if="icon" class="icon">
-        <use :xlink:href="`#i-${icon}`"></use>
-      </svg>
+    <button class="y-button" :class="{ [`icon-${iconPosition}`]: true }">
+      <y-icon class="icon " v-if="icon" :name="icon"></y-icon>
       <div class="content">
         <slot></slot>
       </div>
@@ -16,12 +14,15 @@ export default {
   props: {
     icon: {
       type: String,
-      default: ''
+      default: "",
     },
     iconPosition: {
       type: String,
-      default: 'left'
-    }
+      default: "left",
+      validator(value) {
+        return value === "left" || value === "right";
+      },
+    },
   },
   components: {},
   data() {
@@ -62,7 +63,7 @@ export default {
   }
   > .icon {
     order: 1;
-    margin-right: .3em;
+    margin-right: 0.3em;
   }
   &.icon-right {
     > .content {
@@ -71,7 +72,7 @@ export default {
     > .icon {
       order: 2;
       margin-right: 0;
-      margin-left: .3em;
+      margin-left: 0.3em;
     }
   }
 }
