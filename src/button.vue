@@ -1,13 +1,15 @@
 <template>
-  <div class="">
-    <button class="y-button" :class="{ [`icon-${iconPosition}`]: true }" @click="$emit('click')">
-      <y-icon class="icon" v-if="icon && !loading" :name="icon"></y-icon>
-      <y-icon class="loading icon" v-if="loading" name="loading"></y-icon>
-      <div class="content">
-        <slot></slot>
-      </div>
-    </button>
-  </div>
+  <button
+    class="y-button"
+    :class="{ [`icon-${iconPosition}`]: true }"
+    @click="$emit('click')"
+  >
+    <y-icon class="icon" v-if="icon && !loading" :name="icon"></y-icon>
+    <y-icon class="loading icon" v-if="loading" name="loading"></y-icon>
+    <div class="content">
+      <slot></slot>
+    </div>
+  </button>
 </template>
 
 <script>
@@ -19,7 +21,7 @@ export default {
     },
     loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     iconPosition: {
       type: String,
@@ -43,8 +45,12 @@ export default {
 
 <style lang="scss" scoped>
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 .y-button {
   font-size: var(--font-size);

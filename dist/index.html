@@ -29,9 +29,7 @@
       body {
         font-size: var(--font-size);
       }</style>
-    <style>
-      
-    </style>
+    <style></style>
   <link rel="stylesheet" href="/app.a6a4d504.css"></head>
 
   <body>
@@ -39,15 +37,20 @@
       <y-button icon="settings" :loading="loading" @click="loading = !loading">
         点我
       </y-button>
-      <y-button icon="settings" icon-position="right">
-        点我
-      </y-button>
-      <y-button :loading="true">
-        加载中
-      </y-button>
-      <y-button :loading="true" icon-position="right">
-        加载中
-      </y-button>
+      <y-button icon="settings" icon-position="right"> 点我 </y-button>
+      <y-button :loading="true"> 加载中 </y-button>
+      <y-button :loading="true" icon-position="right"> 加载中 </y-button>
+      <y-button-group>
+        <y-button icon="left">
+          上一页
+        </y-button>
+        <y-button>
+          更多
+        </y-button>
+        <y-button icon="left" icon-position="right">
+          下一页
+        </y-button>
+      </y-button-group>
     </div>
     <script src="/app.a6a4d504.js"></script>
     <script src="//at.alicdn.com/t/font_2121393_0k0jdsww56pf.js"></script>
