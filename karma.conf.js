@@ -20,7 +20,7 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ["Chrome"], // 打开浏览器
+    browsers: ["ChromeHeadless"], // 打开浏览器
     singleRun: false,
     concurrency: Infinity,
   });
