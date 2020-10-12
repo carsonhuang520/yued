@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import Icon from './icon'
 export default {
   props: {
     icon: {
@@ -31,7 +32,9 @@ export default {
       },
     },
   },
-  components: {},
+  components: {
+    'y-icon': Icon
+  },
   data() {
     return {};
   },
