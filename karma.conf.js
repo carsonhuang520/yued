@@ -20,7 +20,7 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ["ChromeHeadless"], // 打开浏览器
+    browsers: ["ChromeHeadless"], // 打开浏览器 Headless 表示没有界面
     singleRun: false,
     concurrency: Infinity,
   });
