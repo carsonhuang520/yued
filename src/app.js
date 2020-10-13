@@ -13,5 +13,6 @@ new Vue({
   el: '#app',
   data: {
     loading: false,
+    message: 'hello',
   },
 })

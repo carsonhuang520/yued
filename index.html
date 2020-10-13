@@ -43,7 +43,8 @@
       <div class="box">
         <y-input value="张三" disabled></y-input>
         <y-input value="李四" readonly></y-input>
-        <y-input value="王五"></y-input>
+        <y-input value="王五" v-model="message"></y-input>
+        <p>{{ message }}</p>
       </div>
       <y-input value="王五" error="信息不能少于三个字"></y-input>
       <!-- 这里使用自闭和会出错 -->

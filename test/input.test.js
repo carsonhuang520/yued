@@ -69,9 +69,13 @@ describe('Input', () => {
       const callback = sinon.fake()
       vm.$on('change', callback)
       let event = new Event('change') // 自己创建一个 change 事件
+      Object.defineProperty(event, 'target', {
+        value: { value: 'hi' },
+        enumerable: true,
+      })
       let inputElement = vm.$el.querySelector('input')
       inputElement.dispatchEvent(event)
-      expect(callback).to.have.been.calledWith(event) // 回调被执行，传入的参数为 event
+      expect(callback).to.have.been.calledWith('hi') // 回调被执行，传入的参数为 event
       vm.$destroy()
     })
     it('测试 input 事件.', () => {
@@ -80,9 +84,13 @@ describe('Input', () => {
       const callback = sinon.fake()
       vm.$on('input', callback)
       let event = new Event('input') // 自己创建一个 input 事件
+      Object.defineProperty(event, 'target', {
+        value: { value: 'hi' },
+        enumerable: true,
+      })
       let inputElement = vm.$el.querySelector('input')
       inputElement.dispatchEvent(event)
-      expect(callback).to.have.been.calledWith(event) // 回调被执行，传入的参数为 event
+      expect(callback).to.have.been.calledWith('hi') // 回调被执行，传入的参数为 event
       vm.$destroy()
     })
     it('测试 focus 事件.', () => {
@@ -91,9 +99,13 @@ describe('Input', () => {
       const callback = sinon.fake()
       vm.$on('focus', callback)
       let event = new Event('focus') // 自己创建一个 focus 事件
+      Object.defineProperty(event, 'target', {
+        value: { value: 'hi' },
+        enumerable: true,
+      })
       let inputElement = vm.$el.querySelector('input')
       inputElement.dispatchEvent(event)
-      expect(callback).to.have.been.calledWith(event) // 回调被执行，传入的参数为 event
+      expect(callback).to.have.been.calledWith('hi') // 回调被执行，传入的参数为 event
       vm.$destroy()
     })
     it('测试 blur 事件.', () => {
@@ -102,9 +114,13 @@ describe('Input', () => {
       const callback = sinon.fake()
       vm.$on('blur', callback)
       let event = new Event('blur') // 自己创建一个 blur 事件
+      Object.defineProperty(event, 'target', {
+        value: { value: 'hi' },
+        enumerable: true,
+      })
       let inputElement = vm.$el.querySelector('input')
       inputElement.dispatchEvent(event)
-      expect(callback).to.have.been.calledWith(event) // 回调被执行，传入的参数为 event
+      expect(callback).to.have.been.calledWith('hi') // 回调被执行，传入的参数为 event
       vm.$destroy()
     })
   })
