@@ -12738,6 +12738,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
 var _default = {
   props: {
     value: {
@@ -12786,7 +12790,21 @@ exports.default = _default;
     [
       _c("input", {
         attrs: { type: "text", disabled: _vm.disabled, readonly: _vm.readonly },
-        domProps: { value: _vm.value }
+        domProps: { value: _vm.value },
+        on: {
+          change: function($event) {
+            return _vm.$emit("change", $event)
+          },
+          focus: function($event) {
+            return _vm.$emit("focus", $event)
+          },
+          blur: function($event) {
+            return _vm.$emit("blur", $event)
+          },
+          input: function($event) {
+            return _vm.$emit("input", $event)
+          }
+        }
       }),
       _vm._v(" "),
       _vm.error
@@ -12895,7 +12913,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "12879" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "7079" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
