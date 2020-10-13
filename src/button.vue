@@ -18,7 +18,7 @@ export default {
   props: {
     icon: {
       type: String,
-      default: "",
+      default: '',
     },
     loading: {
       type: Boolean,
@@ -26,24 +26,24 @@ export default {
     },
     iconPosition: {
       type: String,
-      default: "left",
+      default: 'left',
       validator(value) {
-        return value === "left" || value === "right";
+        return value === 'left' || value === 'right'
       },
     },
   },
   components: {
-    'y-icon': Icon
+    'y-icon': Icon,
   },
   data() {
-    return {};
+    return {}
   },
   computed: {},
   watch: {},
   methods: {},
   created() {},
   mounted() {},
-};
+}
 </script>
 
 <style lang="scss" scoped>

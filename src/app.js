@@ -1,107 +1,17 @@
-import Vue from "vue";
-import Button from "./button";
-import Icon from "./icon";
-import ButtonGroup from "./button-group";
+import Vue from 'vue'
+import Button from './button'
+import Icon from './icon'
+import ButtonGroup from './button-group'
+import Input from './input'
 
-Vue.component("y-button", Button);
-Vue.component("y-icon", Icon);
-Vue.component("y-button-group", ButtonGroup);
+Vue.component('y-button', Button)
+Vue.component('y-icon', Icon)
+Vue.component('y-button-group', ButtonGroup)
+Vue.component('y-input', Input)
 
 new Vue({
-  el: "#app",
+  el: '#app',
   data: {
     loading: false,
   },
-});
-
-import chai from "chai";
-import spies from "chai-spies";
-chai.use(spies);
-const expect = chai.expect;
-// 单元测试
-try {
-  {
-    // 测试按钮含有 icon
-    const Constructor = Vue.extend(Button);
-    const button = new Constructor({
-      propsData: {
-        icon: "settings",
-      },
-    });
-    button.$mount();
-    let useElement = button.$el.querySelector("use");
-    let href = useElement.getAttribute("xlink:href");
-    expect(href).to.eq("#i-settings");
-    button.$el.remove();
-    button.$destroy();
-  }
-  {
-    // 测试按钮的 loading 为 true 时显示 loading
-    const Constructor = Vue.extend(Button);
-    const button = new Constructor({
-      propsData: {
-        icon: "settings",
-        loading: true,
-      },
-    });
-    button.$mount();
-    let useElement = button.$el.querySelector("use");
-    let href = useElement.getAttribute("xlink:href");
-    // console.log(useElement);
-    expect(href).to.eq("#i-loading");
-    button.$el.remove();
-    button.$destroy();
-  }
-  {
-    const div = document.createElement("div");
-    document.body.appendChild(div);
-    const Constructor = Vue.extend(Button);
-    const button = new Constructor({
-      propsData: {
-        icon: "settings",
-      },
-    });
-    button.$mount(div);
-    let svg = button.$el.querySelector("svg");
-    let { order } = window.getComputedStyle(svg);
-    // console.log(useElement);
-    expect(order).to.eq("1");
-    button.$el.remove();
-    button.$destroy();
-  }
-  {
-    const div = document.createElement("div");
-    document.body.appendChild(div);
-    const Constructor = Vue.extend(Button);
-    const button = new Constructor({
-      propsData: {
-        icon: "settings",
-        iconPosition: "right",
-      },
-    });
-    button.$mount(div);
-    let svg = button.$el.querySelector("svg");
-    let { order } = window.getComputedStyle(svg);
-    // console.log(useElement);
-    expect(order).to.eq("2");
-    button.$el.remove();
-    button.$destroy();
-  }
-  {
-    // 函数 mock
-    const Constructor = Vue.extend(Button);
-    const gButton = new Constructor({
-      propsData: {
-        icon: "settings",
-      },
-    });
-    gButton.$mount();
-    let spy = chai.spy(function() {});
-    gButton.$on("click", spy);
-    let button = gButton.$el;
-    button.click();
-    expect(spy).to.have.been.called();
-  }
-} catch (error) {
-} finally {
-}
+})

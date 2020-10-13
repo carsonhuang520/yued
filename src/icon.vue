@@ -5,23 +5,24 @@
 </template>
 
 <script>
+// import './svg'
 export default {
   props: {
     name: {
       type: String,
-      default: "",
+      default: '',
     },
   },
   components: {},
   data() {
-    return {};
+    return {}
   },
   computed: {},
   watch: {},
   methods: {},
   created() {},
   mounted() {},
-};
+}
 </script>
 <style lang="scss" scoped>
 .y-icon {
