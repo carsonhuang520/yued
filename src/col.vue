@@ -1,6 +1,12 @@
 <template>
-  <div class="y-col" :class="[`y-col-${span}`]">
-    <slot></slot>
+  <div
+    class="y-col"
+    :class="[span && `y-col-${span}`, offset && `offset-${offset}`]"
+    :style="{ paddingLeft: gutter / 2 + 'px', paddingRight: gutter / 2 + 'px' }"
+  >
+    <div style="border: 1px solid green; height: 100px;">
+      <slot></slot>
+    </div>
   </div>
 </template>
 <script>
@@ -10,19 +16,33 @@ export default {
     span: {
       type: [String, Number],
     },
+    offset: {
+      type: [Number, String],
+    },
+  },
+  data() {
+    return {
+      gutter: 0,
+    }
   },
 }
 </script>
 <style lang="scss" scoped>
 .y-col {
-  height: 100px;
-  background: grey;
+  // background: grey;
   width: 50%;
-  border: 1px solid red;
+  // border: 1px solid red;
+  // padding: 0 10px;
   $class-prefix: y-col-;
   @for $n from 1 through 24 {
     &.#{$class-prefix}#{$n} {
       width: ($n / 24) * 100%;
+    }
+  }
+  $class-prefix: offset-;
+  @for $n from 1 through 24 {
+    &.#{$class-prefix}#{$n} {
+      margin-left: ($n / 24) * 100%;
     }
   }
 }

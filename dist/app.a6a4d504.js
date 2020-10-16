@@ -12857,7 +12857,37 @@ render._withStripped = true
       }
     })();
 },{"./icon":"src/icon.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/row.vue":[function(require,module,exports) {
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'YueRow',
+  props: {
+    gutter: {
+      type: [Number, String]
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    // 获取子元素
+    this.$children.forEach(function (item) {
+      item.gutter = _this.gutter;
+    });
+  }
+};
+exports.default = _default;
         var $770822 = exports.default || module.exports;
       
       if (typeof $770822 === 'function') {
@@ -12870,7 +12900,18 @@ render._withStripped = true
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "y-row" }, [_vm._t("default")], 2)
+  return _c(
+    "div",
+    {
+      staticClass: "y-row",
+      style: {
+        marginLeft: -_vm.gutter / 2 + "px",
+        marginRight: -_vm.gutter / 2 + "px"
+      }
+    },
+    [_vm._t("default")],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12917,12 +12958,26 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var _default = {
   name: 'YueCol',
   props: {
     span: {
       type: [String, Number]
+    },
+    offset: {
+      type: [Number, String]
     }
+  },
+  data: function data() {
+    return {
+      gutter: 0
+    };
   }
 };
 exports.default = _default;
@@ -12940,9 +12995,25 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "y-col", class: ["y-col-" + _vm.span] },
-    [_vm._t("default")],
-    2
+    {
+      staticClass: "y-col",
+      class: [
+        _vm.span && "y-col-" + _vm.span,
+        _vm.offset && "offset-" + _vm.offset
+      ],
+      style: {
+        paddingLeft: _vm.gutter / 2 + "px",
+        paddingRight: _vm.gutter / 2 + "px"
+      }
+    },
+    [
+      _c(
+        "div",
+        { staticStyle: { border: "1px solid green", height: "100px" } },
+        [_vm._t("default")],
+        2
+      )
+    ]
   )
 }
 var staticRenderFns = []
