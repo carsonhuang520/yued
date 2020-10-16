@@ -13027,6 +13027,27 @@ var _default = {
       gutter: 0
     };
   },
+  methods: {
+    createClass: function createClass(obj) {
+      var str = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      if (!obj) {
+        return [];
+      }
+
+      var res = [];
+
+      if (obj.span) {
+        res.push("y-col-".concat(str).concat(obj.span));
+      }
+
+      if (obj.offset) {
+        res.push("offset-".concat(str).concat(obj.offset));
+      }
+
+      return res;
+    }
+  },
   computed: {
     colClasses: function colClasses() {
       var span = this.span,
@@ -13034,10 +13055,11 @@ var _default = {
           phone = this.phone,
           iPad = this.iPad,
           narrowPc = this.narrowPc,
-          pc = this.pc,
-          widePc = this.widePc;
-      var phoneClass = [];
-      return [span && "y-col-".concat(span), offset && "offset-".concat(offset)].concat(_toConsumableArray(phone ? ["y-col-phone-".concat(phone.span)] : []), _toConsumableArray(iPad ? ["y-col-i-pad-".concat(iPad.span)] : []), _toConsumableArray(narrowPc ? ["y-col-narrow-pc-".concat(narrowPc.span)] : []), _toConsumableArray(pc ? ["y-col-pc-".concat(pc.span)] : []), _toConsumableArray(widePc ? ["y-col-wide-pc-".concat(widePc.span)] : []));
+          pc = this.pc;
+      return [].concat(_toConsumableArray(this.createClass({
+        span: span,
+        offset: offset
+      })), _toConsumableArray(this.createClass(phone, 'phone-')), _toConsumableArray(this.createClass(iPad, 'i-pad-')), _toConsumableArray(this.createClass(narrowPc, 'narrow-pc-')), _toConsumableArray(this.createClass(pc, 'pc-')));
     },
     colStyle: function colStyle() {
       return {

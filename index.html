@@ -36,6 +36,13 @@
         margin-bottom: 20px;
       }
     </style>
+    <style>
+      .demo {
+        background: grey;
+        border: 1px solid green;
+        height: 50px;
+      }
+    </style>
   </head>
 
   <body>
@@ -72,9 +79,25 @@
         </y-button-group>
       </div>
       <div style="margin-top: 20px; border: 1px solid black">
-        <y-row gutter="20">
-          <y-col span="2" :phone="{span: 12}">1</y-col>
-          <y-col span="22" :phone="{span: 12}">1</y-col>
+        <y-row>
+          <y-col span="24" :i-pad="{span: 12}" :narrow-pc="{span: 8}">
+            <div class="demo"></div>
+          </y-col>
+          <y-col span="24" :i-pad="{span: 12}" :narrow-pc="{span: 8}">
+            <div class="demo"></div>
+          </y-col>
+          <y-col span="24" :i-pad="{span: 12}" :narrow-pc="{span: 8}">
+            <div class="demo"></div>
+          </y-col>
+          <y-col span="24" :i-pad="{span: 12}" :narrow-pc="{span: 8}">
+            <div class="demo"></div>
+          </y-col>
+          <y-col span="24" :i-pad="{span: 12}" :narrow-pc="{span: 8}">
+            <div class="demo"></div>
+          </y-col>
+          <y-col span="24" :i-pad="{span: 12}" :narrow-pc="{span: 8}">
+            <div class="demo"></div>
+          </y-col>
         </y-row>
         <!-- <y-row gutter="20">
           <y-col>1</y-col>
