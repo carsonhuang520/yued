@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="y-row"
-    :style="{ marginLeft: -gutter / 2 + 'px', marginRight: -gutter / 2 + 'px' }"
-  >
+  <div class="y-row" :style="rowStyle">
     <slot></slot>
   </div>
 </template>
@@ -12,6 +9,14 @@ export default {
   props: {
     gutter: {
       type: [Number, String],
+    },
+  },
+  computed: {
+    rowStyle() {
+      return {
+        marginLeft: -this.gutter / 2 + 'px',
+        marginRight: -this.gutter / 2 + 'px',
+      }
     },
   },
   mounted() {
@@ -25,6 +30,5 @@ export default {
 <style lang="scss" scoped>
 .y-row {
   display: flex;
-  // margin: 0 -10px;
 }
 </style>

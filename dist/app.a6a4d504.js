@@ -12868,14 +12868,19 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
 var _default = {
   name: 'YueRow',
   props: {
     gutter: {
       type: [Number, String]
+    }
+  },
+  computed: {
+    rowStyle: function rowStyle() {
+      return {
+        marginLeft: -this.gutter / 2 + 'px',
+        marginRight: -this.gutter / 2 + 'px'
+      };
     }
   },
   mounted: function mounted() {
@@ -12902,13 +12907,7 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass: "y-row",
-      style: {
-        marginLeft: -_vm.gutter / 2 + "px",
-        marginRight: -_vm.gutter / 2 + "px"
-      }
-    },
+    { staticClass: "y-row", style: _vm.rowStyle },
     [_vm._t("default")],
     2
   )
@@ -12958,12 +12957,6 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
-//
-//
-//
 var _default = {
   name: 'YueCol',
   props: {
@@ -12978,6 +12971,19 @@ var _default = {
     return {
       gutter: 0
     };
+  },
+  computed: {
+    colClasses: function colClasses() {
+      var span = this.span,
+          offset = this.offset;
+      return [span && "y-col-".concat(span), offset && "offset-".concat(offset)];
+    },
+    colStyle: function colStyle() {
+      return {
+        paddingLeft: this.gutter / 2 + 'px',
+        paddingRight: this.gutter / 2 + 'px'
+      };
+    }
   }
 };
 exports.default = _default;
@@ -12995,25 +13001,9 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass: "y-col",
-      class: [
-        _vm.span && "y-col-" + _vm.span,
-        _vm.offset && "offset-" + _vm.offset
-      ],
-      style: {
-        paddingLeft: _vm.gutter / 2 + "px",
-        paddingRight: _vm.gutter / 2 + "px"
-      }
-    },
-    [
-      _c(
-        "div",
-        { staticStyle: { border: "1px solid green", height: "100px" } },
-        [_vm._t("default")],
-        2
-      )
-    ]
+    { staticClass: "y-col", class: _vm.colClasses, style: _vm.colStyle },
+    [_vm._t("default")],
+    2
   )
 }
 var staticRenderFns = []
