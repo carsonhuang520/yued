@@ -1,5 +1,5 @@
 <template>
-  <div class="y-row" :style="rowStyle">
+  <div class="y-row" :style="rowStyle" :class="rowClasses">
     <slot></slot>
   </div>
 </template>
@@ -10,6 +10,13 @@ export default {
     gutter: {
       type: [Number, String],
     },
+    align: {
+      type: String,
+      // default: 'left',
+      validator(value) {
+        return ['left', 'right', 'center'].includes(value)
+      },
+    },
   },
   computed: {
     rowStyle() {
@@ -17,6 +24,10 @@ export default {
         marginLeft: -this.gutter / 2 + 'px',
         marginRight: -this.gutter / 2 + 'px',
       }
+    },
+    rowClasses() {
+      let { align } = this
+      return [align && `align-${align}`]
     },
   },
   mounted() {
@@ -30,5 +41,14 @@ export default {
 <style lang="scss" scoped>
 .y-row {
   display: flex;
+  &.align-left {
+    justify-content: flex-start;
+  }
+  &.align-right {
+    justify-content: flex-end;
+  }
+  &.align-center {
+    justify-content: center;
+  }
 }
 </style>

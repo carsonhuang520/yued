@@ -111,6 +111,15 @@
 .y-row[data-v-770822] {
   display: flex;
 }
+.y-row.align-left[data-v-770822] {
+  justify-content: flex-start;
+}
+.y-row.align-right[data-v-770822] {
+  justify-content: flex-end;
+}
+.y-row.align-center[data-v-770822] {
+  justify-content: center;
+}
 .y-col[data-v-764aef] {
   width: 50%;
 }

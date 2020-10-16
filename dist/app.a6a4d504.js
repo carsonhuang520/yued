@@ -12873,6 +12873,13 @@ var _default = {
   props: {
     gutter: {
       type: [Number, String]
+    },
+    align: {
+      type: String,
+      // default: 'left',
+      validator: function validator(value) {
+        return ['left', 'right', 'center'].includes(value);
+      }
     }
   },
   computed: {
@@ -12881,6 +12888,10 @@ var _default = {
         marginLeft: -this.gutter / 2 + 'px',
         marginRight: -this.gutter / 2 + 'px'
       };
+    },
+    rowClasses: function rowClasses() {
+      var align = this.align;
+      return [align && "align-".concat(align)];
     }
   },
   mounted: function mounted() {
@@ -12907,7 +12918,7 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "y-row", style: _vm.rowStyle },
+    { staticClass: "y-row", class: _vm.rowClasses, style: _vm.rowStyle },
     [_vm._t("default")],
     2
   )
