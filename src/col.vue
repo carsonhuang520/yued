@@ -4,6 +4,16 @@
   </div>
 </template>
 <script>
+let validator = (value) => {
+  let keys = Object.keys(value)
+  let valid = true
+  keys.forEach((item) => {
+    if (!['span', 'offset'].includes(item)) {
+      valid = false
+    }
+  })
+  return valid
+}
 export default {
   name: 'YueCol',
   props: {
@@ -13,6 +23,26 @@ export default {
     offset: {
       type: [Number, String],
     },
+    phone: {
+      type: Object,
+      validator,
+    },
+    iPad: {
+      type: Object,
+      validator,
+    },
+    narrowPc: {
+      type: Object,
+      validator,
+    },
+    pc: {
+      type: Object,
+      validator,
+    },
+    widePc: {
+      type: Object,
+      validator,
+    },
   },
   data() {
     return {
@@ -21,8 +51,17 @@ export default {
   },
   computed: {
     colClasses() {
-      let { span, offset } = this
-      return [span && `y-col-${span}`, offset && `offset-${offset}`]
+      let { span, offset, phone, iPad, narrowPc, pc, widePc } = this
+      let phoneClass = []
+      return [
+        span && `y-col-${span}`,
+        offset && `offset-${offset}`,
+        ...(phone ? [`y-col-phone-${phone.span}`] : []),
+        ...(iPad ? [`y-col-i-pad-${iPad.span}`] : []),
+        ...(narrowPc ? [`y-col-narrow-pc-${narrowPc.span}`] : []),
+        ...(pc ? [`y-col-pc-${pc.span}`] : []),
+        ...(widePc ? [`y-col-wide-pc-${widePc.span}`] : []),
+      ]
     },
     colStyle() {
       return {
@@ -46,6 +85,76 @@ export default {
   @for $n from 1 through 24 {
     &.#{$class-prefix}#{$n} {
       margin-left: ($n / 24) * 100%;
+    }
+  }
+  @media (max-width: 576px) {
+    $class-prefix: y-col-phone-;
+    @for $n from 1 through 24 {
+      &.#{$class-prefix}#{$n} {
+        width: ($n / 24) * 100%;
+      }
+    }
+    $class-prefix: y-offset-;
+    @for $n from 1 through 24 {
+      &.#{$class-prefix}#{$n} {
+        margin-left: ($n / 24) * 100%;
+      }
+    }
+  }
+  @media (min-width: 577px) and (max-width: 768px) {
+    $class-prefix: y-col-i-pad-;
+    @for $n from 1 through 24 {
+      &.#{$class-prefix}#{$n} {
+        width: ($n / 24) * 100%;
+      }
+    }
+    $class-prefix: y-offset-;
+    @for $n from 1 through 24 {
+      &.#{$class-prefix}#{$n} {
+        margin-left: ($n / 24) * 100%;
+      }
+    }
+  }
+  @media (min-width: 769px) and (max-width: 992px) {
+    $class-prefix: y-col-narrow-pc-;
+    @for $n from 1 through 24 {
+      &.#{$class-prefix}#{$n} {
+        width: ($n / 24) * 100%;
+      }
+    }
+    $class-prefix: y-offset-;
+    @for $n from 1 through 24 {
+      &.#{$class-prefix}#{$n} {
+        margin-left: ($n / 24) * 100%;
+      }
+    }
+  }
+  @media (min-width: 993px) and (max-width: 1200px) {
+    $class-prefix: y-col-pc-;
+    @for $n from 1 through 24 {
+      &.#{$class-prefix}#{$n} {
+        width: ($n / 24) * 100%;
+      }
+    }
+    $class-prefix: y-offset-;
+    @for $n from 1 through 24 {
+      &.#{$class-prefix}#{$n} {
+        margin-left: ($n / 24) * 100%;
+      }
+    }
+  }
+  @media (min-width: 1201px) {
+    $class-prefix: y-col-wide-pc-;
+    @for $n from 1 through 24 {
+      &.#{$class-prefix}#{$n} {
+        width: ($n / 24) * 100%;
+      }
+    }
+    $class-prefix: y-offset-;
+    @for $n from 1 through 24 {
+      &.#{$class-prefix}#{$n} {
+        margin-left: ($n / 24) * 100%;
+      }
     }
   }
 }
