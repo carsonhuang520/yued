@@ -108,3 +108,84 @@
 .wrapper.error .message-error[data-v-4fcc6e] {
   color: #f1453d;
 }
+.y-row[data-v-770822] {
+  display: flex;
+}
+.y-col[data-v-764aef] {
+  height: 100px;
+  background: grey;
+  width: 50%;
+  border: 1px solid red;
+}
+.y-col.y-col-1[data-v-764aef] {
+  width: 4.1666666667%;
+}
+.y-col.y-col-2[data-v-764aef] {
+  width: 8.3333333333%;
+}
+.y-col.y-col-3[data-v-764aef] {
+  width: 12.5%;
+}
+.y-col.y-col-4[data-v-764aef] {
+  width: 16.6666666667%;
+}
+.y-col.y-col-5[data-v-764aef] {
+  width: 20.8333333333%;
+}
+.y-col.y-col-6[data-v-764aef] {
+  width: 25%;
+}
+.y-col.y-col-7[data-v-764aef] {
+  width: 29.1666666667%;
+}
+.y-col.y-col-8[data-v-764aef] {
+  width: 33.3333333333%;
+}
+.y-col.y-col-9[data-v-764aef] {
+  width: 37.5%;
+}
+.y-col.y-col-10[data-v-764aef] {
+  width: 41.6666666667%;
+}
+.y-col.y-col-11[data-v-764aef] {
+  width: 45.8333333333%;
+}
+.y-col.y-col-12[data-v-764aef] {
+  width: 50%;
+}
+.y-col.y-col-13[data-v-764aef] {
+  width: 54.1666666667%;
+}
+.y-col.y-col-14[data-v-764aef] {
+  width: 58.3333333333%;
+}
+.y-col.y-col-15[data-v-764aef] {
+  width: 62.5%;
+}
+.y-col.y-col-16[data-v-764aef] {
+  width: 66.6666666667%;
+}
+.y-col.y-col-17[data-v-764aef] {
+  width: 70.8333333333%;
+}
+.y-col.y-col-18[data-v-764aef] {
+  width: 75%;
+}
+.y-col.y-col-19[data-v-764aef] {
+  width: 79.1666666667%;
+}
+.y-col.y-col-20[data-v-764aef] {
+  width: 83.3333333333%;
+}
+.y-col.y-col-21[data-v-764aef] {
+  width: 87.5%;
+}
+.y-col.y-col-22[data-v-764aef] {
+  width: 91.6666666667%;
+}
+.y-col.y-col-23[data-v-764aef] {
+  width: 95.8333333333%;
+}
+.y-col.y-col-24[data-v-764aef] {
+  width: 100%;
+}
