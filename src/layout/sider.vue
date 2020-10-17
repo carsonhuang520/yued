@@ -8,7 +8,4 @@ export default {
   name: 'YueSider',
 }
 </script>
-<style lang="scss" scoped>
-.y-sider {
-}
-</style>
+<style lang="scss" scoped></style>

@@ -22,31 +22,34 @@
         --border-color-hover: #666666;
       }
 
-      #app {
-        /* margin: 20px; */
-      }
-
       body {
         font-size: var(--font-size);
       }</style>
     <style>.box {
         margin-bottom: 20px;
       }</style>
-    <style>.demo {
-        background: grey;
-        border: 1px solid green;
-        min-height: 100px;
+    <style>.y-sider {
+        background: #333333;
+        width: 200px;
+      }
+      .y-header {
+        background: #eeeeee;
+        height: 100px;
+      }
+      .y-footer {
+        background: #eeeeee;
+        height: 50px;
       }</style>
   <link rel="stylesheet" href="/app.a6a4d504.css"></head>
 
   <body>
     <div id="app">
       <y-layout style="height: 100vh;">
-        <y-sider class="demo">sider</y-sider>
+        <y-sider>sider</y-sider>
         <y-layout>
-          <y-header class="demo">header</y-header>
-          <y-content class="demo">content</y-content>
-          <y-footer class="demo">footer</y-footer>
+          <y-header>header</y-header>
+          <y-content>content</y-content>
+          <y-footer>footer</y-footer>
         </y-layout>
       </y-layout>
     </div>

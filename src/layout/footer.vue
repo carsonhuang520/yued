@@ -3,7 +3,4 @@
     <slot></slot>
   </div>
 </template>
-<style lang="scss" scoped>
-.y-footer {
-}
-</style>
+<style lang="scss" scoped></style>
