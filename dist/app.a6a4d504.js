@@ -13438,6 +13438,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 var _default = {
   name: 'YueToast',
   props: {
@@ -13493,11 +13495,12 @@ var _default = {
       var _this2 = this;
 
       this.$nextTick(function () {
-        _this2.$refs.line.style.height = "".concat(_this2.$refs.wrapper.getBoundingClientRect().height, "px");
+        _this2.$refs.line.style.height = "".concat(_this2.$refs.toast.getBoundingClientRect().height, "px");
       });
     },
     close: function close() {
       this.$el.remove();
+      this.$emit('close');
       this.$destroy();
     },
     onClick: function onClick() {
@@ -13522,10 +13525,8 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { ref: "wrapper", staticClass: "y-toast", class: _vm.toastClass },
-    [
+  return _c("div", { staticClass: "wrapper", class: _vm.toastClass }, [
+    _c("div", { ref: "toast", staticClass: "y-toast" }, [
       _c(
         "div",
         { staticClass: "message" },
@@ -13546,8 +13547,8 @@ exports.default = _default;
             _vm._v(_vm._s(_vm.closeButton.text))
           ])
         : _vm._e()
-    ]
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -13597,13 +13598,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function createToast(_ref) {
   var Vue = _ref.Vue,
       message = _ref.message,
-      propsData = _ref.propsData;
+      propsData = _ref.propsData,
+      onClose = _ref.onClose;
   var Constructor = Vue.extend(_toast.default);
   var vm = new Constructor({
     propsData: propsData
   });
   vm.$slots.default = [message];
   vm.$mount();
+  vm.$on('close', onClose);
   document.body.appendChild(vm.$el);
   return vm;
 }
@@ -13619,7 +13622,10 @@ var _default = {
       currentToast = createToast({
         Vue: Vue,
         message: message,
-        propsData: props
+        propsData: props,
+        onClose: function onClose() {
+          currentToast = null;
+        }
       });
     };
   }
@@ -13688,11 +13694,20 @@ new _vue.default({
   },
   created: function created() {},
   methods: {
-    showToast: function showToast() {
+    showToast1: function showToast1() {
+      this.showToast('top');
+    },
+    showToast2: function showToast2() {
+      this.showToast('middle');
+    },
+    showToast3: function showToast3() {
+      this.showToast('bottom');
+    },
+    showToast: function showToast(position) {
       this.$toast('很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字，完', {
         enableHtml: false,
         autoClose: false,
-        position: 'middle'
+        position: position
       });
     }
   }
