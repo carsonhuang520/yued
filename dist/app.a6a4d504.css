@@ -869,9 +869,7 @@
   line-height: 1.8;
   color: #ffffff;
   position: fixed;
-  top: 0;
   left: 50%;
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
   background: rgba(0, 0, 0, 0.75);
@@ -890,4 +888,16 @@
 .y-toast .close[data-v-00e3d9] {
   padding-left: 16px;
   flex-shrink: 0;
+}
+.y-toast.position-top[data-v-00e3d9] {
+  top: 0;
+  transform: translateX(-50%);
+}
+.y-toast.position-middle[data-v-00e3d9] {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.y-toast.position-bottom[data-v-00e3d9] {
+  bottom: 0;
+  transform: translateX(-50%);
 }
