@@ -13594,16 +13594,33 @@ var _toast = _interopRequireDefault(require("./toast"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function createToast(_ref) {
+  var Vue = _ref.Vue,
+      message = _ref.message,
+      propsData = _ref.propsData;
+  var Constructor = Vue.extend(_toast.default);
+  var vm = new Constructor({
+    propsData: propsData
+  });
+  vm.$slots.default = [message];
+  vm.$mount();
+  document.body.appendChild(vm.$el);
+  return vm;
+}
+
+var currentToast;
 var _default = {
   install: function install(Vue, options) {
     Vue.prototype.$toast = function (message, props) {
-      var Constructor = Vue.extend(_toast.default);
-      var vm = new Constructor({
+      if (currentToast) {
+        currentToast.close();
+      }
+
+      currentToast = createToast({
+        Vue: Vue,
+        message: message,
         propsData: props
       });
-      vm.$slots.default = [message];
-      vm.$mount();
-      document.body.appendChild(vm.$el);
     };
   }
 };
