@@ -863,3 +863,19 @@
 .y-content[data-v-81fe76] {
   flex-grow: 1;
 }
+.y-toast[data-v-00e3d9] {
+  font-size: 14px;
+  height: 40px;
+  line-height: 1.8;
+  color: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 4px;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5);
+  padding: 0 16px;
+}

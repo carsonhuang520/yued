@@ -10,7 +10,7 @@ import Header from './layout/header'
 import Content from './layout/content'
 import Sider from './layout/sider'
 import Footer from './layout/footer'
-
+import plugin from './plugin'
 
 Vue.component('y-button', Button)
 Vue.component('y-icon', Icon)
@@ -23,11 +23,19 @@ Vue.component('y-header', Header)
 Vue.component('y-content', Content)
 Vue.component('y-sider', Sider)
 Vue.component('y-footer', Footer)
+Vue.use(plugin)
 
 new Vue({
   el: '#app',
   data: {
     loading: false,
     message: 'hello',
+  },
+  created() {
+  },
+  methods: {
+    showToast() {
+      this.$toast('hello world')
+    },
   },
 })
