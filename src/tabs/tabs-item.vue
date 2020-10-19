@@ -30,22 +30,28 @@ export default {
     },
   },
   created() {
-    this.eventBus.$on('update:selected', (name) => {
+    this.eventBus.$on('update:selected', (name, item) => {
       this.active = name === this.name
     })
   },
   methods: {
     xxx() {
-      this.eventBus.$emit('update:selected', this.name)
+      this.eventBus.$emit('update:selected', this.name, this)
     },
   },
 }
 </script>
 <style lang="scss" scoped>
+$blue: blue;
 .y-tabs-item {
+  flex-shrink: 0;
+  cursor: pointer;
   padding: 0 1em;
+  height: 100%;
+  display: flex;
+  align-items: center;
   &.active {
-    background: red;
+    color: $blue;
   }
 }
 </style>

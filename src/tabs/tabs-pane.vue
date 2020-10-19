@@ -26,7 +26,7 @@ export default {
     },
   },
   created() {
-    this.eventBus.$on('update:selected', (name) => {
+    this.eventBus.$on('update:selected', (name, item) => {
       console.log(name)
       this.active = name === this.name
     })
@@ -35,8 +35,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .y-tabs-pane {
-  &.active {
-    background: red;
-  }
+  padding: 1em;
 }
 </style>

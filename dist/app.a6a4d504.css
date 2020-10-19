@@ -946,19 +946,30 @@
 .y-tabs-head[data-v-4c2a30] {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
   height: 40px;
-  border: 1px solid red;
+  border-bottom: 1px solid #dddddd;
+  position: relative;
+}
+.y-tabs-head > .line[data-v-4c2a30] {
+  position: absolute;
+  bottom: 0;
+  border-bottom: 1px solid blue;
+  transition: all 350ms;
 }
 .y-tabs-head > .actions-wrapper[data-v-4c2a30] {
   margin-left: auto;
 }
 .y-tabs-item[data-v-2cb083] {
+  flex-shrink: 0;
+  cursor: pointer;
   padding: 0 1em;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 .y-tabs-item.active[data-v-2cb083] {
-  background: red;
+  color: blue;
 }
-.y-tabs-pane.active[data-v-2b9851] {
-  background: red;
+.y-tabs-pane[data-v-2b9851] {
+  padding: 1em;
 }

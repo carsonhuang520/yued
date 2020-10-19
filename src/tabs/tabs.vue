@@ -32,8 +32,17 @@ export default {
     }
   },
   mounted() {
-    console.log(this.selected)
-    this.eventBus.$emit('update:selected', this.selected)
+    this.$children.forEach((vm) => {
+      if (vm.$options.name === 'YueTabsHead') {
+        vm.$children.forEach((item) => {
+          if (
+            (item.$options.name = 'YueTabsItem' && item.name === this.selected)
+          ) {
+            this.eventBus.$emit('update:selected', this.selected, item)
+          }
+        })
+      }
+    })
   },
 }
 </script>

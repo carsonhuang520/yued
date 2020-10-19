@@ -13675,8 +13675,17 @@ var _default = {
     };
   },
   mounted: function mounted() {
-    console.log(this.selected);
-    this.eventBus.$emit('update:selected', this.selected);
+    var _this = this;
+
+    this.$children.forEach(function (vm) {
+      if (vm.$options.name === 'YueTabsHead') {
+        vm.$children.forEach(function (item) {
+          if (item.$options.name = 'YueTabsItem' && item.name === _this.selected) {
+            _this.eventBus.$emit('update:selected', _this.selected, item);
+          }
+        });
+      }
+    });
   }
 };
 exports.default = _default;
@@ -13742,8 +13751,25 @@ exports.default = void 0;
 //
 //
 //
+//
 var _default = {
-  name: 'YueTabsHead'
+  name: 'YueTabsHead',
+  inject: ['eventBus'],
+  created: function created() {
+    var _this = this;
+
+    console.log(this.eventBus.$on('update:selected', function (name, vm) {
+      var _vm$$el$getBoundingCl = vm.$el.getBoundingClientRect(),
+          width = _vm$$el$getBoundingCl.width,
+          height = _vm$$el$getBoundingCl.height,
+          top = _vm$$el$getBoundingCl.top,
+          left = _vm$$el$getBoundingCl.left;
+
+      _this.$refs.line.style.width = "".concat(width, "px");
+      _this.$refs.line.style.left = "".concat(left, "px");
+      console.log(width, height, top, left);
+    }));
+  }
 };
 exports.default = _default;
         var $4c2a30 = exports.default || module.exports;
@@ -13763,6 +13789,8 @@ exports.default = _default;
     { staticClass: "y-tabs-head" },
     [
       _vm._t("default"),
+      _vm._v(" "),
+      _c("div", { ref: "line", staticClass: "line" }),
       _vm._v(" "),
       _c("div", { staticClass: "actions-wrapper" }, [_vm._t("actions")], 2)
     ],
@@ -13905,13 +13933,13 @@ var _default = {
   created: function created() {
     var _this = this;
 
-    this.eventBus.$on('update:selected', function (name) {
+    this.eventBus.$on('update:selected', function (name, item) {
       _this.active = name === _this.name;
     });
   },
   methods: {
     xxx: function xxx() {
-      this.eventBus.$emit('update:selected', this.name);
+      this.eventBus.$emit('update:selected', this.name, this);
     }
   }
 };
@@ -14004,7 +14032,7 @@ var _default = {
   created: function created() {
     var _this = this;
 
-    this.eventBus.$on('update:selected', function (name) {
+    this.eventBus.$on('update:selected', function (name, item) {
       console.log(name);
       _this.active = name === _this.name;
     });
