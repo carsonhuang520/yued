@@ -44,13 +44,13 @@
 
   <body>
     <div id="app">
-      <y-tabs .selected.sync="selectedTab">
+      <y-tabs :selected.sync="selectedTab">
         <y-tabs-head>
           <template slot="actions">
             <y-button>点我</y-button>
           </template>
           <y-tabs-item name="women">美女</y-tabs-item>
-          <y-tabs-item name="sports">体育</y-tabs-item>
+          <y-tabs-item name="sports" disabled="">体育</y-tabs-item>
           <y-tabs-item name="game">游戏</y-tabs-item>
         </y-tabs-head>
         <y-tabs-body>

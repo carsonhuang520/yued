@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
 export default {
   name: 'YueTabs',
   prop: {
@@ -19,6 +20,17 @@ export default {
       },
     },
   },
+  data() {
+    return {
+      eventBus: new Vue(),
+    }
+  },
+  provide() {
+    return {
+      eventBus: this.eventBus,
+    }
+  },
+  created() {},
 }
 </script>
 <style lang="scss" scoped>

@@ -13638,6 +13638,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _vue = _interopRequireDefault(require("vue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 //
 //
 //
@@ -13657,7 +13662,18 @@ var _default = {
         return ['horizontal', 'vertical'].indexOf(value) >= 0;
       }
     }
-  }
+  },
+  data: function data() {
+    return {
+      eventBus: new _vue.default()
+    };
+  },
+  provide: function provide() {
+    return {
+      eventBus: this.eventBus
+    };
+  },
+  created: function created() {}
 };
 exports.default = _default;
         var $b2d70f = exports.default || module.exports;
@@ -13707,7 +13723,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/tabs/tabs-head.vue":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.common.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js"}],"src/tabs/tabs-head.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13855,8 +13871,24 @@ var _default = {
   name: 'YueTabsItem',
   props: {
     disabled: {
-      type: String,
+      type: Boolean,
       default: false
+    },
+    name: {
+      type: String | Number,
+      required: true
+    }
+  },
+  inject: ['eventBus'],
+  created: function created() {
+    console.log(this.eventBus);
+    this.eventBus.$on('update:selected', function (name) {
+      console.log(name);
+    });
+  },
+  methods: {
+    xxx: function xxx() {
+      this.eventBus.$emit('update:selected', this.name);
     }
   }
 };
@@ -13873,7 +13905,12 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "y-tabs-item" }, [_vm._t("default")], 2)
+  return _c(
+    "div",
+    { staticClass: "y-tabs-item", on: { click: _vm.xxx } },
+    [_vm._t("default")],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -13921,7 +13958,13 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: 'YueTabsPane'
+  name: 'YueTabsPane',
+  inject: ['eventBus'],
+  created: function created() {
+    this.eventBus.$on('update:selected', function (name) {
+      console.log(name);
+    });
+  }
 };
 exports.default = _default;
         var $2f7bcd = exports.default || module.exports;
@@ -14050,7 +14093,8 @@ new _vue.default({
   el: '#app',
   data: {
     loading: false,
-    message: 'hello'
+    message: 'hello',
+    selectedTab: 'sports'
   },
   created: function created() {},
   methods: {
@@ -14100,7 +14144,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "1557" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2453" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

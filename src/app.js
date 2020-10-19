@@ -40,6 +40,7 @@ new Vue({
   data: {
     loading: false,
     message: 'hello',
+    selectedTab: 'sports',
   },
   created() {},
   methods: {
