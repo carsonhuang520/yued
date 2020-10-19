@@ -7,9 +7,10 @@
 import Vue from 'vue'
 export default {
   name: 'YueTabs',
-  prop: {
+  props: {
     selected: {
       type: String,
+      default: '',
       required: true,
     },
     direction: {
@@ -30,7 +31,10 @@ export default {
       eventBus: this.eventBus,
     }
   },
-  created() {},
+  mounted() {
+    console.log(this.selected)
+    this.eventBus.$emit('update:selected', this.selected)
+  },
 }
 </script>
 <style lang="scss" scoped>

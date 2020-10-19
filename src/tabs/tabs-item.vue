@@ -1,11 +1,17 @@
 <template>
-  <div class="y-tabs-item" @click="xxx">
+  <div class="y-tabs-item" @click="xxx" :class="classes">
     <slot></slot>
   </div>
 </template>
 <script>
 export default {
   name: 'YueTabsItem',
+  inject: ['eventBus'],
+  data() {
+    return {
+      active: false,
+    }
+  },
   props: {
     disabled: {
       type: Boolean,
@@ -16,11 +22,16 @@ export default {
       required: true,
     },
   },
-  inject: ['eventBus'],
+  computed: {
+    classes() {
+      return {
+        active: this.active,
+      }
+    },
+  },
   created() {
-    console.log(this.eventBus)
     this.eventBus.$on('update:selected', (name) => {
-      console.log(name)
+      this.active = name === this.name
     })
   },
   methods: {
@@ -32,5 +43,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .y-tabs-item {
+  padding: 0 1em;
+  &.active {
+    background: red;
+  }
 }
 </style>
