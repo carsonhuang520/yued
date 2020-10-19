@@ -11,6 +11,11 @@ import Content from './layout/content'
 import Sider from './layout/sider'
 import Footer from './layout/footer'
 import plugin from './plugin'
+import Tabs from './tabs/tabs'
+import TabsHead from './tabs/tabs-head'
+import TabsBody from './tabs/tabs-body'
+import TabsItem from './tabs/tabs-item'
+import TabsPane from './tabs/tabs-pane'
 
 Vue.component('y-button', Button)
 Vue.component('y-icon', Icon)
@@ -24,6 +29,11 @@ Vue.component('y-content', Content)
 Vue.component('y-sider', Sider)
 Vue.component('y-footer', Footer)
 Vue.use(plugin)
+Vue.component('y-tabs', Tabs)
+Vue.component('y-tabs-head', TabsHead)
+Vue.component('y-tabs-body', TabsBody)
+Vue.component('y-tabs-item', TabsItem)
+Vue.component('y-tabs-pane', TabsPane)
 
 new Vue({
   el: '#app',

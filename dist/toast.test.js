@@ -228,14 +228,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $00e3d9 = exports.default || module.exports;
+        var $fe95cb = exports.default || module.exports;
       
-      if (typeof $00e3d9 === 'function') {
-        $00e3d9 = $00e3d9.options;
+      if (typeof $fe95cb === 'function') {
+        $fe95cb = $fe95cb.options;
       }
     
         /* template */
-        Object.assign($00e3d9, (function () {
+        Object.assign($fe95cb, (function () {
           var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper",class:_vm.toastClass},[_c('div',{ref:"toast",staticClass:"y-toast"},[_c('div',{staticClass:"message"},[(!_vm.enableHtml)?_vm._t("default"):_c('div',{domProps:{"innerHTML":_vm._s(_vm.$slots.default[0])}})],2),_vm._v(" "),_c('div',{ref:"line",staticClass:"line"}),_vm._v(" "),(_vm.closeButton)?_c('span',{staticClass:"close",on:{"click":_vm.onClick}},[_vm._v(_vm._s(_vm.closeButton.text))]):_vm._e()])])}
 var staticRenderFns = []
 
@@ -243,7 +243,7 @@ var staticRenderFns = []
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-00e3d9",
+            _scopeId: "data-v-fe95cb",
             functional: undefined
           };
         })());

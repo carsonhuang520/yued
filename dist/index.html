@@ -44,9 +44,21 @@
 
   <body>
     <div id="app">
-      <y-button @click="showToast1">top</y-button>
-      <y-button @click="showToast2">center</y-button>
-      <y-button @click="showToast3">bottom</y-button>
+      <y-tabs .selected.sync="selectedTab">
+        <y-tabs-head>
+          <template slot="actions">
+            <y-button>点我</y-button>
+          </template>
+          <y-tabs-item name="women">美女</y-tabs-item>
+          <y-tabs-item name="sports">体育</y-tabs-item>
+          <y-tabs-item name="game">游戏</y-tabs-item>
+        </y-tabs-head>
+        <y-tabs-body>
+          <y-tabs-pane name="women">美女相关内容</y-tabs-pane>
+          <y-tabs-pane name="sports">体育相关内容</y-tabs-pane>
+          <y-tabs-pane name="game">游戏相关内容</y-tabs-pane>
+        </y-tabs-body>
+      </y-tabs>
     </div>
     <script src="/app.a6a4d504.js"></script>
     <script src="//at.alicdn.com/t/font_2121393_0k0jdsww56pf.js"></script>
