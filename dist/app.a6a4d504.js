@@ -14114,8 +14114,26 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: 'YuePopover',
+  props: {
+    position: {
+      type: String,
+      default: 'top',
+      validator: function validator(value) {
+        return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0;
+      }
+    }
+  },
   data: function data() {
     return {
       visible: false
@@ -14123,21 +14141,44 @@ var _default = {
   },
   methods: {
     positionContent: function positionContent() {
-      document.body.appendChild(this.$refs.popoverWrapper);
+      var _this$$refs = this.$refs,
+          triggerWrapper = _this$$refs.triggerWrapper,
+          popoverWrapper = _this$$refs.popoverWrapper;
+      document.body.appendChild(popoverWrapper);
 
-      var _this$$refs$triggerWr = this.$refs.triggerWrapper.getBoundingClientRect(),
-          width = _this$$refs$triggerWr.width,
-          height = _this$$refs$triggerWr.height,
-          top = _this$$refs$triggerWr.top,
-          left = _this$$refs$triggerWr.left;
+      var _triggerWrapper$getBo = triggerWrapper.getBoundingClientRect(),
+          width = _triggerWrapper$getBo.width,
+          height = _triggerWrapper$getBo.height,
+          top = _triggerWrapper$getBo.top,
+          left = _triggerWrapper$getBo.left;
 
-      this.$refs.popoverWrapper.style.left = left + window.scrollX + 'px';
-      this.$refs.popoverWrapper.style.top = top + window.screenY + 'px';
+      var _popoverWrapper$getBo = popoverWrapper.getBoundingClientRect(),
+          height2 = _popoverWrapper$getBo.height;
+
+      if (this.position === 'top') {
+        popoverWrapper.style.left = left + window.scrollX + 'px';
+        popoverWrapper.style.top = top + window.screenY + 'px';
+      } else if (this.position === 'bottom') {
+        popoverWrapper.style.left = left + window.scrollX + 'px';
+        popoverWrapper.style.top = top + height + window.screenY + 'px';
+      } else if (this.position === 'left') {
+        popoverWrapper.style.left = left + window.scrollX + 'px';
+        popoverWrapper.style.top = top + (height - height2) / 2 + window.screenY + 'px';
+      } else {
+        popoverWrapper.style.left = left + width + window.scrollX + 'px';
+        popoverWrapper.style.top = top + (height - height2) / 2 + window.screenY + 'px';
+      }
     },
     eventHandler: function eventHandler(e) {
-      if (this.$refs.popover && this.$refs.popover !== e.target && !this.$refs.popover.contains(e.target)) {
-        this.visible = false;
+      if (this.$refs.popover && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) {
+        return;
       }
+
+      if (this.$refs.popoverWrapper && (this.$refs.popoverWrapper === e.target || this.$refs.popoverWrapper.contains(e.target))) {
+        return;
+      }
+
+      this.close();
     },
     onShow: function onShow() {
       var _this = this;
@@ -14174,6 +14215,7 @@ exports.default = _default;
         /* template */
         Object.assign($1f0b6d, (function () {
           var render = function() {
+  var _obj
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -14193,7 +14235,12 @@ exports.default = _default;
       _vm.visible
         ? _c(
             "div",
-            { ref: "popoverWrapper", staticClass: "popover-wrapper" },
+            {
+              ref: "popoverWrapper",
+              staticClass: "popover-wrapper",
+              class:
+                ((_obj = {}), (_obj["position-" + _vm.position] = true), _obj)
+            },
             [_vm._t("content")],
             2
           )
@@ -14201,7 +14248,11 @@ exports.default = _default;
       _vm._v(" "),
       _c(
         "span",
-        { ref: "triggerWrapper", staticClass: "trigger-wrapper" },
+        {
+          ref: "triggerWrapper",
+          staticClass: "trigger-wrapper",
+          staticStyle: { display: "inline-block" }
+        },
         [_vm._t("default")],
         2
       )

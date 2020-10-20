@@ -983,7 +983,78 @@
 }
 .popover-wrapper[data-v-1f0b6d] {
   position: absolute;
-  border: 1px solid red;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  border: 1px solid #333;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+  background: #ffffff;
+  padding: 0.5em 1em;
+  max-width: 20em;
+  word-break: break-all;
+}
+.popover-wrapper[data-v-1f0b6d]::before, .popover-wrapper[data-v-1f0b6d]::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  position: absolute;
+}
+.popover-wrapper.position-top[data-v-1f0b6d] {
   transform: translateY(-100%);
+  margin-top: -10px;
+}
+.popover-wrapper.position-top[data-v-1f0b6d]::before, .popover-wrapper.position-top[data-v-1f0b6d]::after {
+  left: 10px;
+}
+.popover-wrapper.position-top[data-v-1f0b6d]::before {
+  border-top-color: #333;
+  top: 100%;
+}
+.popover-wrapper.position-top[data-v-1f0b6d]::after {
+  border-top-color: white;
+  top: calc(100% - 1px);
+}
+.popover-wrapper.position-bottom[data-v-1f0b6d] {
+  margin-top: 10px;
+}
+.popover-wrapper.position-bottom[data-v-1f0b6d]::before, .popover-wrapper.position-bottom[data-v-1f0b6d]::after {
+  left: 10px;
+}
+.popover-wrapper.position-bottom[data-v-1f0b6d]::before {
+  border-bottom-color: #333;
+  bottom: 100%;
+}
+.popover-wrapper.position-bottom[data-v-1f0b6d]::after {
+  border-bottom-color: white;
+  bottom: calc(100% - 1px);
+}
+.popover-wrapper.position-left[data-v-1f0b6d] {
+  transform: translateX(-100%);
+  margin-left: -10px;
+}
+.popover-wrapper.position-left[data-v-1f0b6d]::before, .popover-wrapper.position-left[data-v-1f0b6d]::after {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.popover-wrapper.position-left[data-v-1f0b6d]::before {
+  border-left-color: #333;
+  left: 100%;
+}
+.popover-wrapper.position-left[data-v-1f0b6d]::after {
+  border-left-color: white;
+  left: calc(100% - 1px);
+}
+.popover-wrapper.position-right[data-v-1f0b6d] {
+  margin-left: 10px;
+}
+.popover-wrapper.position-right[data-v-1f0b6d]::before, .popover-wrapper.position-right[data-v-1f0b6d]::after {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.popover-wrapper.position-right[data-v-1f0b6d]::before {
+  border-right-color: #333;
+  right: 100%;
+}
+.popover-wrapper.position-right[data-v-1f0b6d]::after {
+  border-right-color: white;
+  right: calc(100% - 1px);
 }
