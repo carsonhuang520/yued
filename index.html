@@ -49,22 +49,15 @@
   </head>
 
   <body>
-    <div id="app">
-      <y-tabs :selected.sync="selectedTab">
-        <y-tabs-head>
-          <template slot="actions">
-            <y-button>点我</y-button>
-          </template>
-          <y-tabs-item name="women">美女</y-tabs-item>
-          <y-tabs-item name="sports" disabled>体育</y-tabs-item>
-          <y-tabs-item name="game">游戏</y-tabs-item>
-        </y-tabs-head>
-        <y-tabs-body>
-          <y-tabs-pane name="women">美女相关内容</y-tabs-pane>
-          <y-tabs-pane name="sports">体育相关内容</y-tabs-pane>
-          <y-tabs-pane name="game">游戏相关内容</y-tabs-pane>
-        </y-tabs-body>
-      </y-tabs>
+    <div id="app" style="padding: 100px;">
+      <y-popover>
+        <template slot="content">
+          <div>popover内容</div>
+        </template>
+        <template>
+          <y-button>点我</y-button>
+        </template>
+      </y-popover>
     </div>
     <script src="./src/app.js"></script>
     <script src="//at.alicdn.com/t/font_2121393_0k0jdsww56pf.js"></script>

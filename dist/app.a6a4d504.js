@@ -14097,6 +14097,126 @@ render._withStripped = true
       
       }
     })();
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/popover.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'YuePopover',
+  data: function data() {
+    return {
+      visible: false
+    };
+  },
+  methods: {
+    handleClick: function handleClick() {
+      var _this = this;
+
+      this.visible = !this.visible;
+
+      if (this.visible === true) {
+        this.$nextTick(function () {
+          var handler = function handler() {
+            _this.visible = false;
+            document.removeEventListener('click', handler);
+          };
+
+          document.addEventListener('click', handler);
+        });
+      }
+    }
+  }
+};
+exports.default = _default;
+        var $1f0b6d = exports.default || module.exports;
+      
+      if (typeof $1f0b6d === 'function') {
+        $1f0b6d = $1f0b6d.options;
+      }
+    
+        /* template */
+        Object.assign($1f0b6d, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "y-popover",
+      on: {
+        click: function($event) {
+          $event.stopPropagation()
+          return _vm.handleClick($event)
+        }
+      }
+    },
+    [
+      _vm.visible
+        ? _c(
+            "div",
+            {
+              staticClass: "popover-wrapper",
+              on: {
+                click: function($event) {
+                  $event.stopPropagation()
+                }
+              }
+            },
+            [_vm._t("content")],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._t("default")
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-1f0b6d",
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$1f0b6d', $1f0b6d);
+          } else {
+            api.reload('$1f0b6d', $1f0b6d);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
 },{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
@@ -14136,6 +14256,8 @@ var _tabsItem = _interopRequireDefault(require("./tabs/tabs-item"));
 
 var _tabsPane = _interopRequireDefault(require("./tabs/tabs-pane"));
 
+var _popover = _interopRequireDefault(require("./popover"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue.default.component('y-button', _button.default);
@@ -14172,6 +14294,8 @@ _vue.default.component('y-tabs-item', _tabsItem.default);
 
 _vue.default.component('y-tabs-pane', _tabsPane.default);
 
+_vue.default.component('y-popover', _popover.default);
+
 new _vue.default({
   el: '#app',
   data: {
@@ -14180,7 +14304,7 @@ new _vue.default({
   created: function created() {},
   methods: {}
 });
-},{"vue":"node_modules/vue/dist/vue.common.js","./button":"src/button.vue","./icon":"src/icon.vue","./button-group":"src/button-group.vue","./input":"src/input.vue","./row":"src/row.vue","./col":"src/col.vue","./layout/layout":"src/layout/layout.vue","./layout/header":"src/layout/header.vue","./layout/content":"src/layout/content.vue","./layout/sider":"src/layout/sider.vue","./layout/footer":"src/layout/footer.vue","./plugin":"src/plugin.js","./tabs/tabs":"src/tabs/tabs.vue","./tabs/tabs-head":"src/tabs/tabs-head.vue","./tabs/tabs-body":"src/tabs/tabs-body.vue","./tabs/tabs-item":"src/tabs/tabs-item.vue","./tabs/tabs-pane":"src/tabs/tabs-pane.vue"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.common.js","./button":"src/button.vue","./icon":"src/icon.vue","./button-group":"src/button-group.vue","./input":"src/input.vue","./row":"src/row.vue","./col":"src/col.vue","./layout/layout":"src/layout/layout.vue","./layout/header":"src/layout/header.vue","./layout/content":"src/layout/content.vue","./layout/sider":"src/layout/sider.vue","./layout/footer":"src/layout/footer.vue","./plugin":"src/plugin.js","./tabs/tabs":"src/tabs/tabs.vue","./tabs/tabs-head":"src/tabs/tabs-head.vue","./tabs/tabs-body":"src/tabs/tabs-body.vue","./tabs/tabs-item":"src/tabs/tabs-item.vue","./tabs/tabs-pane":"src/tabs/tabs-pane.vue","./popover":"src/popover.vue"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

@@ -977,3 +977,12 @@
 .y-tabs-pane[data-v-2b9851] {
   padding: 1em;
 }
+.y-popover[data-v-1f0b6d] {
+  display: inline-block;
+  position: relative;
+}
+.y-popover .popover-wrapper[data-v-1f0b6d] {
+  position: absolute;
+  bottom: 100%;
+  border: 1px solid red;
+}
