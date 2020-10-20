@@ -14114,11 +14114,6 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
-//
-//
 var _default = {
   name: 'YuePopover',
   data: function data() {
@@ -14127,31 +14122,44 @@ var _default = {
     };
   },
   methods: {
-    handleClick: function handleClick() {
+    positionContent: function positionContent() {
+      document.body.appendChild(this.$refs.popoverWrapper);
+
+      var _this$$refs$triggerWr = this.$refs.triggerWrapper.getBoundingClientRect(),
+          width = _this$$refs$triggerWr.width,
+          height = _this$$refs$triggerWr.height,
+          top = _this$$refs$triggerWr.top,
+          left = _this$$refs$triggerWr.left;
+
+      this.$refs.popoverWrapper.style.left = left + window.scrollX + 'px';
+      this.$refs.popoverWrapper.style.top = top + window.screenY + 'px';
+    },
+    eventHandler: function eventHandler(e) {
+      if (this.$refs.popover && this.$refs.popover !== e.target && !this.$refs.popover.contains(e.target)) {
+        this.visible = false;
+      }
+    },
+    onShow: function onShow() {
       var _this = this;
 
-      this.visible = !this.visible;
+      this.visible = true;
+      this.$nextTick(function () {
+        _this.positionContent();
 
-      if (this.visible === true) {
-        this.$nextTick(function () {
-          document.body.appendChild(_this.$refs.popoverWrapper);
-
-          var _this$$refs$triggerWr = _this.$refs.triggerWrapper.getBoundingClientRect(),
-              width = _this$$refs$triggerWr.width,
-              height = _this$$refs$triggerWr.height,
-              top = _this$$refs$triggerWr.top,
-              left = _this$$refs$triggerWr.left;
-
-          _this.$refs.popoverWrapper.style.left = left + window.scrollX + 'px';
-          _this.$refs.popoverWrapper.style.top = top + window.screenY + 'px';
-
-          var handler = function handler() {
-            _this.visible = false;
-            document.removeEventListener('click', handler);
-          };
-
-          document.addEventListener('click', handler);
-        });
+        document.addEventListener('click', _this.eventHandler);
+      });
+    },
+    close: function close() {
+      this.visible = false;
+      document.removeEventListener('click', this.eventHandler);
+    },
+    handleClick: function handleClick(event) {
+      if (this.$refs.triggerWrapper.contains(event.target)) {
+        if (this.visible === true) {
+          this.close();
+        } else {
+          this.onShow();
+        }
       }
     }
   }
@@ -14172,6 +14180,7 @@ exports.default = _default;
   return _c(
     "div",
     {
+      ref: "popover",
       staticClass: "y-popover",
       on: {
         click: function($event) {
@@ -14184,15 +14193,7 @@ exports.default = _default;
       _vm.visible
         ? _c(
             "div",
-            {
-              ref: "popoverWrapper",
-              staticClass: "popover-wrapper",
-              on: {
-                click: function($event) {
-                  $event.stopPropagation()
-                }
-              }
-            },
+            { ref: "popoverWrapper", staticClass: "popover-wrapper" },
             [_vm._t("content")],
             2
           )
@@ -14355,7 +14356,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "3337" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "5576" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
