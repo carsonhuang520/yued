@@ -12,14 +12,11 @@ export default {
   name: 'YueTabsHead',
   inject: ['eventBus'],
   created() {
-    console.log(
-      this.eventBus.$on('update:selected', (name, vm) => {
-        let { width, height, top, left } = vm.$el.getBoundingClientRect()
-        this.$refs.line.style.width = `${width}px`
-        this.$refs.line.style.left = `${left}px`
-        console.log(width, height, top, left)
-      })
-    )
+    this.eventBus.$on('update:selected', (name, vm) => {
+      let { width, height, top, left } = vm.$el.getBoundingClientRect()
+      this.$refs.line.style.width = `${width}px`
+      this.$refs.line.style.left = `${left}px`
+    })
   },
 }
 </script>

@@ -13758,7 +13758,7 @@ var _default = {
   created: function created() {
     var _this = this;
 
-    console.log(this.eventBus.$on('update:selected', function (name, vm) {
+    this.eventBus.$on('update:selected', function (name, vm) {
       var _vm$$el$getBoundingCl = vm.$el.getBoundingClientRect(),
           width = _vm$$el$getBoundingCl.width,
           height = _vm$$el$getBoundingCl.height,
@@ -13767,8 +13767,7 @@ var _default = {
 
       _this.$refs.line.style.width = "".concat(width, "px");
       _this.$refs.line.style.left = "".concat(left, "px");
-      console.log(width, height, top, left);
-    }));
+    });
   }
 };
 exports.default = _default;
@@ -13926,7 +13925,8 @@ var _default = {
   computed: {
     classes: function classes() {
       return {
-        active: this.active
+        active: this.active,
+        disabled: this.disabled
       };
     }
   },
@@ -13939,6 +13939,10 @@ var _default = {
   },
   methods: {
     xxx: function xxx() {
+      if (this.disabled) {
+        return;
+      }
+
       this.eventBus.$emit('update:selected', this.name, this);
     }
   }
@@ -14204,7 +14208,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "3031" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "3337" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

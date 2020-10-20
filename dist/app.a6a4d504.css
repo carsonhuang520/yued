@@ -970,6 +970,10 @@
 .y-tabs-item.active[data-v-2cb083] {
   color: blue;
 }
+.y-tabs-item.disabled[data-v-2cb083] {
+  background: grey;
+  cursor: not-allowed;
+}
 .y-tabs-pane[data-v-2b9851] {
   padding: 1em;
 }
