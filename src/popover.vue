@@ -33,8 +33,8 @@ export default {
             top,
             left,
           } = this.$refs.triggerWrapper.getBoundingClientRect()
-          this.$refs.popoverWrapper.style.left = left + 'px'
-          this.$refs.popoverWrapper.style.top = top + 'px'
+          this.$refs.popoverWrapper.style.left = left + window.scrollX + 'px'
+          this.$refs.popoverWrapper.style.top = top + window.screenY + 'px'
           let handler = () => {
             this.visible = false
             document.removeEventListener('click', handler)

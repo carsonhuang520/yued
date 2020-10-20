@@ -14142,8 +14142,8 @@ var _default = {
               top = _this$$refs$triggerWr.top,
               left = _this$$refs$triggerWr.left;
 
-          _this.$refs.popoverWrapper.style.left = left + 'px';
-          _this.$refs.popoverWrapper.style.top = top + 'px';
+          _this.$refs.popoverWrapper.style.left = left + window.scrollX + 'px';
+          _this.$refs.popoverWrapper.style.top = top + window.screenY + 'px';
 
           var handler = function handler() {
             _this.visible = false;
