@@ -14348,6 +14348,9 @@ var _default = {
     accordion: {
       type: Boolean,
       default: false
+    },
+    selected: {
+      type: String
     }
   },
   data: function data() {
@@ -14356,11 +14359,12 @@ var _default = {
     };
   },
   provide: function provide() {
-    if (this.accordion) {
-      return {
-        eventBus: this.eventBus
-      };
-    }
+    return {
+      eventBus: this.eventBus
+    };
+  },
+  mounted: function mounted() {
+    this.eventBus.$emit('update:selected', this.selected);
   }
 };
 exports.default = _default;
@@ -14432,6 +14436,9 @@ var _default = {
     title: {
       type: String,
       required: true
+    },
+    name: {
+      type: String
     }
   },
   inject: ['eventBus'],
@@ -14443,23 +14450,27 @@ var _default = {
   mounted: function mounted() {
     var _this = this;
 
-    this.eventBus && this.eventBus.$on('update:selected', function (vm) {
-      if (vm !== _this) {
+    this.eventBus && this.eventBus.$on('update:selected', function (name) {
+      if (name !== _this.name) {
         _this.close();
+      } else {
+        _this.show();
       }
     });
   },
   methods: {
-    show: function show() {
+    toggle: function toggle() {
       if (this.open) {
         this.open = false;
       } else {
-        this.open = true;
-        this.eventBus && this.eventBus.$emit('update:selected', this);
+        this.eventBus && this.eventBus.$emit('update:selected', this.name);
       }
     },
     close: function close() {
       this.open = false;
+    },
+    show: function show() {
+      this.open = true;
     }
   }
 };
@@ -14477,7 +14488,7 @@ exports.default = _default;
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "y-collapse-item" }, [
-    _c("div", { staticClass: "title", on: { click: _vm.show } }, [
+    _c("div", { staticClass: "title", on: { click: _vm.toggle } }, [
       _vm._v(_vm._s(_vm.title))
     ]),
     _vm._v(" "),
