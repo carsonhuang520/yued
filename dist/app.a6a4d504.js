@@ -14132,6 +14132,45 @@ var _default = {
       validator: function validator(value) {
         return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0;
       }
+    },
+    trigger: {
+      type: String,
+      default: 'click',
+      validator: function validator(value) {
+        return ['click', 'hover'].indexOf(value) >= 0;
+      }
+    }
+  },
+  mounted: function mounted() {
+    if (this.trigger === 'click') {
+      this.$refs.popover.addEventListener('click', this.handleClick);
+    } else {
+      this.$refs.popover.addEventListener('mouseenter', this.onShow);
+      this.$refs.popover.addEventListener('mouseleave', this.close);
+    }
+  },
+  destroyed: function destroyed() {
+    if (this.trigger === 'click') {
+      this.$refs.popover.removeEventListener('click', this.handleClick);
+    } else {
+      this.$refs.popover.removeEventListener('mouseenter', this.onShow);
+      this.$refs.popover.removeEventListener('mouseleave', this.close);
+    }
+  },
+  computed: {
+    openEvent: function openEvent() {
+      if (this.trigger === 'click') {
+        return 'click';
+      } else {
+        return 'mouseenter';
+      }
+    },
+    closeEvent: function closeEvent() {
+      if (this.trigger === 'click') {
+        return 'click';
+      } else {
+        return 'mouseleave';
+      }
     }
   },
   data: function data() {
@@ -14226,45 +14265,32 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      ref: "popover",
-      staticClass: "y-popover",
-      on: {
-        click: function($event) {
-          $event.stopPropagation()
-          return _vm.handleClick($event)
-        }
-      }
-    },
-    [
-      _vm.visible
-        ? _c(
-            "div",
-            {
-              ref: "popoverWrapper",
-              staticClass: "popover-wrapper",
-              class:
-                ((_obj = {}), (_obj["position-" + _vm.position] = true), _obj)
-            },
-            [_vm._t("content")],
-            2
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "span",
-        {
-          ref: "triggerWrapper",
-          staticClass: "trigger-wrapper",
-          staticStyle: { display: "inline-block" }
-        },
-        [_vm._t("default")],
-        2
-      )
-    ]
-  )
+  return _c("div", { ref: "popover", staticClass: "y-popover" }, [
+    _vm.visible
+      ? _c(
+          "div",
+          {
+            ref: "popoverWrapper",
+            staticClass: "popover-wrapper",
+            class:
+              ((_obj = {}), (_obj["position-" + _vm.position] = true), _obj)
+          },
+          [_vm._t("content")],
+          2
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "span",
+      {
+        ref: "triggerWrapper",
+        staticClass: "trigger-wrapper",
+        staticStyle: { display: "inline-block" }
+      },
+      [_vm._t("default")],
+      2
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
