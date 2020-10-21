@@ -14155,19 +14155,26 @@ var _default = {
       var _popoverWrapper$getBo = popoverWrapper.getBoundingClientRect(),
           height2 = _popoverWrapper$getBo.height;
 
-      if (this.position === 'top') {
-        popoverWrapper.style.left = left + window.scrollX + 'px';
-        popoverWrapper.style.top = top + window.screenY + 'px';
-      } else if (this.position === 'bottom') {
-        popoverWrapper.style.left = left + window.scrollX + 'px';
-        popoverWrapper.style.top = top + height + window.screenY + 'px';
-      } else if (this.position === 'left') {
-        popoverWrapper.style.left = left + window.scrollX + 'px';
-        popoverWrapper.style.top = top + (height - height2) / 2 + window.screenY + 'px';
-      } else {
-        popoverWrapper.style.left = left + width + window.scrollX + 'px';
-        popoverWrapper.style.top = top + (height - height2) / 2 + window.screenY + 'px';
-      }
+      var positions = {
+        top: {
+          top: top + window.screenY,
+          left: left + window.scrollX
+        },
+        bottom: {
+          top: top + height + window.screenY,
+          left: left + window.scrollX
+        },
+        left: {
+          top: top + (height - height2) / 2 + window.screenY,
+          left: left + window.scrollX
+        },
+        right: {
+          top: top + (height - height2) / 2 + window.screenY,
+          left: left + width + window.scrollX
+        }
+      };
+      popoverWrapper.style.left = positions[this.position].left + 'px';
+      popoverWrapper.style.top = positions[this.position].top + 'px';
     },
     eventHandler: function eventHandler(e) {
       if (this.$refs.popover && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) {
@@ -14407,7 +14414,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "5576" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2558" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
