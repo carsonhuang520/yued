@@ -58,7 +58,7 @@ $blue: blue;
     color: $blue;
   }
   &.disabled {
-    background: grey;
+    background: #f1f1f1;
     cursor: not-allowed;
   }
 }
