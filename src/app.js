@@ -44,8 +44,9 @@ Vue.component('y-collapse-item', CollapseItem)
 new Vue({
   el: '#app',
   data: {
-    selectedTab: 'women',
+    selectedTab: ['2'],
   },
+  mounted() {},
   created() {},
   methods: {},
 })

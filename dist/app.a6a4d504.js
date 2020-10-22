@@ -14350,7 +14350,7 @@ var _default = {
       default: false
     },
     selected: {
-      type: String
+      type: Array
     }
   },
   data: function data() {
@@ -14364,7 +14364,34 @@ var _default = {
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.eventBus.$emit('update:selected', this.selected);
+    this.eventBus.$on('update:addSelected', function (name) {
+      var selectedCopy = JSON.parse(JSON.stringify(_this.selected));
+
+      if (_this.accordion) {
+        selectedCopy = [name];
+      } else {
+        selectedCopy.push(name);
+      }
+
+      _this.$emit('update:selected', selectedCopy);
+
+      _this.eventBus.$emit('update:selected', selectedCopy);
+    });
+    this.eventBus.$on('update:removeSelected', function (name) {
+      var selectedCopy = JSON.parse(JSON.stringify(_this.selected));
+      var index = selectedCopy.indexOf(name);
+      selectedCopy.splice(index, 1);
+
+      _this.$emit('update:selected', selectedCopy);
+
+      _this.eventBus.$emit('update:selected', selectedCopy);
+    });
+    this.$children.forEach(function (vm) {
+      vm.accordion = _this.accordion;
+    });
   }
 };
 exports.default = _default;
@@ -14450,20 +14477,20 @@ var _default = {
   mounted: function mounted() {
     var _this = this;
 
-    this.eventBus && this.eventBus.$on('update:selected', function (name) {
-      if (name !== _this.name) {
-        _this.close();
+    this.eventBus && this.eventBus.$on('update:selected', function (names) {
+      if (names.indexOf(_this.name) >= 0) {
+        _this.open = true;
       } else {
-        _this.show();
+        _this.open = false;
       }
     });
   },
   methods: {
     toggle: function toggle() {
       if (this.open) {
-        this.open = false;
+        this.eventBus && this.eventBus.$emit('update:removeSelected', this.name);
       } else {
-        this.eventBus && this.eventBus.$emit('update:selected', this.name);
+        this.eventBus && this.eventBus.$emit('update:addSelected', this.name);
       }
     },
     close: function close() {
@@ -14620,8 +14647,9 @@ _vue.default.component('y-collapse-item', _collapseItem.default);
 new _vue.default({
   el: '#app',
   data: {
-    selectedTab: 'women'
+    selectedTab: ['2']
   },
+  mounted: function mounted() {},
   created: function created() {},
   methods: {}
 });
@@ -14653,7 +14681,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "4304" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2339" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
