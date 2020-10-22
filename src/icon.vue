@@ -5,7 +5,7 @@
 </template>
 
 <script>
-// import './svg'
+import './font'
 export default {
   props: {
     name: {
@@ -24,7 +24,7 @@ export default {
   mounted() {},
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .y-icon {
   height: 1em;
   width: 1em;

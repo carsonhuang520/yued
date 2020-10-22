@@ -1,8 +1,9 @@
 <template>
   <button
     class="y-button"
-    :class="{ [`icon-${iconPosition}`]: true }"
+    :class="classes"
     @click="$emit('click')"
+    :disabled="disabled"
   >
     <y-icon class="icon" v-if="icon && !loading" :name="icon"></y-icon>
     <y-icon class="loading icon" v-if="loading" name="loading"></y-icon>
@@ -31,6 +32,10 @@ export default {
         return value === 'left' || value === 'right'
       },
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     'y-icon': Icon,
@@ -38,7 +43,14 @@ export default {
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    classes() {
+      return {
+        [`icon-${this.iconPosition}`]: true,
+        ['disabled']: this.disabled,
+      }
+    },
+  },
   watch: {},
   methods: {},
   created() {},
@@ -46,7 +58,15 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+$button-height: 32px;
+$font-size: 14px;
+$button-bg: white;
+$button-active-bg: #eeeeee;
+$border-radius: 4px;
+$color: #333333;
+$border-color: #999999;
+$border-color-hover: #666666;
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -56,22 +76,22 @@ export default {
   }
 }
 .y-button {
-  font-size: var(--font-size);
-  height: var(--button-height);
+  font-size: $font-size;
+  height: $button-height;
   padding: 0 1em;
   font: inherit;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
-  background: var(--button-bg);
+  border-radius: $border-radius;
+  border: 1px solid $border-color;
+  background: $button-bg;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   vertical-align: middle;
   &:hover {
-    border-color: var(--border-color-hover);
+    border-color: $border-color-hover;
   }
   &:active {
-    background: var(--button-active-bg);
+    background: $button-active-bg;
   }
   &:focus {
     outline: none;
@@ -91,6 +111,13 @@ export default {
       order: 2;
       margin-right: 0;
       margin-left: 0.3em;
+    }
+  }
+  &.disabled {
+    cursor: not-allowed;
+    color: #b7b7b7;
+    &:hover {
+      border-color: $border-color;
     }
   }
   .loading {

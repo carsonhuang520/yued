@@ -12482,7 +12482,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-e41657",
+            _scopeId: null,
             functional: undefined
           };
         })());
@@ -12613,7 +12613,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-56abb4",
+            _scopeId: null,
             functional: undefined
           };
         })());
@@ -12685,7 +12685,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-3aa585",
+            _scopeId: null,
             functional: undefined
           };
         })());
@@ -14681,7 +14681,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2339" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "11605" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

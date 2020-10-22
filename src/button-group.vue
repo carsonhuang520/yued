@@ -17,7 +17,15 @@ export default {
   mounted() {},
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+$button-height: 32px;
+$font-size: 14px;
+$button-bg: white;
+$button-active-bg: #eeeeee;
+$border-radius: 4px;
+$color: #333333;
+$border-color: #999999;
+$border-color-hover: #666666;
 .y-button-group {
   display: inline-flex;
   vertical-align: middle;
@@ -27,12 +35,12 @@ export default {
       margin-left: -1px;
     }
     &:first-child {
-      border-top-left-radius: var(--border-radius);
-      border-bottom-left-radius: var(--border-radius);
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
     }
     &:last-child {
-      border-top-right-radius: var(--border-radius);
-      border-bottom-right-radius: var(--border-radius);
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
     }
     &:hover {
       position: relative;
