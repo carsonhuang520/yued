@@ -1,4 +1,5 @@
 module.exports = {
+  base: '/yued/',
   title: 'Yued UI',
   description: 'UI 框架',
   themeConfig: {
