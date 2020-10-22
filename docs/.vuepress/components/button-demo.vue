@@ -5,9 +5,7 @@
     <y-button :loading="true">默认按钮</y-button>
     <y-button disabled>默认按钮</y-button>
 
-    <pre>
-      <code>{{ content }}</code>
-    </pre>
+    <pre><code>{{ content }}</code></pre>
   </div>
 </template>
 <script>
@@ -21,7 +19,9 @@ export default {
       content: ` <y-button>默认按钮</y-button>
      <y-button icon="settings">默认按钮</y-button>
      <y-button :loading="true">默认按钮</y-button>
-     <y-button disabled>默认按钮</y-button>`,
+     <y-button disabled>默认按钮</y-button>`
+        .replace(/\t+| +/g, '')
+        .trim(),
     }
   },
 }
