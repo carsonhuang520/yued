@@ -115,6 +115,7 @@ $height: 40px;
   }
 }
 .wrapper {
+  z-index: 1000;
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
