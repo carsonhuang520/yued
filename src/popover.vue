@@ -81,20 +81,20 @@ export default {
       let { height: height2 } = popoverWrapper.getBoundingClientRect()
       let positions = {
         top: {
-          top: top + window.screenY,
-          left: left + window.scrollX,
+          top: top + window.pageYOffset,
+          left: left + window.pageXOffset,
         },
         bottom: {
-          top: top + height + window.screenY,
-          left: left + window.scrollX,
+          top: top + height + window.pageYOffset,
+          left: left + window.pageXOffset,
         },
         left: {
-          top: top + (height - height2) / 2 + window.screenY,
-          left: left + window.scrollX,
+          top: top + (height - height2) / 2 + window.pageYOffset,
+          left: left + window.pageXOffset,
         },
         right: {
-          top: top + (height - height2) / 2 + window.screenY,
-          left: left + width + window.scrollX,
+          top: top + (height - height2) / 2 + window.pageYOffset,
+          left: left + width + window.pageXOffset,
         },
       }
       popoverWrapper.style.left = positions[this.position].left + 'px'
