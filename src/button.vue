@@ -36,6 +36,31 @@ export default {
       type: Boolean,
       default: false,
     },
+    size: {
+      type: String,
+      default: 'default',
+      validator(value) {
+        return ['large', 'default', 'small'].indexOf(value) >= 0
+      },
+    },
+    type: {
+      type: String,
+      default: 'default',
+      validator(value) {
+        return (
+          [
+            'dashed',
+            'text',
+            'primary',
+            'default',
+            'info',
+            'error',
+            'warning',
+            'success',
+          ].indexOf(value) >= 0
+        )
+      },
+    },
   },
   components: {
     'y-icon': Icon,
@@ -48,6 +73,8 @@ export default {
       return {
         [`icon-${this.iconPosition}`]: true,
         ['disabled']: this.disabled,
+        [`y-button-${this.size}`]: true,
+        [`y-button-${this.type}`]: true,
       }
     },
   },
@@ -59,8 +86,15 @@ export default {
 </script>
 
 <style lang="scss">
+$button-height-large: 40px;
 $button-height: 32px;
+$button-height-small: 24px;
 $font-size: 14px;
+$button-primary-bg: #2d8cf0;
+$button-info-bg: #2db7f5;
+$button-success-bg: #19be6b;
+$button-warning-bg: #ff9900;
+$button-error-bg: #ed4014;
 $button-bg: white;
 $button-active-bg: #eeeeee;
 $border-radius: 4px;
@@ -87,6 +121,7 @@ $border-color-hover: #666666;
   justify-content: center;
   align-items: center;
   vertical-align: middle;
+  cursor: pointer;
   &:hover {
     border-color: $border-color-hover;
   }
@@ -122,6 +157,62 @@ $border-color-hover: #666666;
   }
   .loading {
     animation: spin 2s infinite linear;
+  }
+  &-large {
+    height: $button-height-large;
+  }
+  &-small {
+    height: $button-height-small;
+  }
+  &-primary,
+  &-info,
+  &-error,
+  &-warning,
+  &-success {
+    border: none;
+    color: #ffffff;
+  }
+  &-text {
+    border: none;
+    &:hover {
+      color: #57a3f3;
+    }
+  }
+  &-dashed {
+    border-style: dashed;
+    &:hover {
+      color: #57a3f3;
+    }
+  }
+  &-primary {
+    background: $button-primary-bg;
+    &:hover {
+      background: #57a3f3;
+    }
+  }
+  &-info {
+    background: $button-info-bg;
+    &:hover {
+      background: #57c5f7;
+    }
+  }
+  &-success {
+    background: $button-success-bg;
+    &:hover {
+      background: #47cb89;
+    }
+  }
+  &-warning {
+    background: $button-warning-bg;
+    &:hover {
+      background: #ffad33;
+    }
+  }
+  &-error {
+    background: $button-error-bg;
+    &:hover {
+      background: #f16643;
+    }
   }
 }
 </style>

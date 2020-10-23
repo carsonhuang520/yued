@@ -22,6 +22,7 @@
   justify-content: center;
   align-items: center;
   vertical-align: middle;
+  cursor: pointer;
 }
 .y-button:hover {
   border-color: #666666;
@@ -47,8 +48,67 @@
   margin-right: 0;
   margin-left: 0.3em;
 }
+.y-button.disabled {
+  cursor: not-allowed;
+  color: #b7b7b7;
+}
+.y-button.disabled:hover {
+  border-color: #999999;
+}
 .y-button .loading {
   animation: spin 2s infinite linear;
+}
+.y-button-large {
+  height: 40px;
+}
+.y-button-small {
+  height: 24px;
+}
+.y-button-primary, .y-button-info, .y-button-error, .y-button-warning, .y-button-success {
+  border: none;
+  color: #ffffff;
+}
+.y-button-text {
+  border: none;
+}
+.y-button-text:hover {
+  color: #57a3f3;
+}
+.y-button-dashed {
+  border-style: dashed;
+}
+.y-button-dashed:hover {
+  color: #57a3f3;
+}
+.y-button-primary {
+  background: #2d8cf0;
+}
+.y-button-primary:hover {
+  background: #57a3f3;
+}
+.y-button-info {
+  background: #2db7f5;
+}
+.y-button-info:hover {
+  background: #57c5f7;
+}
+.y-button-success {
+  background: #19be6b;
+}
+.y-button-success:hover {
+  background: #47cb89;
+}
+.y-button-warning {
+  background: #ff9900;
+}
+.y-button-warning:hover {
+  background: #ffad33;
+}
+.y-button-error {
+  background: #ed4014;
+}
+.y-button-error:hover {
+  background: #f16643;
 }
 .y-button-group {
   display: inline-flex;
@@ -892,6 +952,7 @@
 }
 }
 .wrapper[data-v-00e3d9] {
+  z-index: 1000;
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
@@ -971,7 +1032,7 @@
   color: blue;
 }
 .y-tabs-item.disabled[data-v-2cb083] {
-  background: grey;
+  background: #f1f1f1;
   cursor: not-allowed;
 }
 .y-tabs-pane[data-v-2b9851] {
