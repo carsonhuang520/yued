@@ -136,6 +136,8 @@
   font-size: 12px;
   display: inline-flex;
   align-items: center;
+  position: relative;
+  vertical-align: top;
 }
 .wrapper[data-v-4fcc6e] > :not(:last-child) {
   margin-right: 0.5em;
@@ -146,6 +148,7 @@
   border-radius: 4px;
   font-size: inherit;
   padding: 0 8px;
+  position: relative;
 }
 .wrapper > input[data-v-4fcc6e]:hover {
   border-color: #666666;
@@ -158,6 +161,26 @@
   color: #bbbbbb;
   border-color: #bbbbbb;
   cursor: not-allowed;
+}
+.wrapper > input.inline-icon-left[data-v-4fcc6e] {
+  padding-left: 2em;
+}
+.wrapper > input.inline-icon-right[data-v-4fcc6e] {
+  padding-right: 2em;
+}
+.wrapper .icon-left[data-v-4fcc6e] {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+.wrapper .icon-right[data-v-4fcc6e] {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  z-index: 2;
 }
 .wrapper.error > input[data-v-4fcc6e] {
   border-color: #f1453d;

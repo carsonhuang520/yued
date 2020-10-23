@@ -12780,33 +12780,28 @@ var _icon = _interopRequireDefault(require("./icon"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var _default = {
   props: {
-    value: {
-      type: String
+    icon: {
+      type: String,
+      default: ''
+    },
+    iconPosition: {
+      type: String,
+      default: 'left'
     },
     disabled: {
       type: Boolean,
       default: false
+    },
+    value: {
+      type: String
+    },
+    type: {
+      type: String,
+      default: 'text'
     },
     readonly: {
       type: Boolean,
@@ -12814,6 +12809,10 @@ var _default = {
     },
     error: {
       type: String
+    },
+    placeholder: {
+      type: String,
+      default: ''
     }
   },
   components: {
@@ -12822,7 +12821,13 @@ var _default = {
   data: function data() {
     return {};
   },
-  computed: {},
+  computed: {
+    classes: function classes() {
+      var _ref;
+
+      return _ref = {}, _defineProperty(_ref, "icon-left", this.icon !== '' && this.iconPosition === 'left'), _defineProperty(_ref, "icon-right", this.icon !== '' && this.iconPosition === 'right'), _ref;
+    }
+  },
   watch: {},
   methods: {},
   created: function created() {},
@@ -12838,6 +12843,7 @@ exports.default = _default;
         /* template */
         Object.assign($4fcc6e, (function () {
           var render = function() {
+  var _obj
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -12845,8 +12851,21 @@ exports.default = _default;
     "div",
     { staticClass: "wrapper", class: { error: _vm.error } },
     [
+      _vm.icon !== ""
+        ? _c("y-icon", { class: _vm.classes, attrs: { name: _vm.icon } })
+        : _vm._e(),
+      _vm._v(" "),
       _c("input", {
-        attrs: { type: "text", disabled: _vm.disabled, readonly: _vm.readonly },
+        class:
+          ((_obj = {}),
+          (_obj["inline-icon-" + _vm.iconPosition] = _vm.icon !== ""),
+          _obj),
+        attrs: {
+          type: _vm.type,
+          disabled: _vm.disabled,
+          readonly: _vm.readonly,
+          placeholder: _vm.placeholder
+        },
         domProps: { value: _vm.value },
         on: {
           change: function($event) {
