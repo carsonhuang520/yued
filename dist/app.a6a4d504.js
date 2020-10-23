@@ -13732,6 +13732,10 @@ var _default = {
       default: '',
       required: true
     },
+    type: {
+      type: String,
+      default: 'default'
+    },
     direction: {
       type: String,
       default: 'horizontal',
@@ -13753,6 +13757,7 @@ var _default = {
   mounted: function mounted() {
     var _this = this;
 
+    this.eventBus.$emit('type', this.type);
     this.$children.forEach(function (vm) {
       if (vm.$options.name === 'YueTabsHead') {
         vm.$children.forEach(function (item) {
@@ -13831,9 +13836,18 @@ exports.default = void 0;
 var _default = {
   name: 'YueTabsHead',
   inject: ['eventBus'],
+  data: function data() {
+    return {
+      type: 'default'
+    };
+  },
+  mounted: function mounted() {},
   created: function created() {
     var _this = this;
 
+    this.eventBus.$on('type', function (item) {
+      _this.type = item;
+    });
     this.eventBus.$on('update:selected', function (name, vm) {
       var _vm$$el$getBoundingCl = vm.$el.getBoundingClientRect(),
           width = _vm$$el$getBoundingCl.width,
@@ -13868,7 +13882,18 @@ exports.default = _default;
     [
       _vm._t("default"),
       _vm._v(" "),
-      _c("div", { ref: "line", staticClass: "line" }),
+      _c("div", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.type !== "card",
+            expression: "type !== 'card'"
+          }
+        ],
+        ref: "line",
+        staticClass: "line"
+      }),
       _vm._v(" "),
       _c("div", { staticClass: "actions-wrapper" }, [_vm._t("actions")], 2)
     ],
@@ -13983,18 +14008,24 @@ exports.default = void 0;
 //
 //
 //
+//
 var _default = {
   name: 'YueTabsItem',
   inject: ['eventBus'],
   data: function data() {
     return {
-      active: false
+      active: false,
+      type: 'default'
     };
   },
   props: {
     disabled: {
       type: Boolean,
       default: false
+    },
+    icon: {
+      type: String,
+      default: ''
     },
     name: {
       type: String | Number,
@@ -14005,13 +14036,17 @@ var _default = {
     classes: function classes() {
       return {
         active: this.active,
-        disabled: this.disabled
+        disabled: this.disabled,
+        card: this.type === 'card'
       };
     }
   },
   created: function created() {
     var _this = this;
 
+    this.eventBus.$on('type', function (item) {
+      _this.type = item;
+    });
     this.eventBus.$on('update:selected', function (name, item) {
       _this.active = name === _this.name;
     });
@@ -14042,7 +14077,16 @@ exports.default = _default;
   return _c(
     "div",
     { staticClass: "y-tabs-item", class: _vm.classes, on: { click: _vm.xxx } },
-    [_vm._t("default")],
+    [
+      _vm.icon
+        ? _c("y-icon", {
+            staticStyle: { "margin-right": "4px" },
+            attrs: { name: _vm.icon }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._t("default")
+    ],
     2
   )
 }
@@ -14725,7 +14769,8 @@ _vue.default.component('y-collapse-item', _collapseItem.default);
 new _vue.default({
   el: '#app',
   data: {
-    selectedTab: ['2']
+    selectedTab: ['2'],
+    selected: 'film'
   },
   mounted: function mounted() {},
   created: function created() {},

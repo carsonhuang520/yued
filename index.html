@@ -50,15 +50,31 @@
 
   <body>
     <div id="app" style="padding: 100px;">
-      <y-input value="" icon="settings" placeholder="enter something"></y-input>
-      <y-input type="password" placeholder="enter something"></y-input>
-      <y-input disabled placeholder="enter something"></y-input>
-      <y-input
-        value=""
-        icon="settings"
-        icon-position="right"
-        placeholder="enter something"
-      ></y-input>
+      <y-tabs :selected.sync="selected" type="card">
+        <y-tabs-head>
+          <y-tabs-item name="film">电影</y-tabs-item>
+          <y-tabs-item name="game">游戏</y-tabs-item>
+          <y-tabs-item name="music">音乐</y-tabs-item>
+        </y-tabs-head>
+        <y-tabs-body>
+          <y-tabs-pane name="film">《盗梦空间》</y-tabs-pane>
+          <y-tabs-pane name="game">《英雄联盟》</y-tabs-pane>
+          <y-tabs-pane name="music">《飞鸟和蝉》</y-tabs-pane>
+        </y-tabs-body>
+      </y-tabs>
+
+      <y-tabs :selected.sync="selected">
+        <y-tabs-head>
+          <y-tabs-item name="film">电影</y-tabs-item>
+          <y-tabs-item name="game">游戏</y-tabs-item>
+          <y-tabs-item name="music">音乐</y-tabs-item>
+        </y-tabs-head>
+        <y-tabs-body>
+          <y-tabs-pane name="film">《盗梦空间》</y-tabs-pane>
+          <y-tabs-pane name="game">《英雄联盟》</y-tabs-pane>
+          <y-tabs-pane name="music">《飞鸟和蝉》</y-tabs-pane>
+        </y-tabs-body>
+      </y-tabs>
     </div>
     <script src="./src/app.js"></script>
     <script src="./src/font.js"></script>

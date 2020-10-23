@@ -13,6 +13,10 @@ export default {
       default: '',
       required: true,
     },
+    type: {
+      type: String,
+      default: 'default',
+    },
     direction: {
       type: String,
       default: 'horizontal',
@@ -32,6 +36,7 @@ export default {
     }
   },
   mounted() {
+    this.eventBus.$emit('type', this.type)
     this.$children.forEach((vm) => {
       if (vm.$options.name === 'YueTabsHead') {
         vm.$children.forEach((item) => {
@@ -48,5 +53,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .y-tabs {
+  box-sizing: content-box;
 }
 </style>

@@ -45,6 +45,7 @@ new Vue({
   el: '#app',
   data: {
     selectedTab: ['2'],
+    selected: 'film'
   },
   mounted() {},
   created() {},
