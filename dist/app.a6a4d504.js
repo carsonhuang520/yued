@@ -13077,6 +13077,9 @@ var _default = {
     offset: {
       type: [Number, String]
     },
+    order: {
+      type: [Number, String]
+    },
     phone: {
       type: Object,
       validator: validator
@@ -13102,6 +13105,11 @@ var _default = {
     return {
       gutter: 0
     };
+  },
+  mounted: function mounted() {
+    if (this.order) {
+      this.$refs.col.style.order = this.order;
+    }
   },
   methods: {
     createClass: function createClass(obj) {
@@ -13160,7 +13168,12 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "y-col", class: _vm.colClasses, style: _vm.colStyle },
+    {
+      ref: "col",
+      staticClass: "y-col",
+      class: _vm.colClasses,
+      style: _vm.colStyle
+    },
     [_vm._t("default")],
     2
   )

@@ -1,5 +1,5 @@
 <template>
-  <div class="y-col" :class="colClasses" :style="colStyle">
+  <div class="y-col" ref="col" :class="colClasses" :style="colStyle">
     <slot></slot>
   </div>
 </template>
@@ -21,6 +21,9 @@ export default {
       type: [String, Number],
     },
     offset: {
+      type: [Number, String],
+    },
+    order: {
       type: [Number, String],
     },
     phone: {
@@ -47,6 +50,11 @@ export default {
   data() {
     return {
       gutter: 0,
+    }
+  },
+  mounted() {
+    if (this.order) {
+      this.$refs.col.style.order = this.order
     }
   },
   methods: {
