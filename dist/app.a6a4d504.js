@@ -14300,9 +14300,18 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
 var _default = {
   name: 'YuePopover',
   props: {
+    confirm: {
+      type: Boolean,
+      default: false
+    },
     position: {
       type: String,
       default: 'top',
@@ -14452,7 +14461,40 @@ exports.default = _default;
             class:
               ((_obj = {}), (_obj["position-" + _vm.position] = true), _obj)
           },
-          [_vm._t("content")],
+          [
+            _vm.confirm
+              ? _c("y-icon", { attrs: { name: "settings" } })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm._t("content"),
+            _vm._v(" "),
+            _vm.confirm
+              ? _c(
+                  "div",
+                  { staticStyle: { "margin-top": "10px", float: "right" } },
+                  [
+                    _c(
+                      "y-button",
+                      {
+                        attrs: { size: "small", type: "text" },
+                        on: { click: _vm.close }
+                      },
+                      [_vm._v("取消")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "y-button",
+                      {
+                        attrs: { size: "small", type: "primary" },
+                        on: { click: _vm.close }
+                      },
+                      [_vm._v("确定")]
+                    )
+                  ],
+                  1
+                )
+              : _vm._e()
+          ],
           2
         )
       : _vm._e(),

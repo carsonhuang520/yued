@@ -6,7 +6,12 @@
       :class="{ [`position-${position}`]: true }"
       v-if="visible"
     >
+      <y-icon v-if="confirm" name="settings"></y-icon>
       <slot name="content"></slot>
+      <div v-if="confirm" style="margin-top: 10px; float: right;">
+        <y-button size="small" type="text" @click="close">取消</y-button>
+        <y-button size="small" type="primary" @click="close">确定</y-button>
+      </div>
     </div>
     <span
       ref="triggerWrapper"
@@ -21,6 +26,10 @@
 export default {
   name: 'YuePopover',
   props: {
+    confirm: {
+      type: Boolean,
+      default: false,
+    },
     position: {
       type: String,
       default: 'top',
