@@ -23,8 +23,14 @@
   </div>
 </template>
 <script>
+import Icon from './icon'
+import Button from './button'
 export default {
   name: 'YuePopover',
+  components: {
+    'y-button': Button,
+    'y-icon': Icon,
+  },
   props: {
     confirm: {
       type: Boolean,

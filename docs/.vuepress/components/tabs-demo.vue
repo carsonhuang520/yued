@@ -28,6 +28,34 @@
       </y-tabs-body>
     </y-tabs>
     <pre><code>{{ content2 }}</code></pre>
+    <h4>示例3：支持 type 属性</h4>
+    <y-tabs :selected.sync="selected" type="card">
+      <y-tabs-head>
+        <y-tabs-item name="women">美女</y-tabs-item>
+        <y-tabs-item name="man">帅哥</y-tabs-item>
+        <y-tabs-item name="game">游戏</y-tabs-item>
+      </y-tabs-head>
+      <y-tabs-body>
+        <y-tabs-pane name="women">美女相关内容</y-tabs-pane>
+        <y-tabs-pane name="man">帅哥相关内容</y-tabs-pane>
+        <y-tabs-pane name="game">游戏相关内容</y-tabs-pane>
+      </y-tabs-body>
+    </y-tabs>
+    <pre><code>{{ content3 }}</code></pre>
+    <h4>示例4：支持 direction 属性</h4>
+    <y-tabs :selected.sync="selected" direction="vertical">
+      <y-tabs-head>
+        <y-tabs-item name="women">美女</y-tabs-item>
+        <y-tabs-item name="man">帅哥</y-tabs-item>
+        <y-tabs-item name="game">游戏</y-tabs-item>
+      </y-tabs-head>
+      <y-tabs-body>
+        <y-tabs-pane name="women">美女相关内容</y-tabs-pane>
+        <y-tabs-pane name="man">帅哥相关内容</y-tabs-pane>
+        <y-tabs-pane name="game">游戏相关内容</y-tabs-pane>
+      </y-tabs-body>
+    </y-tabs>
+    <pre><code>{{ content4 }}</code></pre>
   </div>
 </template>
 <script>
@@ -70,7 +98,31 @@ export default {
     <y-tabs-pane name="man">帅哥相关内容</y-tabs-pane>
     <y-tabs-pane name="game">游戏相关内容</y-tabs-pane>
   </y-tabs-body>
-</y-tabs>`
+</y-tabs>`,
+      content3: `<y-tabs :selected.sync="selected" type="card">
+  <y-tabs-head>
+    <y-tabs-item name="women">美女</y-tabs-item>
+    <y-tabs-item name="man">帅哥</y-tabs-item>
+    <y-tabs-item name="game">游戏</y-tabs-item>
+  </y-tabs-head>
+  <y-tabs-body>
+    <y-tabs-pane name="women">美女相关内容</y-tabs-pane>
+    <y-tabs-pane name="man">帅哥相关内容</y-tabs-pane>
+    <y-tabs-pane name="game">游戏相关内容</y-tabs-pane>
+  </y-tabs-body>
+</y-tabs>`,
+      content4: `<y-tabs :selected.sync="selected" direction="vertical">
+  <y-tabs-head>
+    <y-tabs-item name="women">美女</y-tabs-item>
+    <y-tabs-item name="man">帅哥</y-tabs-item>
+    <y-tabs-item name="game">游戏</y-tabs-item>
+  </y-tabs-head>
+  <y-tabs-body>
+    <y-tabs-pane name="women">美女相关内容</y-tabs-pane>
+    <y-tabs-pane name="man">帅哥相关内容</y-tabs-pane>
+    <y-tabs-pane name="game">游戏相关内容</y-tabs-pane>
+  </y-tabs-body>
+</y-tabs>`,
     }
   },
 }

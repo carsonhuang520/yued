@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>鼠标悬浮出现</h4>
+    <h4>示例1 鼠标悬浮出现</h4>
     <div class="box">
       <y-popover class="top" trigger="hover">
         <template slot="content">
@@ -28,7 +28,7 @@
       </y-popover>
     </div>
     <pre><code>{{ content1 }}</code></pre>
-    <h4>鼠标点击出现</h4>
+    <h4>示例2 鼠标点击出现</h4>
     <div class="box">
       <y-popover class="top">
         <template slot="content">
@@ -56,6 +56,12 @@
       </y-popover>
     </div>
     <pre><code>{{ content2 }}</code></pre>
+    <h4>示例3 支持 confirm 属性</h4>
+    <y-popover confirm>
+      <span slot="content">你确定删除这条内容吗?</span>
+      <y-button type="primary">点我</y-button>
+    </y-popover>
+    <pre><code>{{ content3 }}</code></pre>
   </div>
 </template>
 <script>
@@ -92,7 +98,7 @@ export default {
   </template>
   <y-button>右边</y-button>
 </y-popover>`,
-content2: `<y-popover>
+      content2: `<y-popover>
   <template slot="content">
     <div>我在这</div>
   </template>
@@ -116,6 +122,10 @@ content2: `<y-popover>
   </template>
   <y-button>右边</y-button>
 </y-popover>`,
+      content3: `<y-popover confirm>
+  <span slot="content">你确定删除这条内容吗?</span>
+  <y-button type="primary">点我</y-button>
+</y-popover>`,
     }
   },
 }
@@ -124,7 +134,7 @@ content2: `<y-popover>
 .box {
   margin: 0 auto;
   width: 280px;
-  height: 280px;
+  height: 100px;
   // border: 1px solid red;
   position: relative;
   .top {

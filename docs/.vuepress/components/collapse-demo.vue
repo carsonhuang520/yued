@@ -1,11 +1,13 @@
 <template>
   <div>
+    <h4>示例1 可展开多项</h4>
     <y-collapse :selected.sync="selected">
       <y-collapse-item title="标题1" name="1">内容1</y-collapse-item>
       <y-collapse-item title="标题2" name="2">内容2</y-collapse-item>
       <y-collapse-item title="标题3" name="3">内容3</y-collapse-item>
     </y-collapse>
     <pre><code>{{ content }}</code></pre>
+    <h4>示例2 支持 accordion 属性</h4>
     <y-collapse :selected.sync="selected" accordion>
       <y-collapse-item title="标题1" name="1">内容1</y-collapse-item>
       <y-collapse-item title="标题2" name="2">内容2</y-collapse-item>
@@ -34,7 +36,7 @@ export default {
   <y-collapse-item title="标题1" name="1">内容1</y-collapse-item>
   <y-collapse-item title="标题2" name="2">内容2</y-collapse-item>
   <y-collapse-item title="标题3" name="3">内容3</y-collapse-item>
-</y-collapse>`
+</y-collapse>`,
     }
   },
 }
