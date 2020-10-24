@@ -1,5 +1,5 @@
 <template>
-  <div class="y-tabs">
+  <div class="y-tabs" :class="{ [`tabs-vertical`]: direction === 'vertical' }">
     <slot></slot>
   </div>
 </template>
@@ -36,6 +36,7 @@ export default {
     }
   },
   mounted() {
+    this.eventBus.$emit('direction', this.direction)
     this.eventBus.$emit('type', this.type)
     this.$children.forEach((vm) => {
       if (vm.$options.name === 'YueTabsHead') {
@@ -54,5 +55,9 @@ export default {
 <style lang="scss" scoped>
 .y-tabs {
   box-sizing: content-box;
+  &.tabs-vertical {
+    display: flex;
+    flex-wrap: nowrap;
+  }
 }
 </style>

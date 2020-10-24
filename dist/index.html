@@ -69,6 +69,33 @@
           <y-tabs-pane name="music">《飞鸟和蝉》</y-tabs-pane>
         </y-tabs-body>
       </y-tabs>
+
+      <y-tabs :selected.sync="selected" direction="vertical">
+        <y-tabs-head>
+          <y-tabs-item name="film">电影</y-tabs-item>
+          <y-tabs-item name="game">游戏</y-tabs-item>
+          <y-tabs-item name="music">音乐</y-tabs-item>
+        </y-tabs-head>
+        <y-tabs-body>
+          <y-tabs-pane name="film">《盗梦空间》</y-tabs-pane>
+          <y-tabs-pane name="game">《英雄联盟》</y-tabs-pane>
+          <y-tabs-pane name="music">《飞鸟和蝉》</y-tabs-pane>
+        </y-tabs-body>
+      </y-tabs>
+      <div style="margin-top: 100px;">
+        <y-tabs :selected.sync="selected" type="card" direction="vertical">
+          <y-tabs-head>
+            <y-tabs-item name="film">电影</y-tabs-item>
+            <y-tabs-item name="game">游戏</y-tabs-item>
+            <y-tabs-item name="music">音乐</y-tabs-item>
+          </y-tabs-head>
+          <y-tabs-body>
+            <y-tabs-pane name="film">《盗梦空间》</y-tabs-pane>
+            <y-tabs-pane name="game">《英雄联盟》</y-tabs-pane>
+            <y-tabs-pane name="music">《飞鸟和蝉》</y-tabs-pane>
+          </y-tabs-body>
+        </y-tabs>
+      </div>
     </div>
     <script src="/app.a6a4d504.js"></script>
     <script src="/font.9da4f01c.js"></script>
