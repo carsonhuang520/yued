@@ -19,6 +19,7 @@ import TabsPane from './tabs/tabs-pane'
 import Popover from './popover'
 import Collapse from './collapse'
 import CollapseItem from './collapseItem'
+import Cascader from './cascader'
 
 Vue.component('y-button', Button)
 Vue.component('y-icon', Icon)
@@ -40,12 +41,69 @@ Vue.component('y-tabs-pane', TabsPane)
 Vue.component('y-popover', Popover)
 Vue.component('y-collapse', Collapse)
 Vue.component('y-collapse-item', CollapseItem)
+Vue.component('y-cascader', Cascader)
 
 new Vue({
   el: '#app',
   data: {
     selectedTab: ['2'],
-    selected: 'film'
+    selected: 'film',
+    source: [
+      {
+        name: '浙江',
+        children: [
+          {
+            name: '杭州',
+            children: [
+              {
+                name: '上城区',
+              },
+              {
+                name: '西湖区',
+              },
+            ],
+          },
+          {
+            name: '嘉兴',
+            children: [
+              {
+                name: '南湖区',
+              },
+              {
+                name: '秀洲区',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: '江苏',
+        children: [
+          {
+            name: '南京',
+            children: [
+              {
+                name: '上城',
+              },
+              {
+                name: '西湖',
+              },
+            ],
+          },
+          {
+            name: '苏州',
+            children: [
+              {
+                name: '南湖',
+              },
+              {
+                name: '秀洲',
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   mounted() {},
   created() {},
