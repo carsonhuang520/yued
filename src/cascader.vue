@@ -1,8 +1,12 @@
 <template>
   <div class="y-cascader">
     <div class="trigger" @click="popoverVisible = !popoverVisible"></div>
-    <div class="popover" v-if="popoverVisible">
-      <y-cascader-item :items="source"></y-cascader-item>
+    <div class="popover-wrapper" v-if="popoverVisible">
+      <y-cascader-item
+        :items="source"
+        class="popover"
+        :height="popoverHeight"
+      ></y-cascader-item>
     </div>
   </div>
 </template>
@@ -18,50 +22,39 @@ export default {
     source: {
       type: Array,
     },
+    popoverHeight: {
+      type: String,
+    },
   },
   data() {
     return {
       popoverVisible: false,
-      selectedItem1: null,
-      selectedItem2: null,
     }
   },
-  computed: {
-    level2Item() {
-      if (this.selectedItem1) {
-        return this.selectedItem1.children
-      } else {
-        return []
-      }
-    },
-    level3Item() {
-      if (this.selectedItem2) {
-        return this.selectedItem2.children
-      } else {
-        return []
-      }
-    },
-  },
+  computed: {},
   watch: {},
-  methods: {
-    hanleClick(item1) {
-      this.selectedItem1 = item1
-    },
-  },
+  methods: {},
   created() {},
   mounted() {},
 }
 </script>
 <style lang="scss" scoped>
 .y-cascader {
+  position: relative;
   .trigger {
     width: 100px;
     height: 32px;
     border: 1px solid red;
   }
-  .popover {
-    border: 1px solid green;
+  .popover-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #ffffff;
+    // border: 1px solid green;
     display: flex;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    // height: 200px;
   }
 }
 </style>

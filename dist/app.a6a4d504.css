@@ -1229,18 +1229,41 @@
 }
 .y-cascader-item[data-v-4f2a15] {
   display: flex;
+  height: 100px;
   align-items: flex-start;
   justify-content: flex-start;
 }
 .y-cascader-item .left[data-v-4f2a15] {
-  border: 1px solid red;
+  height: 100%;
+  padding: 0.3em 0;
+}
+.y-cascader-item .right[data-v-4f2a15] {
+  height: 100%;
+  border-left: 1px solid #f1f1f1;
+}
+.y-cascader-item .label[data-v-4f2a15] {
+  padding: 0.3em 1em;
+  display: flex;
+  align-items: center;
+}
+.y-cascader-item .label .icon[data-v-4f2a15] {
+  margin-left: 1em;
+  margin-bottom: -3px;
+  transform: scale(0.8);
+}
+.y-cascader[data-v-d66534] {
+  position: relative;
 }
 .y-cascader .trigger[data-v-d66534] {
   width: 100px;
   height: 32px;
   border: 1px solid red;
 }
-.y-cascader .popover[data-v-d66534] {
-  border: 1px solid green;
+.y-cascader .popover-wrapper[data-v-d66534] {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
   display: flex;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }

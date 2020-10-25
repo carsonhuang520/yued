@@ -14794,6 +14794,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _icon = _interopRequireDefault(require("./icon"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
 //
 //
 //
@@ -14814,10 +14820,15 @@ exports.default = void 0;
 //
 var _default = {
   name: 'YCascaderItem',
-  components: {},
+  components: {
+    'y-icon': _icon.default
+  },
   props: {
     items: {
       type: Array
+    },
+    height: {
+      type: String
     }
   },
   data: function data() {
@@ -14852,37 +14863,51 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "y-cascader-item" }, [
-    _c(
-      "div",
-      { staticClass: "left" },
-      _vm._l(_vm.items, function(item) {
-        return _c(
-          "div",
-          {
-            key: item.name,
-            staticClass: "label",
-            on: {
-              click: function($event) {
-                _vm.leftSelected = item
+  return _c(
+    "div",
+    { staticClass: "y-cascader-item", style: { height: _vm.height } },
+    [
+      _c(
+        "div",
+        { staticClass: "left" },
+        _vm._l(_vm.items, function(item) {
+          return _c(
+            "div",
+            {
+              key: item.name,
+              staticClass: "label",
+              on: {
+                click: function($event) {
+                  _vm.leftSelected = item
+                }
               }
-            }
-          },
-          [_vm._v("\n      " + _vm._s(item.name) + "\n    ")]
-        )
-      }),
-      0
-    ),
-    _vm._v(" "),
-    _vm.rightItems
-      ? _c(
-          "div",
-          { staticClass: "right" },
-          [_c("y-cascader-item", { attrs: { items: _vm.rightItems } })],
-          1
-        )
-      : _vm._e()
-  ])
+            },
+            [
+              _vm._v("\n      " + _vm._s(item.name) + "\n      "),
+              item.children
+                ? _c("y-icon", { staticClass: "icon", attrs: { name: "left" } })
+                : _vm._e()
+            ],
+            1
+          )
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _vm.rightItems
+        ? _c(
+            "div",
+            { staticClass: "right" },
+            [
+              _c("y-cascader-item", {
+                attrs: { items: _vm.rightItems, height: _vm.height }
+              })
+            ],
+            1
+          )
+        : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -14917,7 +14942,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/cascader.vue":[function(require,module,exports) {
+},{"./icon":"src/icon.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/cascader.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14938,6 +14963,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
 var _default = {
   name: 'YueCascader',
   components: {
@@ -14946,37 +14975,19 @@ var _default = {
   props: {
     source: {
       type: Array
+    },
+    popoverHeight: {
+      type: String
     }
   },
   data: function data() {
     return {
-      popoverVisible: false,
-      selectedItem1: null,
-      selectedItem2: null
+      popoverVisible: false
     };
   },
-  computed: {
-    level2Item: function level2Item() {
-      if (this.selectedItem1) {
-        return this.selectedItem1.children;
-      } else {
-        return [];
-      }
-    },
-    level3Item: function level3Item() {
-      if (this.selectedItem2) {
-        return this.selectedItem2.children;
-      } else {
-        return [];
-      }
-    }
-  },
+  computed: {},
   watch: {},
-  methods: {
-    hanleClick: function hanleClick(item1) {
-      this.selectedItem1 = item1;
-    }
-  },
+  methods: {},
   created: function created() {},
   mounted: function mounted() {}
 };
@@ -15006,8 +15017,13 @@ exports.default = _default;
     _vm.popoverVisible
       ? _c(
           "div",
-          { staticClass: "popover" },
-          [_c("y-cascader-item", { attrs: { items: _vm.source } })],
+          { staticClass: "popover-wrapper" },
+          [
+            _c("y-cascader-item", {
+              staticClass: "popover",
+              attrs: { items: _vm.source, height: _vm.popoverHeight }
+            })
+          ],
           1
         )
       : _vm._e()
