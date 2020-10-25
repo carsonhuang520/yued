@@ -2,15 +2,31 @@
   "name": "yued-test",
   "version": "0.0.1",
   "description": "这是一个 UI 框架",
-  "main": "dist/index.js",
+  "private": true,
   "scripts": {
-    "dev-test": "parcel watch test/* --no-cache & karma start",
-    "test": "parcel build test/* --no-cache --no-minify && karma start --single-run",
-    "build": "parcel build index.js --no-cache",
-    "start": "parcel index.html",
-    "docs:dev": "vuepress dev docs --temp .temp",
-    "docs:build": "vuepress build docs"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit"
   },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.0",
+    "@vue/cli-plugin-unit-mocha": "^4.5.0",
+    "@vue/cli-service": "^4.5.0",
+    "@vue/test-utils": "^1.0.3",
+    "chai": "^4.1.2",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/carsonhuang520/yued.git"
@@ -25,29 +41,6 @@
     "url": "https://github.com/carsonhuang520/yued/issues"
   },
   "homepage": "https://github.com/carsonhuang520/yued#readme",
-  "dependencies": {
-    "vue": "^2.6.12",
-    "vue-hot-reload-api": "^2.3.4"
-  },
-  "devDependencies": {
-    "@vue/component-compiler-utils": "^3.2.0",
-    "chai": "^4.2.0",
-    "chai-spies": "^1.0.0",
-    "karma": "^5.2.3",
-    "karma-chai": "^0.1.0",
-    "karma-chai-spies": "^0.1.4",
-    "karma-chrome-launcher": "^3.1.0",
-    "karma-mocha": "^2.0.1",
-    "karma-sinon-chai": "^2.0.2",
-    "mocha": "^8.1.3",
-    "parcel-bundler": "^1.12.4",
-    "sass": "^1.27.0",
-    "sass-loader": "^10.0.3",
-    "sinon": "^9.2.0",
-    "sinon-chai": "^3.5.0",
-    "vue-template-compiler": "^2.6.12",
-    "vuepress": "^1.7.1"
-  },
   "alias": {
     "vue": "./node_modules/vue/dist/vue.common.js"
   }
