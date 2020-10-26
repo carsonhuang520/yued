@@ -1,5 +1,5 @@
 <template>
-  <div class="y-cascader" ref="cascader">
+  <div class="y-cascader" ref="cascader" v-click-outside="close">
     <!-- 点击 cascader 里面时 document 不管，点击外面让 document 关闭 popover -->
     <div class="trigger" @click="toggle">
       {{ result || '&nbsp;' }}
@@ -19,10 +19,14 @@
 
 <script>
 import YCascaderItem from './cascader-item'
+import ClickOutside from './click-outside'
 export default {
   name: 'YueCascader',
   components: {
     YCascaderItem,
+  },
+  directives: {
+    ClickOutside,
   },
   props: {
     source: {
@@ -62,13 +66,13 @@ export default {
     },
     open() {
       this.popoverVisible = true
-      this.$nextTick(() => {
-        document.addEventListener('click', this.onClickDocument)
-      })
+      // this.$nextTick(() => {
+      //   document.addEventListener('click', this.onClickDocument)
+      // })
     },
     close() {
       this.popoverVisible = false
-      document.removeEventListener('click', this.onClickDocument)
+      // document.removeEventListener('click', this.onClickDocument)
     },
     toggle() {
       if (this.popoverVisible) {
