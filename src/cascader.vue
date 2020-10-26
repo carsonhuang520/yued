@@ -1,6 +1,8 @@
 <template>
   <div class="y-cascader">
-    <div class="trigger" @click="popoverVisible = !popoverVisible"></div>
+    <div class="trigger" @click="popoverVisible = !popoverVisible">
+      {{ result || '&nbsp;' }}
+    </div>
     <div class="popover-wrapper" v-if="popoverVisible">
       <y-cascader-item
         :items="source"
@@ -37,7 +39,11 @@ export default {
       popoverVisible: false,
     }
   },
-  computed: {},
+  computed: {
+    result() {
+      return this.selected.map((item) => item.name).join('/')
+    },
+  },
   watch: {},
   methods: {
     onUpdateSelected(newSelected) {
@@ -52,14 +58,19 @@ export default {
 .y-cascader {
   position: relative;
   .trigger {
-    width: 100px;
+    display: flex;
+    align-items: center;
+    width: 200px;
     height: 32px;
-    border: 1px solid red;
+    padding: 0 1em;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
   }
   .popover-wrapper {
     position: absolute;
     top: 100%;
     left: 0;
+    margin-top: 8px;
     background: #ffffff;
     // border: 1px solid green;
     display: flex;
