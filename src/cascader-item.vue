@@ -8,7 +8,11 @@
         @click="onClickLabel(item)"
       >
         <span class="name">{{ item.name }}</span>
-        <y-icon class="icon" v-if="!item.isLeaf" name="left"></y-icon>
+        <y-icon
+          class="icon"
+          v-if="loadData ? !item.isLeaf : item.children"
+          name="left"
+        ></y-icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
@@ -44,6 +48,9 @@ export default {
     level: {
       type: Number,
       default: 0,
+    },
+    loadData: {
+      type: Function,
     },
   },
   data() {

@@ -9,6 +9,7 @@
         class="popover"
         :height="popoverHeight"
         :selected="selected"
+        :load-data="loadData"
         @update:selected="onUpdateSelected"
       ></y-cascader-item>
     </div>
@@ -91,7 +92,7 @@ export default {
         this.$emit('update:source', copy)
       }
       if (!lastItem.isLeaf) {
-        this.loadData(lastItem, update)
+        this.loadData && this.loadData(lastItem, update)
       }
     },
   },
