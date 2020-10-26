@@ -2,10 +2,10 @@
   <div id="app" style="padding: 100px;">
     <!-- {{ selected }} -->
     <y-cascader
-      :source="source"
+      :source.sync="source"
       popover-height="200px"
-      :selected="selected"
-      @update:selected="selected = $event"
+      :selected.sync="selected"
+      :load-data="loadData"
     ></y-cascader>
   </div>
 </template>
@@ -13,11 +13,22 @@
 import Cascader from './cascader'
 import db from './db'
 
-function ajax(parentId = 0) {
-  return db.filter((item) => item.parent_id === parentId)
+function ajax2(parentId = 0, success, fail) {
+  let id = setTimeout(() => {
+    let result = db.filter((item) => item.parent_id === parentId)
+    success(result)
+  }, 3000)
+  return id
 }
 
-console.log(ajax())
+function ajax(parentId = 0) {
+  return new Promise((success, fail) => {
+    setTimeout(() => {
+      let result = db.filter((item) => item.parent_id === parentId)
+      success(result)
+    }, 200)
+  })
+}
 
 export default {
   name: 'demo',
@@ -27,8 +38,30 @@ export default {
   data() {
     return {
       selected: [],
-      source: ajax(),
+      source: [],
     }
+  },
+  created() {
+    ajax(0).then((result) => {
+      this.source = result
+    })
+  },
+  methods: {
+    handleUpdateSelected() {
+      ajax(this.selected[0].id).then((result) => {
+        let lastLevelSelected = this.source.filter(
+          (item) => item.id === this.selected[0].id
+        )[0]
+        this.$set(lastLevelSelected, 'children', result)
+        console.log(lastLevelSelected)
+      })
+    },
+    loadData(item, callback) {
+      const id = item.id
+      ajax(id).then((result) => {
+        callback(result)
+      })
+    },
   },
 }
 </script>
