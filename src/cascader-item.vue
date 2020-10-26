@@ -8,11 +8,18 @@
         @click="onClickLabel(item)"
       >
         <span class="name">{{ item.name }}</span>
-        <y-icon
-          class="icon"
-          v-if="loadData ? !item.isLeaf : item.children"
-          name="left"
-        ></y-icon>
+        <span class="icons">
+          <template v-if="item.name === loadingItem.name">
+            <y-icon class="loading" name="loading"></y-icon>
+          </template>
+          <template v-else>
+            <y-icon
+              class="icon"
+              v-if="loadData ? !item.isLeaf : item.children"
+              name="left"
+            ></y-icon>
+          </template>
+        </span>
       </div>
     </div>
     <div class="right" v-if="rightItems">
@@ -21,6 +28,8 @@
         :height="height"
         :level="level + 1"
         :selected="selected"
+        :loading-item="loadingItem"
+        :load-data="loadData"
         @update:selected="onUpdateSelected"
       ></y-cascader-item>
     </div>
@@ -51,6 +60,10 @@ export default {
     },
     loadData: {
       type: Function,
+    },
+    loadingItem: {
+      type: Object,
+      default: () => {},
     },
   },
   data() {
@@ -119,11 +132,24 @@ export default {
       margin-right: 1em;
       user-select: none;
     }
-    .icon {
+    .icons {
       margin-left: auto;
       margin-bottom: -3px;
-      transform: scale(0.8);
+      .icon {
+        transform: scale(0.8);
+      }
+      .loading {
+        animation: spin 2s infinite linear;
+      }
     }
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>

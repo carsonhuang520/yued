@@ -11,6 +11,7 @@
         :height="popoverHeight"
         :selected="selected"
         :load-data="loadData"
+        :loading-item="loadingItem"
         @update:selected="onUpdateSelected"
       ></y-cascader-item>
     </div>
@@ -46,6 +47,7 @@ export default {
   data() {
     return {
       popoverVisible: false,
+      loadingItem: {},
     }
   },
   computed: {
@@ -116,14 +118,16 @@ export default {
         }
       }
       let update = (result) => {
+        this.loadingItem = {}
         let copy = JSON.parse(JSON.stringify(this.source))
         let toUpdate = complex(copy, lastItem.id)
         toUpdate.children = result
         // this.$set(toUpdate, 'children', result)
         this.$emit('update:source', copy)
       }
-      if (!lastItem.isLeaf) {
-        this.loadData && this.loadData(lastItem, update)
+      if (!lastItem.isLeaf && this.loadData) {
+        this.loadData(lastItem, update)
+        this.loadingItem = lastItem
       }
     },
   },
