@@ -1,6 +1,12 @@
 <template>
   <div id="app" style="padding: 100px;">
-    <y-cascader :source="source" popover-height="200px"></y-cascader>
+    {{ selected }}
+    <y-cascader
+      :source="source"
+      popover-height="200px"
+      :selected="selected"
+      @update:selected="selected = $event"
+    ></y-cascader>
   </div>
 </template>
 <script>
@@ -12,6 +18,7 @@ export default {
   },
   data() {
     return {
+      selected: [],
       source: [
         {
           name: '浙江',

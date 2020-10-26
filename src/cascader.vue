@@ -6,6 +6,8 @@
         :items="source"
         class="popover"
         :height="popoverHeight"
+        :selected="selected"
+        @update:selected="onUpdateSelected"
       ></y-cascader-item>
     </div>
   </div>
@@ -25,6 +27,10 @@ export default {
     popoverHeight: {
       type: String,
     },
+    selected: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
@@ -33,7 +39,11 @@ export default {
   },
   computed: {},
   watch: {},
-  methods: {},
+  methods: {
+    onUpdateSelected(newSelected) {
+      this.$emit('update:selected', newSelected)
+    },
+  },
   created() {},
   mounted() {},
 }
