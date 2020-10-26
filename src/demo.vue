@@ -1,6 +1,6 @@
 <template>
   <div id="app" style="padding: 100px;">
-    {{ selected }}
+    <!-- {{ selected }} -->
     <y-cascader
       :source="source"
       popover-height="200px"
