@@ -25,6 +25,14 @@ function ajax(parentId = 0) {
   return new Promise((success, fail) => {
     setTimeout(() => {
       let result = db.filter((item) => item.parent_id === parentId)
+      // 判断是否是叶子结点
+      result.forEach((node) => {
+        if (db.filter((item) => item.parent_id === node.id).length > 0) {
+          node.isLeaf = false
+        } else {
+          node.isLeaf = true
+        }
+      })
       success(result)
     }, 200)
   })

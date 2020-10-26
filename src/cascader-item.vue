@@ -7,8 +7,8 @@
         :key="item.name"
         @click="onClickLabel(item)"
       >
-        {{ item.name }}
-        <y-icon class="icon" v-if="item.children" name="left"></y-icon>
+        <span class="name">{{ item.name }}</span>
+        <y-icon class="icon" v-if="!item.isLeaf" name="left"></y-icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
@@ -100,11 +100,19 @@ export default {
     border-left: 1px solid lighten($color: #eeeeee, $amount: 1%);
   }
   .label {
-    padding: 0.3em 1em;
+    padding: 0.5em 1em;
     display: flex;
     align-items: center;
+    cursor: pointer;
+    &:hover {
+      background: #eeeeee;
+    }
+    > .name {
+      margin-right: 1em;
+      user-select: none;
+    }
     .icon {
-      margin-left: 1em;
+      margin-left: auto;
       margin-bottom: -3px;
       transform: scale(0.8);
     }

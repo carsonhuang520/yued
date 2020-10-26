@@ -90,7 +90,9 @@ export default {
         // this.$set(toUpdate, 'children', result)
         this.$emit('update:source', copy)
       }
-      this.loadData(lastItem, update)
+      if (!lastItem.isLeaf) {
+        this.loadData(lastItem, update)
+      }
     },
   },
   created() {},
