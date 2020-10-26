@@ -88,6 +88,7 @@ export default {
     // border: 1px solid red;
     height: 100%;
     padding: 0.3em 0;
+    overflow: auto;
   }
   .right {
     height: 100%;
