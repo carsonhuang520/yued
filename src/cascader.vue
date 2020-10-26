@@ -1,6 +1,7 @@
 <template>
-  <div class="y-cascader">
-    <div class="trigger" @click="popoverVisible = !popoverVisible">
+  <div class="y-cascader" ref="cascader">
+    <!-- 点击 cascader 里面时 document 不管，点击外面让 document 关闭 popover -->
+    <div class="trigger" @click="toggle">
       {{ result || '&nbsp;' }}
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
@@ -50,6 +51,32 @@ export default {
   },
   watch: {},
   methods: {
+    onClickDocument(e) {
+      console.log('hhh')
+      let { cascader } = this.$refs
+      let { target } = e
+      if (cascader === target || cascader.contains(target)) {
+        return
+      }
+      this.close()
+    },
+    open() {
+      this.popoverVisible = true
+      this.$nextTick(() => {
+        document.addEventListener('click', this.onClickDocument)
+      })
+    },
+    close() {
+      this.popoverVisible = false
+      document.removeEventListener('click', this.onClickDocument)
+    },
+    toggle() {
+      if (this.popoverVisible) {
+        this.close
+      } else {
+        this.open()
+      }
+    },
     onUpdateSelected(newSelected) {
       this.$emit('update:selected', newSelected)
       let lastItem = newSelected[newSelected.length - 1]
@@ -103,6 +130,7 @@ export default {
 <style lang="scss" scoped>
 .y-cascader {
   position: relative;
+  display: inline-block;
   .trigger {
     display: flex;
     align-items: center;

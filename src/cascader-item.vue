@@ -111,6 +111,7 @@ export default {
     display: flex;
     align-items: center;
     cursor: pointer;
+    white-space: nowrap;
     &:hover {
       background: #eeeeee;
     }
