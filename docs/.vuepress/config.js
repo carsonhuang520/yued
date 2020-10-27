@@ -7,7 +7,7 @@ module.exports = {
     nav: [
       { text: '主页', link: '' },
       { text: '文档', link: '/guide/' },
-      { text: '交流', link: 'https://google.com' },
+      { text: 'GitHub', link: 'https://github.com/carsonhuang520/yued' },
     ],
     sidebar: [
       {
@@ -18,6 +18,7 @@ module.exports = {
         title: '组件',
         children: [
           '/components/button',
+          '/components/cascader',
           '/components/collapse',
           '/components/grid',
           '/components/input',
