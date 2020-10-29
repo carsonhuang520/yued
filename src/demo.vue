@@ -1,12 +1,12 @@
 <template>
   <div id="app" style="padding: 100px;">
-    <!-- {{ selected }} -->
     <y-cascader
       :source.sync="source"
       popover-height="200px"
       :selected.sync="selected"
       :load-data="loadData"
     ></y-cascader>
+    <!-- <div>{{ source }}</div> -->
   </div>
 </template>
 <script>
