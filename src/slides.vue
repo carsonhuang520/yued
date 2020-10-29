@@ -85,9 +85,11 @@ export default {
     updateChildren() {
       let selected = this.getSelected()
       this.$children.forEach((vm) => {
-        vm.selected = selected
         const names = this.$children.map((vm) => vm.name)
         vm.reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
+        this.$nextTick(() => {
+          vm.selected = selected
+        })
       })
     },
   },
