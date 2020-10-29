@@ -17,6 +17,7 @@
       <span
         v-for="n in childrenLength"
         :key="n"
+        :data-index="n - 1"
         :class="{ active: selectedIndex === n - 1 }"
         @click="select(n - 1)"
         >{{ n }}</span
@@ -36,6 +37,10 @@ export default {
     autoPlay: {
       type: Boolean,
       default: true,
+    },
+    autoPlayDelay: {
+      type: Number,
+      default: 500,
     },
   },
   computed: {
@@ -61,8 +66,8 @@ export default {
     // this.lastSelectedIndex = this.selectedIndex
   },
   updated() {
-    console.log(this.lastSelectedIndex)
-    console.log(this.selectedIndex)
+    // console.log(this.lastSelectedIndex)
+    // console.log(this.selectedIndex)
     this.updateChildren()
   },
   methods: {
@@ -114,9 +119,9 @@ export default {
         let index = this.names.indexOf(this.getSelected())
         let newIndex = index + 1
         this.select(newIndex)
-        // this.timerId = setTimeout(run, 3000) // setTimeout 模拟 setInterval
+        this.timerId = setTimeout(run, this.autoPlayDelay) // setTimeout 模拟 setInterval
       }
-      // this.timerId = setTimeout(run, 3000)
+      this.timerId = setTimeout(run, this.autoPlayDelay)
     },
     select(newIndex) {
       if (newIndex === -1) {
