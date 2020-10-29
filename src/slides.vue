@@ -13,6 +13,7 @@
       </div>
     </div>
     <div class="y-slides-dots">
+      <span @click="select(selectedIndex - 1)">&lt;</span>
       <span
         v-for="n in childrenLength"
         :key="n"
@@ -20,6 +21,7 @@
         @click="select(n - 1)"
         >{{ n }}</span
       >
+      <span @click="select(selectedIndex + 1)">&gt;</span>
     </div>
   </div>
 </template>
@@ -112,9 +114,9 @@ export default {
         let index = this.names.indexOf(this.getSelected())
         let newIndex = index + 1
         this.select(newIndex)
-        this.timerId = setTimeout(run, 3000) // setTimeout 模拟 setInterval
+        // this.timerId = setTimeout(run, 3000) // setTimeout 模拟 setInterval
       }
-      this.timerId = setTimeout(run, 3000)
+      // this.timerId = setTimeout(run, 3000)
     },
     select(newIndex) {
       if (newIndex === -1) {
