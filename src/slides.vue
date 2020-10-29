@@ -1,5 +1,5 @@
 <template>
-  <div class="y-slides">
+  <div class="y-slides" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
     <div class="y-slides-window">
       <div class="y-slides-wrapper">
         <slot></slot>
@@ -41,6 +41,7 @@ export default {
     return {
       childrenLength: 0,
       lastSelectedIndex: undefined,
+      timerId: undefined,
     }
   },
   mounted() {
@@ -55,24 +56,39 @@ export default {
     this.updateChildren()
   },
   methods: {
+    onMouseEnter() {
+      this.pause()
+    },
+    onMouseLeave() {
+      this.playAutomatically()
+    },
+    pause() {
+      window.clearTimeout(this.timerId)
+      this.timerId = undefined
+    },
     playAutomatically() {
-      const names = this.$children.map((vm) => vm.name)
-      let index = names.indexOf(this.getSelected())
-      let newIndex = index - 1
+      if (this.timerId) {
+        return
+      }
       let run = () => {
+        let index = this.names.indexOf(this.getSelected())
+        let newIndex = index + 1
         // if (index === names.length) {
         //   index = 0
         // }
         // console.log(index)
         if (newIndex === -1) {
-          newIndex = names.length - 1
+          newIndex = this.names.length - 1
+        }
+        if (newIndex === this.names.length) {
+          newIndex = 0
         }
         // this.$emit('update:selected', names[newIndex])
         this.select(newIndex)
-        newIndex--
-        // setTimeout(run, 3000) // setTimeout 模拟 setInterval
+        // newIndex--
+        this.timerId = setTimeout(run, 3000) // setTimeout 模拟 setInterval
       }
-      setTimeout(run, 3000)
+      this.timerId = setTimeout(run, 3000)
     },
     select(index) {
       this.lastSelectedIndex = this.selectedIndex
@@ -98,7 +114,7 @@ export default {
 <style lang="scss" scoped>
 .y-slides {
   // display: inline-block;
-  border: 1px solid black;
+  // border: 1px solid black;
   &-window {
     overflow: hidden;
   }

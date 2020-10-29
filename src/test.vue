@@ -34,7 +34,11 @@ export default {
 .box {
   width: 100%;
   height: 150px;
-  border: 1px solid red;
+  // border: 1px solid red;
   background: #dddddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
 }
 </style>
