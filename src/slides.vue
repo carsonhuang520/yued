@@ -103,18 +103,21 @@ export default {
       this.$children.forEach((vm) => {
         const names = this.$children.map((vm) => vm.name)
         let reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
-        if (
-          this.lastSelectedIndex === this.$children.length - 1 &&
-          this.selectedIndex === 0
-        ) {
-          reverse = false
+        if (this.timerId) {
+          if (
+            this.lastSelectedIndex === this.$children.length - 1 &&
+            this.selectedIndex === 0
+          ) {
+            reverse = false
+          }
+          if (
+            this.lastSelectedIndex === 0 &&
+            this.selectedIndex === this.$children.length - 1
+          ) {
+            reverse = false
+          }
         }
-        if (
-          this.lastSelectedIndex === 0 &&
-          this.selectedIndex === this.$children.length - 1
-        ) {
-          reverse = false
-        }
+
         vm.reverse = reverse
         this.$nextTick(() => {
           vm.selected = selected
@@ -136,9 +139,29 @@ export default {
     position: relative;
   }
   &-dots {
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     > span {
+      display: inline-flex;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+      margin: 0 8px;
+      background: #dddddd;
+      font-size: 12px;
+      &:hover {
+        cursor: pointer;
+      }
       &.active {
-        background: red;
+        background: black;
+        color: white;
+        &:hover {
+          cursor: default;
+        }
       }
     }
   }
