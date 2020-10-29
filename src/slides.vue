@@ -102,7 +102,20 @@ export default {
       let selected = this.getSelected()
       this.$children.forEach((vm) => {
         const names = this.$children.map((vm) => vm.name)
-        vm.reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
+        let reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
+        if (
+          this.lastSelectedIndex === this.$children.length - 1 &&
+          this.selectedIndex === 0
+        ) {
+          reverse = false
+        }
+        if (
+          this.lastSelectedIndex === 0 &&
+          this.selectedIndex === this.$children.length - 1
+        ) {
+          reverse = false
+        }
+        vm.reverse = reverse
         this.$nextTick(() => {
           vm.selected = selected
         })
