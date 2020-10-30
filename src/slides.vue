@@ -12,23 +12,35 @@
         <slot></slot>
       </div>
     </div>
+    <div class="y-slides-left" v-if="arrowVisible">
+      <span @click="onClickPrev"
+        ><y-icon name="left" fill="#ffffff" style="font-size: 24px;"></y-icon
+      ></span>
+    </div>
     <div class="y-slides-dots">
-      <span @click="onClickPrev">&lt;</span>
       <span
         v-for="n in childrenLength"
         :key="n"
         :data-index="n - 1"
         :class="{ active: selectedIndex === n - 1 }"
         @click="onClickNumber(n - 1)"
-        >{{ n }}</span
-      >
-      <span @click="onClickNext">&gt;</span>
+      ></span>
+      <!-- <span @click="onClickNext">&gt;</span> -->
+    </div>
+    <div class="y-slides-right" v-if="arrowVisible">
+      <span @click="onClickNext"
+        ><y-icon name="right" fill="#ffffff" style="font-size: 24px;"></y-icon
+      ></span>
     </div>
   </div>
 </template>
 <script>
+import Icon from './icon'
 export default {
   name: 'YueSlides',
+  components: {
+    'y-icon': Icon,
+  },
   props: {
     selected: {
       type: String,
@@ -48,7 +60,10 @@ export default {
       return this.names.indexOf(this.selected) || 0
     },
     names() {
-      return this.$children.map((vm) => vm.name)
+      return this.children.map((vm) => vm.name)
+    },
+    children() {
+      return this.$children.filter((vm) => vm.$options.name === 'YueSlidesItem')
     },
   },
   data() {
@@ -58,6 +73,7 @@ export default {
       timerId: undefined,
       startTouch: undefined,
       isClickArrow: false,
+      arrowVisible: false,
     }
   },
   mounted() {
@@ -65,7 +81,7 @@ export default {
     if (this.autoPlay) {
       this.playAutomatically()
     }
-    this.childrenLength = this.$children.length
+    this.childrenLength = this.children.length
   },
   updated() {
     this.updateChildren()
@@ -87,7 +103,9 @@ export default {
     },
 
     onTouchStart(e) {
-      this.pause()
+      if (this.autoPlay) {
+        this.pause()
+      }
       if (e.touches.length > 1) {
         return
       }
@@ -111,18 +129,22 @@ export default {
           this.select(this.selectedIndex + 1)
         }
       }
-      this.$nextTick(() => {
-        this.playAutomatically()
-      })
+      if (this.autoPlay) {
+        this.$nextTick(() => {
+          this.playAutomatically()
+        })
+      }
     },
 
     onMouseEnter() {
+      this.arrowVisible = true
       if (this.autoPlay) {
         this.pause()
       }
     },
 
     onMouseLeave() {
+      this.arrowVisible = false
       if (this.autoPlay) {
         this.playAutomatically()
       }
@@ -158,13 +180,13 @@ export default {
     },
 
     getSelected() {
-      let first = this.$children[0]
+      let first = this.children[0]
       return this.selected || first.name
     },
 
     updateChildren() {
       let selected = this.getSelected()
-      this.$children.forEach((vm) => {
+      this.children.forEach((vm) => {
         let reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
         vm.reverse = this.isAutoPlayOrClickArrow(reverse)
         this.$nextTick(() => {
@@ -176,14 +198,14 @@ export default {
     isAutoPlayOrClickArrow(reverse) {
       if (this.timerId || this.isClickArrow) {
         if (
-          this.lastSelectedIndex === this.$children.length - 1 &&
+          this.lastSelectedIndex === this.children.length - 1 &&
           this.selectedIndex === 0
         ) {
           reverse = false
         }
         if (
           this.lastSelectedIndex === 0 &&
-          this.selectedIndex === this.$children.length - 1
+          this.selectedIndex === this.children.length - 1
         ) {
           reverse = true
         }
@@ -195,39 +217,79 @@ export default {
 </script>
 <style lang="scss" scoped>
 .y-slides {
-  // display: inline-block;
-  // border: 1px solid black;
+  position: relative;
   &-window {
     overflow: hidden;
   }
   &-wrapper {
-    // display: flex;
     position: relative;
   }
+  &-left {
+    position: absolute;
+    top: 50%;
+    left: 4%;
+    transform: translateY(-50%);
+    > span {
+      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+      background: #4a6494;
+      color: white;
+      &:hover {
+        cursor: pointer;
+        background: #384c6e;
+      }
+    }
+  }
   &-dots {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     padding: 8px 0;
     display: flex;
     align-items: center;
     justify-content: center;
     > span {
       display: inline-flex;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
+      width: 24px;
+      height: 4px;
+      border-radius: 2px;
       justify-content: center;
       align-items: center;
       margin: 0 8px;
-      background: #dddddd;
-      font-size: 12px;
+      background: #5f76a0;
       &:hover {
         cursor: pointer;
       }
       &.active {
-        background: black;
-        color: white;
+        background: #8391a5;
         &:hover {
           cursor: default;
         }
+      }
+    }
+  }
+  &-right {
+    position: absolute;
+    top: 50%;
+    right: 4%;
+    transform: translateY(-50%);
+    > span {
+      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+      background: #4a6494;
+      color: white;
+      &:hover {
+        cursor: pointer;
+        background: #384c6e;
       }
     }
   }

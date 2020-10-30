@@ -35,8 +35,9 @@ export default {
   width: 100%;
   height: 350px;
   // border: 1px solid red;
-  background: #dddddd;
+  background: #506b9e;
   display: flex;
+  color: white;
   justify-content: center;
   align-items: center;
   font-size: 30px;
