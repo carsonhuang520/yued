@@ -1,6 +1,6 @@
 <template>
   <div id="app" style="padding: 100px;">
-    <y-slides :selected.sync="selected">
+    <y-slides :selected.sync="selected" :auto-play="false">
       <y-slides-item name="1">
         <div class="box">1</div>
       </y-slides-item>
@@ -33,7 +33,7 @@ export default {
 <style lang="scss" scoped>
 .box {
   width: 100%;
-  height: 150px;
+  height: 350px;
   // border: 1px solid red;
   background: #dddddd;
   display: flex;

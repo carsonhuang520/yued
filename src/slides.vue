@@ -13,16 +13,16 @@
       </div>
     </div>
     <div class="y-slides-dots">
-      <span @click="select(selectedIndex - 1)">&lt;</span>
+      <span @click="onClickPrev">&lt;</span>
       <span
         v-for="n in childrenLength"
         :key="n"
         :data-index="n - 1"
         :class="{ active: selectedIndex === n - 1 }"
-        @click="select(n - 1)"
+        @click="onClickNumber(n - 1)"
         >{{ n }}</span
       >
-      <span @click="select(selectedIndex + 1)">&gt;</span>
+      <span @click="onClickNext">&gt;</span>
     </div>
   </div>
 </template>
@@ -40,7 +40,7 @@ export default {
     },
     autoPlayDelay: {
       type: Number,
-      default: 500,
+      default: 3000,
     },
   },
   computed: {
@@ -57,20 +57,32 @@ export default {
       lastSelectedIndex: undefined,
       timerId: undefined,
       startTouch: undefined,
+      isClickArrow: false,
     }
   },
   mounted() {
     this.updateChildren()
-    this.playAutomatically()
+    if (this.autoPlay) {
+      this.playAutomatically()
+    }
     this.childrenLength = this.$children.length
-    // this.lastSelectedIndex = this.selectedIndex
   },
   updated() {
-    // console.log(this.lastSelectedIndex)
-    // console.log(this.selectedIndex)
     this.updateChildren()
   },
   methods: {
+    onClickPrev() {
+      this.isClickArrow = true
+      this.select(this.selectedIndex - 1)
+    },
+    onClickNext() {
+      this.isClickArrow = true
+      this.select(this.selectedIndex + 1)
+    },
+    onClickNumber(index) {
+      this.isClickArrow = false
+      this.select(index)
+    },
     onTouchStart(e) {
       // console.log(e)
       this.pause()
@@ -102,10 +114,14 @@ export default {
       })
     },
     onMouseEnter() {
-      this.pause()
+      if (this.autoPlay) {
+        this.pause()
+      }
     },
     onMouseLeave() {
-      this.playAutomatically()
+      if (this.autoPlay) {
+        this.playAutomatically()
+      }
     },
     pause() {
       window.clearTimeout(this.timerId)
@@ -142,7 +158,7 @@ export default {
       this.$children.forEach((vm) => {
         const names = this.$children.map((vm) => vm.name)
         let reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
-        if (this.timerId) {
+        if (this.timerId || this.isClickArrow) {
           if (
             this.lastSelectedIndex === this.$children.length - 1 &&
             this.selectedIndex === 0
@@ -153,10 +169,9 @@ export default {
             this.lastSelectedIndex === 0 &&
             this.selectedIndex === this.$children.length - 1
           ) {
-            reverse = false
+            reverse = true
           }
         }
-
         vm.reverse = reverse
         this.$nextTick(() => {
           vm.selected = selected
