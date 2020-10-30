@@ -8,6 +8,7 @@
 export default {
   name: 'YueMenuItem',
   components: {},
+  inject: ['root'],
   data() {
     return {
       selected: false,
@@ -26,7 +27,10 @@ export default {
       this.$emit('add:selected', this.name)
     },
   },
-  created() {},
+  created() {
+    this.root.addItem(this)
+    console.log(this.root)
+  },
   mounted() {},
 }
 </script>

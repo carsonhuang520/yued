@@ -8,8 +8,15 @@
 export default {
   name: 'YueMenu',
   components: {},
+  provide() {
+    return {
+      root: this,
+    }
+  },
   data() {
-    return {}
+    return {
+      items: [],
+    }
   },
   props: {
     selected: {
@@ -22,12 +29,15 @@ export default {
     },
   },
   computed: {
-    items() {
-      return this.$children.filter((vm) => vm.$options.name === 'YueMenuItem')
-    },
+    // items() {
+    //   return this.$children.filter((vm) => vm.$options.name === 'YueMenuItem')
+    // },
   },
   watch: {},
   methods: {
+    addItem(vm) {
+      this.items.push(vm)
+    },
     updateChildren() {
       this.items.forEach((vm) => {
         if (this.selected.indexOf(vm.name) >= 0) {
