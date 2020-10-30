@@ -40,7 +40,7 @@ export default {
     },
     autoPlayDelay: {
       type: Number,
-      default: 3000,
+      default: 1000,
     },
   },
   computed: {
@@ -75,23 +75,27 @@ export default {
       this.isClickArrow = true
       this.select(this.selectedIndex - 1)
     },
+
     onClickNext() {
       this.isClickArrow = true
       this.select(this.selectedIndex + 1)
     },
+
     onClickNumber(index) {
       this.isClickArrow = false
       this.select(index)
     },
+
     onTouchStart(e) {
-      // console.log(e)
       this.pause()
       if (e.touches.length > 1) {
         return
       }
       this.startTouch = e.touches[0]
     },
+
     onTouchMove(e) {},
+
     onTouchEnd(e) {
       let endTouch = e.changedTouches[0]
       let { clientX: x1, clientY: y1 } = this.startTouch
@@ -102,10 +106,8 @@ export default {
       let rate = distance / deltaY
       if (rate > 2) {
         if (x2 > x1) {
-          console.log('向右滑')
           this.select(this.selectedIndex - 1)
         } else {
-          console.log('向左滑')
           this.select(this.selectedIndex + 1)
         }
       }
@@ -113,20 +115,24 @@ export default {
         this.playAutomatically()
       })
     },
+
     onMouseEnter() {
       if (this.autoPlay) {
         this.pause()
       }
     },
+
     onMouseLeave() {
       if (this.autoPlay) {
         this.playAutomatically()
       }
     },
+
     pause() {
       window.clearTimeout(this.timerId)
       this.timerId = undefined
     },
+
     playAutomatically() {
       if (this.timerId) {
         return
@@ -139,6 +145,7 @@ export default {
       }
       this.timerId = setTimeout(run, this.autoPlayDelay)
     },
+
     select(newIndex) {
       if (newIndex === -1) {
         newIndex = this.names.length - 1
@@ -149,34 +156,39 @@ export default {
       this.lastSelectedIndex = this.selectedIndex
       this.$emit('update:selected', this.names[newIndex])
     },
+
     getSelected() {
       let first = this.$children[0]
       return this.selected || first.name
     },
+
     updateChildren() {
       let selected = this.getSelected()
       this.$children.forEach((vm) => {
-        const names = this.$children.map((vm) => vm.name)
         let reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
-        if (this.timerId || this.isClickArrow) {
-          if (
-            this.lastSelectedIndex === this.$children.length - 1 &&
-            this.selectedIndex === 0
-          ) {
-            reverse = false
-          }
-          if (
-            this.lastSelectedIndex === 0 &&
-            this.selectedIndex === this.$children.length - 1
-          ) {
-            reverse = true
-          }
-        }
-        vm.reverse = reverse
+        vm.reverse = this.isAutoPlayOrClickArrow(reverse)
         this.$nextTick(() => {
           vm.selected = selected
         })
       })
+    },
+
+    isAutoPlayOrClickArrow(reverse) {
+      if (this.timerId || this.isClickArrow) {
+        if (
+          this.lastSelectedIndex === this.$children.length - 1 &&
+          this.selectedIndex === 0
+        ) {
+          reverse = false
+        }
+        if (
+          this.lastSelectedIndex === 0 &&
+          this.selectedIndex === this.$children.length - 1
+        ) {
+          reverse = true
+        }
+      }
+      return reverse
     },
   },
 }
