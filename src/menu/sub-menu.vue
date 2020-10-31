@@ -1,8 +1,8 @@
 <template>
-  <div class="y-sub-menu" :class="{ active }" v-click-outside="close">
+  <div class="y-sub-menu" :class="{ active, vertical }" v-click-outside="close">
     <span class="y-sub-menu-label" @click="onClick">
       <slot name="title"></slot>
-      <span class="y-sub-menu-icon" :class="{ open }">
+      <span class="y-sub-menu-icon" :class="{ open, vertical }">
         <y-icon name="right"></y-icon>
       </span>
     </span>
@@ -113,13 +113,15 @@ export default {
     > span {
       color: #494a4c;
     }
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      border-bottom: 2px solid #2d8cf0;
+    &:not(.vertical) {
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-bottom: 2px solid #2d8cf0;
+      }
     }
   }
   &-popover {
@@ -165,6 +167,12 @@ export default {
     transition: transform 250ms;
     display: inline-flex;
     margin-left: 1em;
+    &.vertical {
+      transform: rotate(90deg);
+      &.open {
+        transform: rotate(270deg);
+      }
+    }
     &.open {
       transform: rotate(180deg);
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="y-menu-item" :class="{ selected }" @click="onClick">
+  <div class="y-menu-item" :class="{ selected, vertical }" @click="onClick">
     <slot></slot>
   </div>
 </template>
@@ -8,7 +8,7 @@
 export default {
   name: 'YueMenuItem',
   components: {},
-  inject: ['root'],
+  inject: ['root', 'vertical'],
   data() {
     return {
       selected: false,
@@ -42,19 +42,30 @@ export default {
   padding: 10px 20px;
   position: relative;
   color: #909399;
-  &.selected {
-    color: #494a4c;
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      border-bottom: 2px solid #2d8cf0;
+  &:not(.vertical) {
+    &.selected {
+      color: #494a4c;
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-bottom: 2px solid #2d8cf0;
+      }
+    }
+  }
+  &.vertical {
+    &.selected {
+      color: #409eff;
     }
   }
 }
-.y-sub-menu .y-menu-item {
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.y-sub-menu .y-menu-item:not(.vertical) {
   color: #95989d;
   &.selected {
     color: #494a4c;
