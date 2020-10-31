@@ -1,9 +1,7 @@
 <template>
   <div id="app" style="padding: 100px;">
     <y-menu :selected.sync="selected">
-      <y-menu-item name="home"
-        ><a href="https://www.baidu.com" target="_blank">首页</a></y-menu-item
-      >
+      <y-menu-item name="home">首页</y-menu-item>
       <y-sub-menu name="about">
         <template slot="title">关于</template>
         <y-menu-item name="culture">企业文化</y-menu-item>
@@ -20,7 +18,8 @@
           </y-sub-menu>
         </y-sub-menu>
       </y-sub-menu>
-      <y-menu-item name="hire">招聘</y-menu-item>
+      <y-menu-item name="hire" disabled>招聘</y-menu-item>
+      <y-menu-item name="product">产品</y-menu-item>
     </y-menu>
     <y-menu
       :selected.sync="selected2"
@@ -44,7 +43,8 @@
           </y-sub-menu>
         </y-sub-menu>
       </y-sub-menu>
-      <y-menu-item name="hire">招聘</y-menu-item>
+      <y-menu-item name="hire" disabled>招聘</y-menu-item>
+      <y-menu-item name="product">产品</y-menu-item>
     </y-menu>
   </div>
 </template>

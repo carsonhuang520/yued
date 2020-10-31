@@ -83,7 +83,7 @@ export default {
 .y-menu {
   display: flex;
   border-bottom: 1px solid #dcdee2;
-  cursor: default;
+  cursor: pointer;
   user-select: none;
   &.vertical {
     flex-direction: column;

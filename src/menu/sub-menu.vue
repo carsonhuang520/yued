@@ -105,7 +105,10 @@ export default {
   position: relative;
   &-label {
     padding: 10px 20px;
-    display: block;
+    // display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     // color: #303133;
     color: #909399;
   }
@@ -143,7 +146,13 @@ export default {
     }
   }
   &-icon {
-    display: none;
+    transition: transform 250ms;
+    display: inline-flex;
+    margin-left: 4px;
+    transform: rotate(90deg);
+    &.open {
+      transform: rotate(270deg);
+    }
   }
 }
 .y-sub-menu .y-sub-menu {

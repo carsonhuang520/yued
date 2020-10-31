@@ -1,5 +1,10 @@
 <template>
-  <div class="y-menu-item" :class="{ selected, vertical }" :data-name="name" @click="onClick">
+  <div
+    class="y-menu-item"
+    :class="{ selected, vertical, disabled }"
+    :data-name="name"
+    @click="onClick"
+  >
     <slot></slot>
   </div>
 </template>
@@ -19,11 +24,18 @@ export default {
       type: String,
       required: true,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {},
   watch: {},
   methods: {
     onClick() {
+      if (this.disabled) {
+        return
+      }
       this.root.namePath = []
       this.$parent.updateNamePath && this.$parent.updateNamePath()
       // console.log(this.$parent.$options.name)
@@ -54,6 +66,10 @@ export default {
         border-bottom: 2px solid #2d8cf0;
       }
     }
+  }
+  &.disabled {
+    color: #e4e4e6;
+    cursor: not-allowed;
   }
   &.vertical {
     &.selected {
