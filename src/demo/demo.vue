@@ -21,9 +21,9 @@
       <y-menu-item name="hire">招聘</y-menu-item>
     </y-menu>
     <y-menu
-      :selected.sync="selected"
+      :selected.sync="selected2"
       vertical
-      style="width: 200px; margin: 100px 100px 100px 0;"
+      style="width: 200px; margin-top: 200px;"
     >
       <y-menu-item name="home">首页</y-menu-item>
       <y-sub-menu name="about">
@@ -61,6 +61,7 @@ export default {
   data() {
     return {
       selected: ['home'],
+      selected2: ['home'],
     }
   },
   computed: {},

@@ -6,16 +6,23 @@
         <y-icon name="right"></y-icon>
       </span>
     </span>
-    <transition
-      @enter="enter"
-      @after-enter="afterEnter"
-      @leave="leave"
-      @after-leave="afterLeave"
-    >
-      <div class="y-sub-menu-popover" v-show="open" :class="{ vertical }">
+    <template v-if="vertical">
+      <transition
+        @enter="enter"
+        @after-enter="afterEnter"
+        @leave="leave"
+        @after-leave="afterLeave"
+      >
+        <div class="y-sub-menu-popover" v-show="open" :class="{ vertical }">
+          <slot></slot>
+        </div>
+      </transition>
+    </template>
+    <template v-else>
+      <div class="y-sub-menu-popover" v-show="open">
         <slot></slot>
       </div>
-    </transition>
+    </template>
   </div>
 </template>
 
@@ -116,6 +123,7 @@ export default {
     }
   }
   &-popover {
+    transition: height 250ms;
     background: #ffffff;
     position: absolute;
     top: 100%;
@@ -129,7 +137,6 @@ export default {
       position: static;
       border-radius: 0;
       box-shadow: none;
-      transition: height 250ms;
       overflow: hidden;
     }
   }
