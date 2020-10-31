@@ -34,7 +34,7 @@ export default {
   components: {
     'y-icon': Icon,
   },
-  inject: ['root', 'vertical'],
+  inject: ['root', 'vertical', 'trigger'],
   props: {
     name: {
       type: String,
@@ -97,7 +97,16 @@ export default {
     },
   },
   created() {},
-  mounted() {},
+  mounted() {
+    if (this.trigger) {
+      this.$el.addEventListener('mouseenter', (e) => {
+        this.open = true
+      })
+      this.$el.addEventListener('mouseleave', (e) => {
+        this.open = false
+      })
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -133,10 +142,11 @@ export default {
     position: absolute;
     top: 100%;
     left: 0;
-    margin-top: 4px;
+    margin-top: 0;
     min-width: 8em;
     white-space: nowrap;
     border-radius: 4px;
+    z-index: 2;
     box-shadow: 0 0 3px fade-out($color: black, $amount: 0.8);
     &.vertical {
       position: static;
@@ -164,7 +174,7 @@ export default {
   .y-sub-menu-popover {
     top: 0;
     left: 100%;
-    margin-left: 4px;
+    margin-left: 0;
   }
   .y-sub-menu-label {
     padding: 10px 10px 10px 20px;

@@ -21,7 +21,7 @@
       <y-menu-item name="hire" disabled>招聘</y-menu-item>
       <y-menu-item name="product">产品</y-menu-item>
     </y-menu>
-    <y-menu
+    <!-- <y-menu
       :selected.sync="selected2"
       vertical
       style="width: 200px; margin-top: 200px;"
@@ -45,7 +45,7 @@
       </y-sub-menu>
       <y-menu-item name="hire" disabled>招聘</y-menu-item>
       <y-menu-item name="product">产品</y-menu-item>
-    </y-menu>
+    </y-menu> -->
   </div>
 </template>
 

@@ -12,6 +12,7 @@ export default {
     return {
       root: this,
       vertical: this.vertical,
+      trigger: this.trigger
     }
   },
   data() {
@@ -33,6 +34,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    trigger: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
     // items() {
