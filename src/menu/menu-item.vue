@@ -24,12 +24,15 @@ export default {
   watch: {},
   methods: {
     onClick() {
+      this.root.namePath = []
+      this.$parent.updateNamePath && this.$parent.updateNamePath()
+      // console.log(this.$parent.$options.name)
       this.$emit('add:selected', this.name)
     },
   },
   created() {
     this.root.addItem(this)
-    console.log(this.root)
+    // console.log(this.root)
   },
   mounted() {},
 }
@@ -40,6 +43,7 @@ export default {
   position: relative;
   color: #909399;
   &.selected {
+    color: #494a4c;
     &::after {
       content: '';
       position: absolute;
