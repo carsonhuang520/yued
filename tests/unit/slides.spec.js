@@ -33,7 +33,7 @@ describe('Slides.vue', () => {
       done()
     })
   })
-  it('测试selected', (done) => {
+  xit('测试selected', (done) => {
     Vue.component('y-slides-item', SlidesItem)
     const wrapper = mount(Slides, {
       propsData: {
@@ -58,7 +58,7 @@ describe('Slides.vue', () => {
       done()
     })
   })
-  it('点击dot切换', (done) => {
+  xit('点击dot切换', (done) => {
     Vue.component('y-slides-item', SlidesItem)
     const wrapper = mount(Slides, {
       propsData: {
@@ -88,7 +88,7 @@ describe('Slides.vue', () => {
       wrapper.find('[data-index="1"]').trigger('click')
     })
   })
-  it('测试自动播放', (done) => {
+  xit('测试自动播放', (done) => {
     Vue.component('y-slides-item', SlidesItem)
     const callback = sinon.fake()
     const wrapper = mount(Slides, {
