@@ -1,9 +1,9 @@
 <template>
   <div class="y-sub-menu">
-    <span>
+    <span @click="onClick">
       <slot name="title"> </slot>
     </span>
-    <div class="y-sub-menu-popover">
+    <div class="y-sub-menu-popover" v-show="open">
       <slot></slot>
     </div>
   </div>
@@ -15,19 +15,28 @@ export default {
   components: {},
 
   data() {
-    return {}
+    return {
+      open: false,
+    }
   },
   computed: {},
   watch: {},
-  methods: {},
+  methods: {
+    onClick() {
+      this.open = !this.open
+    },
+  },
   created() {},
   mounted() {},
 }
 </script>
 <style lang="scss" scoped>
 .y-sub-menu {
-  padding: 10px 20px;
   position: relative;
+  > span {
+    padding: 10px 20px;
+    display: block;
+  }
   &-popover {
     position: absolute;
     top: 100%;
@@ -35,5 +44,9 @@ export default {
     border: 1px solid black;
     white-space: nowrap;
   }
+}
+.y-sub-menu .y-sub-menu .y-sub-menu-popover {
+  top: 0;
+  left: 100%;
 }
 </style>
