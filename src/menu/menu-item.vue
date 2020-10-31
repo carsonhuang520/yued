@@ -37,8 +37,27 @@ export default {
 <style lang="scss" scoped>
 .y-menu-item {
   padding: 10px 20px;
+  position: relative;
+  color: #909399;
   &.selected {
-    background: red;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border-bottom: 2px solid #2d8cf0;
+    }
+  }
+}
+.y-sub-menu .y-menu-item {
+  color: #95989d;
+  &.selected {
+    color: #494a4c;
+    // background: #dddddd;
+    &::after {
+      display: none;
+    }
   }
 }
 </style>

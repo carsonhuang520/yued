@@ -76,6 +76,7 @@ export default {
 <style lang="scss" scoped>
 .y-menu {
   display: flex;
-  border: 1px solid red;
+  border-bottom: 1px solid #dcdee2;
+  cursor: default;
 }
 </style>
