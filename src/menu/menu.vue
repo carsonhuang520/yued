@@ -1,5 +1,5 @@
 <template>
-  <div class="y-menu">
+  <div class="y-menu" :class="{ vertical }">
     <slot></slot>
   </div>
 </template>
@@ -11,6 +11,7 @@ export default {
   provide() {
     return {
       root: this,
+      vertical: this.vertical,
     }
   },
   data() {
@@ -25,6 +26,10 @@ export default {
       default: () => [],
     },
     multiple: {
+      type: Boolean,
+      default: false,
+    },
+    vertical: {
       type: Boolean,
       default: false,
     },
@@ -80,5 +85,9 @@ export default {
   border-bottom: 1px solid #dcdee2;
   cursor: default;
   user-select: none;
+  &.vertical {
+    flex-direction: column;
+    border: 1px solid #dcdee2;
+  }
 }
 </style>

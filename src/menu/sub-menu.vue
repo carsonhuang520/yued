@@ -6,9 +6,16 @@
         <y-icon name="right"></y-icon>
       </span>
     </span>
-    <div class="y-sub-menu-popover" v-show="open">
-      <slot></slot>
-    </div>
+    <transition
+      @enter="enter"
+      @after-enter="afterEnter"
+      @leave="leave"
+      @after-leave="afterLeave"
+    >
+      <div class="y-sub-menu-popover" v-show="open" :class="{ vertical }">
+        <slot></slot>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -20,7 +27,7 @@ export default {
   components: {
     'y-icon': Icon,
   },
-  inject: ['root'],
+  inject: ['root', 'vertical'],
   props: {
     name: {
       type: String,
@@ -33,7 +40,6 @@ export default {
   data() {
     return {
       open: false,
-      // active: false,
     }
   },
   computed: {
@@ -43,6 +49,32 @@ export default {
   },
   watch: {},
   methods: {
+    enter(el, done) {
+      let { height } = el.getBoundingClientRect()
+      // console.log(height)
+      el.style.height = 0 // 1
+      el.getBoundingClientRect()
+      el.style.height = `${height}px` // 2  1 和 2 会发生合并，所以并不会产生从 0 到 height 的动画，所以中间加入一句获取高度的操作
+      el.addEventListener('transitionend', () => {
+        done()
+      })
+    },
+    afterEnter(el) {
+      el.style.height = 'auto'
+    },
+    leave(el, done) {
+      let { height } = el.getBoundingClientRect()
+      el.style.height = `${height}px`
+      el.getBoundingClientRect()
+      el.style.height = 0
+      el.addEventListener('transitionend', () => {
+        done()
+      })
+      // done() // 执行 done 会立即 display: none 所以离开的动画不起作用
+    },
+    afterLeave(el) {
+      el.style.height = 'auto'
+    },
     close() {
       this.open = false
     },
@@ -93,6 +125,13 @@ export default {
     white-space: nowrap;
     border-radius: 4px;
     box-shadow: 0 0 3px fade-out($color: black, $amount: 0.8);
+    &.vertical {
+      position: static;
+      border-radius: 0;
+      box-shadow: none;
+      transition: height 250ms;
+      overflow: hidden;
+    }
   }
   &-icon {
     display: none;
