@@ -1,6 +1,6 @@
 var webpackConfig = require('@vue/cli-service/webpack.config.js')
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     frameworks: ['mocha'],
 
@@ -14,6 +14,6 @@ module.exports = function(config) {
 
     reporters: ['spec'],
 
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
   })
 }
