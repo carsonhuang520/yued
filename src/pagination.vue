@@ -1,25 +1,52 @@
 <template>
-  <div class="y-pagination">
+  <div
+    class="y-pagination"
+    :class="{ hide: hideOnSinglePage && totalPage <= 1 }"
+  >
     <span
       class="y-pagination-nav prev"
       :class="{ disabled: currentPage === 1 }"
+      @click="onClickPage(currentPage - 1)"
     >
       <y-icon name="left"></y-icon>
     </span>
-    <template v-for="page in pages">
+    <template v-for="(page, index) in pages">
       <template v-if="page === currentPage">
         <span :key="page" class="y-pagination-item current">{{ page }}</span>
       </template>
+      <template v-else-if="page === '....'">
+        <span
+          :key="`${index}...`"
+          class="y-pagination-separator"
+          @click="onClickPage(currentPage - 5)"
+        >
+          <y-icon class="dots" name="dots"></y-icon>
+          <y-icon class="left" name="double-left"></y-icon>
+        </span>
+      </template>
       <template v-else-if="page === '...'">
-        <y-icon :key="page" name="dots" class="y-pagination-separator"></y-icon>
+        <span
+          :key="`${index}...`"
+          class="y-pagination-separator"
+          @click="onClickPage(currentPage + 5)"
+        >
+          <y-icon class="dots" name="dots"></y-icon>
+          <y-icon class="right" name="double-right"></y-icon>
+        </span>
       </template>
       <template v-else>
-        <span :key="page" class="y-pagination-item other">{{ page }}</span>
+        <span
+          :key="page"
+          class="y-pagination-item other"
+          @click="onClickPage(page)"
+          >{{ page }}</span
+        >
       </template>
     </template>
     <span
       class="y-pagination-nav next"
       :class="{ disabled: currentPage === totalPage }"
+      @click="onClickPage(currentPage + 1)"
     >
       <y-icon name="right"></y-icon>
     </span>
@@ -47,29 +74,40 @@ export default {
     },
   },
   data() {
-    let pages = [
-      1,
-      this.totalPage,
-      this.currentPage,
-      this.currentPage - 1,
-      this.currentPage - 2,
-      this.currentPage + 1,
-      this.currentPage + 2,
-    ].filter((n) => n >= 1 && n <= this.totalPage)
-    // for (let i = 1; i <= this.totalPage; i++) {
-    //   pages.push(i)
-    // }
-    let u = unique(pages.sort((a, b) => a - b))
-    let u2 = u.reduce((prev, current, index) => {
-      prev.push(current)
-      if (u[index + 1] !== undefined && u[index + 1] - u[index] > 1) {
-        prev.push('...')
+    return {}
+  },
+  computed: {
+    pages() {
+      let pages = [
+        1,
+        this.totalPage,
+        this.currentPage,
+        this.currentPage - 1,
+        this.currentPage - 2,
+        this.currentPage + 1,
+        this.currentPage + 2,
+      ].filter((n) => n >= 1 && n <= this.totalPage)
+      let u = unique(pages.sort((a, b) => a - b))
+      let u2 = u.reduce((prev, current, index) => {
+        prev.push(current)
+        if (u[index + 1] !== undefined && u[index + 1] - u[index] > 1) {
+          if (u[index] === 1) {
+            prev.push('....')
+          } else {
+            prev.push('...')
+          }
+        }
+        return prev
+      }, [])
+      return u2
+    },
+  },
+  methods: {
+    onClickPage(n) {
+      if (n >= 1 && n <= this.totalPage) {
+        this.$emit('update:currentPage', n)
       }
-      return prev
-    }, [])
-    return {
-      pages: u2,
-    }
+    },
   },
 }
 function unique(array) {
@@ -81,10 +119,38 @@ function unique(array) {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  user-select: none;
+  &.hide {
+    display: none;
+  }
   &-separator {
     border: none;
     width: 20px;
+    height: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
     font-size: 12px;
+    cursor: pointer;
+    .right {
+      display: none;
+    }
+    .left {
+      display: none;
+    }
+    &:hover {
+      fill: #2d8cf0;
+      .dots {
+        display: none;
+      }
+      .right {
+        display: inline;
+      }
+      .left {
+        display: inline;
+      }
+    }
   }
   &-item {
     border: 1px solid #e1e1e1;
@@ -100,6 +166,7 @@ function unique(array) {
     cursor: pointer;
     &.current,
     &:hover {
+      color: #2d8cf0;
       border-color: #2d8cf0;
     }
     &.current {

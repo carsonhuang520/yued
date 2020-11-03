@@ -2,7 +2,8 @@
   <div id="app" style="padding: 100px;">
     <y-pagination
       :total-page="totalPage"
-      :current-page="currentPage"
+      :current-page.sync="currentPage"
+      :hide-on-single-page="false"
     ></y-pagination>
   </div>
 </template>
@@ -16,8 +17,8 @@ export default {
   },
   data() {
     return {
-      totalPage: 20,
-      currentPage: 20,
+      totalPage: 100,
+      currentPage: 1,
     }
   },
   computed: {},
