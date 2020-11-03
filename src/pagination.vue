@@ -16,6 +16,7 @@
       </template>
       <template v-else-if="page === '....'">
         <span
+          title="向前5页"
           :key="`${index}...`"
           class="y-pagination-separator"
           @click="onClickPage(currentPage - 5)"
@@ -26,6 +27,7 @@
       </template>
       <template v-else-if="page === '...'">
         <span
+          title="向后5页"
           :key="`${index}...`"
           class="y-pagination-separator"
           @click="onClickPage(currentPage + 5)"
