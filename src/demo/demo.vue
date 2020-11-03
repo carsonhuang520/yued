@@ -1,69 +1,23 @@
 <template>
   <div id="app" style="padding: 100px;">
-    <y-menu :selected.sync="selected">
-      <y-menu-item name="home">首页</y-menu-item>
-      <y-sub-menu name="about">
-        <template slot="title">关于</template>
-        <y-menu-item name="culture">企业文化</y-menu-item>
-        <y-menu-item name="developers">开发团队</y-menu-item>
-        <y-sub-menu name="contacts">
-          <template slot="title">联系方式</template>
-          <y-menu-item name="wechat">微信</y-menu-item>
-          <y-menu-item name="qq">QQ</y-menu-item>
-          <y-sub-menu name="phone">
-            <template slot="title">手机</template>
-            <y-menu-item name="cy">中国移动</y-menu-item>
-            <y-menu-item name="cd">中国电信</y-menu-item>
-            <y-menu-item name="cl">中国联通</y-menu-item>
-          </y-sub-menu>
-        </y-sub-menu>
-      </y-sub-menu>
-      <y-menu-item name="hire" disabled>招聘</y-menu-item>
-      <y-menu-item name="product">产品</y-menu-item>
-    </y-menu>
-    <!-- <y-menu
-      :selected.sync="selected2"
-      vertical
-      style="width: 200px; margin-top: 200px;"
-    >
-      <y-menu-item name="home">首页</y-menu-item>
-      <y-sub-menu name="about">
-        <template slot="title">关于</template>
-        <y-menu-item name="culture">企业文化</y-menu-item>
-        <y-menu-item name="developers">开发团队</y-menu-item>
-        <y-sub-menu name="contacts">
-          <template slot="title">联系方式</template>
-          <y-menu-item name="wechat">微信</y-menu-item>
-          <y-menu-item name="qq">QQ</y-menu-item>
-          <y-sub-menu name="phone">
-            <template slot="title">手机</template>
-            <y-menu-item name="cy">中国移动</y-menu-item>
-            <y-menu-item name="cd">中国电信</y-menu-item>
-            <y-menu-item name="cl">中国联通</y-menu-item>
-          </y-sub-menu>
-        </y-sub-menu>
-      </y-sub-menu>
-      <y-menu-item name="hire" disabled>招聘</y-menu-item>
-      <y-menu-item name="product">产品</y-menu-item>
-    </y-menu> -->
+    <y-pagination
+      :total-page="totalPage"
+      :current-page="currentPage"
+    ></y-pagination>
   </div>
 </template>
 
 <script>
-import Menu from '../menu/menu'
-import MenuItem from '../menu/menu-item'
-import SubMenu from '../menu/sub-menu'
+import Pagination from '../pagination'
 export default {
   name: 'TestDemo',
   components: {
-    'y-menu': Menu,
-    'y-menu-item': MenuItem,
-    'y-sub-menu': SubMenu,
+    'y-pagination': Pagination,
   },
   data() {
     return {
-      selected: ['home'],
-      selected2: ['home'],
+      totalPage: 20,
+      currentPage: 3,
     }
   },
   computed: {},
