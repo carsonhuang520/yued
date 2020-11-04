@@ -3,7 +3,9 @@
     <table class="y-table" :class="{ border, compact, stripe }">
       <thead>
         <tr>
-          <th><input type="checkbox" name="" id="" /></th>
+          <th>
+            <input type="checkbox" name="" id="" @change="onChangeAllItems" />
+          </th>
           <th v-if="numberVisible">#</th>
           <th v-for="column in columns" :key="column.key">{{ column.text }}</th>
         </tr>
@@ -15,6 +17,9 @@
               type="checkbox"
               name=""
               id=""
+              :checked="
+                selectedItems.filter((item) => item.id === row.id).length > 0
+              "
               @change="onChangeItem(row, index, $event)"
             />
           </td>
@@ -39,6 +44,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    selectedItems: {
+      type: Array,
+      default: () => [],
+    },
     columns: {
       type: Array,
       required: true,
@@ -58,7 +67,18 @@ export default {
   },
   methods: {
     onChangeItem(item, index, e) {
-      this.$emit('change-item', { selected: e.target.checked, item, index })
+      let copy = JSON.parse(JSON.stringify(this.selectedItems))
+      let checked = e.target.checked
+      if (checked) {
+        copy.push(item)
+      } else {
+        copy.splice(copy.indexOf(item), 1)
+      }
+      this.$emit('update:selectedItems', copy)
+    },
+    onChangeAllItems(e) {
+      let checked = e.target.checked
+      this.$emit('update:selectedItems', checked ? this.dataSource : [])
     },
   },
 }
