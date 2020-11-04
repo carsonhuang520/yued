@@ -4,14 +4,19 @@
       <thead>
         <tr>
           <th>
-            <input type="checkbox" name="" id="" @change="onChangeAllItems" />
+            <input
+              type="checkbox"
+              ref="allChecked"
+              @change="onChangeAllItems"
+              :checked="selectedItems.length === dataSource.length"
+            />
           </th>
           <th v-if="numberVisible">#</th>
           <th v-for="column in columns" :key="column.key">{{ column.text }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, index) in dataSource" :key="index">
+        <tr v-for="(row, index) in dataSource" :key="row.id">
           <td>
             <input
               type="checkbox"
@@ -22,10 +27,11 @@
               "
               @change="onChangeItem(row, index, $event)"
             />
+            <!-- 不能通过selectedItems.indexOf(item)>0来判断，因为selectedItems是深拷贝后的，与dataSource是不同的对象 -->
           </td>
           <td v-if="numberVisible">{{ index + 1 }}</td>
-          <template v-for="column in columns">
-            <td :key="column.key">{{ row[column.key] }}</td>
+          <template v-for="(column, index) in columns">
+            <td :key="index">{{ row[column.key] }}</td>
           </template>
         </tr>
       </tbody>
@@ -65,6 +71,17 @@ export default {
       default: false,
     },
   },
+  watch: {
+    selectedItems() {
+      if (this.selectedItems.length === this.dataSource.length) {
+        this.$refs.allChecked.indeterminate = false
+      } else if (this.selectedItems.length === 0) {
+        this.$refs.allChecked.indeterminate = false
+      } else {
+        this.$refs.allChecked.indeterminate = true
+      }
+    },
+  },
   methods: {
     onChangeItem(item, index, e) {
       let copy = JSON.parse(JSON.stringify(this.selectedItems))
@@ -72,7 +89,8 @@ export default {
       if (checked) {
         copy.push(item)
       } else {
-        copy.splice(copy.indexOf(item), 1)
+        // copy.splice(copy.indexOf(item), 1)
+        copy = copy.filter((i) => i.id !== item.id)
       }
       this.$emit('update:selectedItems', copy)
     },

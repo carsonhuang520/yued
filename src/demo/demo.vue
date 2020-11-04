@@ -9,7 +9,7 @@
         :selected-items.sync="selectedItems"
       ></y-table>
     </div>
-    <div style="margin: 20px;">
+    <!-- <div style="margin: 20px;">
       <y-table
         :columns="columns"
         :data-source="dataSource"
@@ -17,7 +17,7 @@
         compact
         :stripe="false"
       ></y-table>
-    </div>
+    </div> -->
     <div>
       <y-pagination
         :total-page="totalPage"
@@ -49,8 +49,12 @@ export default {
       dataSource: [
         { id: 1, name: '小张', score: 100 },
         { id: 2, name: '小红', score: 99 },
-        { id: 3, name: '小张', score: 100 },
-        { id: 4, name: '小红', score: 99 },
+        { id: 3, name: '小李', score: 100 },
+        { id: 4, name: '小陈', score: 99 },
+        { id: 5, name: '小黄', score: 100 },
+        { id: 6, name: '小杜', score: 99 },
+        { id: 7, name: '小赵', score: 100 },
+        { id: 8, name: '小吴', score: 99 },
       ],
     }
   },
