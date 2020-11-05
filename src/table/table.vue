@@ -8,11 +8,27 @@
               type="checkbox"
               ref="allChecked"
               @change="onChangeAllItems"
-              :checked="selectedItems.length === dataSource.length"
+              :checked="areSelectedAll"
             />
           </th>
           <th v-if="numberVisible">#</th>
-          <th v-for="column in columns" :key="column.key">{{ column.text }}</th>
+          <th v-for="column in columns" :key="column.key">
+            <div class="y-table-header">
+              {{ column.text }}
+              <span v-if="column.key in orderBy" class="y-table-sorter">
+                <y-icon
+                  name="asc"
+                  :class="{ active: orderBy[column.key] === 'asc' }"
+                  @click="changeOrderBy(column.key, 'asc')"
+                ></y-icon>
+                <y-icon
+                  name="desc"
+                  :class="{ active: orderBy[column.key] === 'desc' }"
+                  @click="changeOrderBy(column.key, 'desc')"
+                ></y-icon>
+              </span>
+            </div>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -39,8 +55,12 @@
   </div>
 </template>
 <script>
+import Icon from '../icon'
 export default {
   name: 'YueTable',
+  components: {
+    'y-icon': Icon,
+  },
   props: {
     compact: {
       type: Boolean,
@@ -49,6 +69,10 @@ export default {
     stripe: {
       type: Boolean,
       default: true,
+    },
+    orderBy: {
+      type: Object,
+      default: () => {},
     },
     selectedItems: {
       type: Array,
@@ -71,6 +95,23 @@ export default {
       default: false,
     },
   },
+  computed: {
+    areSelectedAll() {
+      const a = this.dataSource.map((item) => item.id).sort()
+      const b = this.selectedItems.map((item) => item.id).sort()
+      if (a.length !== b.length) {
+        return false
+      }
+      let equal = true
+      for (let i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) {
+          equal = false
+          break
+        }
+      }
+      return equal
+    },
+  },
   watch: {
     selectedItems() {
       if (this.selectedItems.length === this.dataSource.length) {
@@ -83,6 +124,11 @@ export default {
     },
   },
   methods: {
+    changeOrderBy(key, str) {
+      let temp = JSON.parse(JSON.stringify(this.orderBy))
+      temp[key] = str
+      this.$emit('update:orderBy', temp)
+    },
     onChangeItem(item, index, e) {
       let copy = JSON.parse(JSON.stringify(this.selectedItems))
       let checked = e.target.checked
@@ -145,6 +191,32 @@ export default {
         &:hover {
           background: #f5f7fa;
         }
+      }
+    }
+  }
+  &-header {
+    display: flex;
+    align-items: center;
+  }
+  &-sorter {
+    display: inline-flex;
+    flex-direction: column;
+    margin: 0 4px;
+    cursor: pointer;
+    svg {
+      width: 12px;
+      height: 12px;
+      fill: #e1e1e1;
+      &.active {
+        fill: red;
+      }
+      &:first-child {
+        position: relative;
+        bottom: -3px;
+      }
+      &:nth-child(2) {
+        position: relative;
+        top: -2px;
       }
     }
   }

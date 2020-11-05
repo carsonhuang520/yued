@@ -7,6 +7,7 @@
         :data-source="dataSource"
         border
         :selected-items.sync="selectedItems"
+        :order-by.sync="orderBy"
       ></y-table>
     </div>
     <!-- <div style="margin: 20px;">
@@ -46,6 +47,9 @@ export default {
         { text: '姓名', key: 'name' },
         { text: '分数', key: 'score' },
       ],
+      orderBy: {
+        score: 'desc',
+      },
       dataSource: [
         { id: 1, name: '小张', score: 100 },
         { id: 2, name: '小红', score: 99 },
