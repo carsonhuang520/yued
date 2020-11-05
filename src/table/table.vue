@@ -15,16 +15,18 @@
           <th v-for="column in columns" :key="column.key">
             <div class="y-table-header">
               {{ column.text }}
-              <span v-if="column.key in orderBy" class="y-table-sorter">
+              <span
+                v-if="column.key in orderBy"
+                class="y-table-sorter"
+                @click="changeOrderBy(column.key)"
+              >
                 <y-icon
                   name="asc"
                   :class="{ active: orderBy[column.key] === 'asc' }"
-                  @click="changeOrderBy(column.key, 'asc')"
                 ></y-icon>
                 <y-icon
                   name="desc"
                   :class="{ active: orderBy[column.key] === 'desc' }"
-                  @click="changeOrderBy(column.key, 'desc')"
                 ></y-icon>
               </span>
             </div>
@@ -124,9 +126,16 @@ export default {
     },
   },
   methods: {
-    changeOrderBy(key, str) {
+    changeOrderBy(key) {
       let temp = JSON.parse(JSON.stringify(this.orderBy))
-      temp[key] = str
+      let oldValue = this.orderBy[key]
+      if (oldValue === 'asc') {
+        temp[key] = 'desc'
+      } else if (oldValue === 'desc') {
+        temp[key] = false
+      } else {
+        temp[key] = 'asc'
+      }
       this.$emit('update:orderBy', temp)
     },
     onChangeItem(item, index, e) {
