@@ -1,59 +1,62 @@
 <template>
-  <div class="y-table-wrapper">
-    <table class="y-table" :class="{ border, compact, stripe }">
-      <thead>
-        <tr>
-          <th>
-            <input
-              type="checkbox"
-              ref="allChecked"
-              @change="onChangeAllItems"
-              :checked="areSelectedAll"
-            />
-          </th>
-          <th v-if="numberVisible">#</th>
-          <th v-for="column in columns" :key="column.key">
-            <div class="y-table-header">
-              {{ column.text }}
-              <span
-                v-if="column.key in orderBy"
-                class="y-table-sorter"
-                @click="changeOrderBy(column.key)"
-              >
-                <y-icon
-                  name="asc"
-                  :class="{ active: orderBy[column.key] === 'asc' }"
-                ></y-icon>
-                <y-icon
-                  name="desc"
-                  :class="{ active: orderBy[column.key] === 'desc' }"
-                ></y-icon>
-              </span>
-            </div>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(row, index) in dataSource" :key="row.id">
-          <td>
-            <input
-              type="checkbox"
-              name=""
-              id=""
-              :checked="
-                selectedItems.filter((item) => item.id === row.id).length > 0
-              "
-              @change="onChangeItem(row, index, $event)"
-            />
-            <!-- 不能通过selectedItems.indexOf(item)>0来判断，因为selectedItems是深拷贝后的，与dataSource是不同的对象 -->
-          </td>
-          <td v-if="numberVisible">{{ index + 1 }}</td>
-          <template v-for="(column, index) in columns">
-            <td :key="index">{{ row[column.key] }}</td>
-          </template>
-        </tr>
-      </tbody>
-    </table>
+  <div ref="wrapper" class="y-table-wrapper">
+    <div :style="{ height: height, overflow: 'auto' }">
+      <table ref="table" class="y-table" :class="{ border, compact, stripe }">
+        <thead>
+          <tr>
+            <th>
+              <input
+                type="checkbox"
+                ref="allChecked"
+                @change="onChangeAllItems"
+                :checked="areSelectedAll"
+              />
+            </th>
+            <th v-if="numberVisible">#</th>
+            <th v-for="column in columns" :key="column.key">
+              <div class="y-table-header">
+                {{ column.text }}
+                <span
+                  v-if="column.key in orderBy"
+                  class="y-table-sorter"
+                  @click="changeOrderBy(column.key)"
+                >
+                  <y-icon
+                    name="asc"
+                    :class="{ active: orderBy[column.key] === 'asc' }"
+                  ></y-icon>
+                  <y-icon
+                    name="desc"
+                    :class="{ active: orderBy[column.key] === 'desc' }"
+                  ></y-icon>
+                </span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(row, index) in dataSource" :key="row.id">
+            <td>
+              <input
+                type="checkbox"
+                name=""
+                id=""
+                :checked="
+                  selectedItems.filter((item) => item.id === row.id).length > 0
+                "
+                @change="onChangeItem(row, index, $event)"
+              />
+              <!-- 不能通过selectedItems.indexOf(item)>0来判断，因为selectedItems是深拷贝后的，与dataSource是不同的对象 -->
+            </td>
+            <td v-if="numberVisible">{{ index + 1 }}</td>
+            <template v-for="(column, index) in columns">
+              <td :key="index">{{ row[column.key] }}</td>
+            </template>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <div v-if="loading" class="y-table-loading">
       <y-icon name="loading"></y-icon>
     </div>
@@ -74,6 +77,9 @@ export default {
     loading: {
       type: Boolean,
       default: false,
+    },
+    height: {
+      type: [Number, String],
     },
     stripe: {
       type: Boolean,
@@ -132,7 +138,38 @@ export default {
       }
     },
   },
+  mounted() {
+    let table2 = this.$refs.table.cloneNode(true)
+    this.table2 = table2
+    table2.classList.add('y-table-copy')
+    this.$refs.wrapper.appendChild(table2)
+    this.updateWidth()
+    this.update = () => this.updateWidth()
+    window.addEventListener('resize', this.update)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.update)
+    this.table2.remove()
+  },
   methods: {
+    updateWidth() {
+      let table2 = this.table2
+      let tableHeader = Array.from(this.$refs.table.children).filter(
+        (node) => node.tagName.toLowerCase() === 'thead'
+      )[0]
+      let tableHeader2
+      Array.from(table2.children).map((node) => {
+        if (node.tagName.toLowerCase() !== 'thead') {
+          node.remove()
+        } else {
+          tableHeader2 = node
+        }
+      })
+      Array.from(tableHeader.children[0].children).map((th, i) => {
+        let { width } = th.getBoundingClientRect()
+        tableHeader2.children[0].children[i].style.width = width + 'px'
+      })
+    },
     changeOrderBy(key) {
       let temp = JSON.parse(JSON.stringify(this.orderBy))
       let oldValue = this.orderBy[key]
@@ -151,7 +188,6 @@ export default {
       if (checked) {
         copy.push(item)
       } else {
-        // copy.splice(copy.indexOf(item), 1)
         copy = copy.filter((i) => i.id !== item.id)
       }
       this.$emit('update:selectedItems', copy)
@@ -255,6 +291,13 @@ export default {
       animation: spin 2s linear infinite;
       fill: #797878;
     }
+  }
+  &-copy {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
   }
 }
 @keyframes spin {

@@ -1,6 +1,6 @@
 <template>
   <div id="app" style="padding: 100px;">
-    {{ selectedItems }}
+    <!-- {{ selectedItems }} -->
     <div style="margin: 20px;">
       <y-table
         :columns="columns"
@@ -9,6 +9,7 @@
         :selected-items.sync="selectedItems"
         :order-by.sync="orderBy"
         :loading="loading"
+        height="400px"
         @update:orderBy="changeOrderBy"
       ></y-table>
     </div>
@@ -21,13 +22,13 @@
         :stripe="false"
       ></y-table>
     </div> -->
-    <div>
+    <!-- <div>
       <y-pagination
         :total-page="totalPage"
         :current-page.sync="currentPage"
         :hide-on-single-page="false"
       ></y-pagination>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -59,9 +60,16 @@ export default {
         { id: 3, name: '小李', score: 100 },
         { id: 4, name: '小陈', score: 99 },
         { id: 5, name: '小黄', score: 100 },
-        { id: 6, name: '小杜', score: 99 },
-        { id: 7, name: '小赵', score: 100 },
-        { id: 8, name: '小吴', score: 99 },
+        { id: 6, name: '小张', score: 100 },
+        { id: 7, name: '小红', score: 99 },
+        { id: 8, name: '小李', score: 100 },
+        { id: 9, name: '小陈', score: 99 },
+        { id: 10, name: '小黄', score: 100 },
+        { id: 11, name: '小张', score: 100 },
+        { id: 12, name: '小红', score: 99 },
+        { id: 13, name: '小李', score: 100 },
+        { id: 14, name: '小陈', score: 99 },
+        { id: 15, name: '小黄', score: 100 },
       ],
     }
   },
