@@ -54,6 +54,9 @@
         </tr>
       </tbody>
     </table>
+    <div v-if="loading" class="y-table-loading">
+      <y-icon name="loading"></y-icon>
+    </div>
   </div>
 </template>
 <script>
@@ -65,6 +68,10 @@ export default {
   },
   props: {
     compact: {
+      type: Boolean,
+      default: false,
+    },
+    loading: {
       type: Boolean,
       default: false,
     },
@@ -228,6 +235,34 @@ export default {
         top: -2px;
       }
     }
+  }
+  &-wrapper {
+    position: relative;
+  }
+  &-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba($color: #dddddd, $alpha: 0.8);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      width: 50px;
+      height: 50px;
+      animation: spin 2s linear infinite;
+      fill: #797878;
+    }
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>

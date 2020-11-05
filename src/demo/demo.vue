@@ -8,6 +8,8 @@
         border
         :selected-items.sync="selectedItems"
         :order-by.sync="orderBy"
+        :loading="loading"
+        @update:orderBy="changeOrderBy"
       ></y-table>
     </div>
     <!-- <div style="margin: 20px;">
@@ -50,6 +52,7 @@ export default {
       orderBy: {
         score: 'desc',
       },
+      loading: false,
       dataSource: [
         { id: 1, name: '小张', score: 100 },
         { id: 2, name: '小红', score: 99 },
@@ -74,6 +77,12 @@ export default {
     //     this.selected.splice(index, 1)
     //   }
     // },
+    changeOrderBy() {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+      }, 3000)
+    },
   },
   created() {},
   mounted() {},
