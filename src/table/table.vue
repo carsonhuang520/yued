@@ -1,10 +1,13 @@
 <template>
   <div ref="wrapper" class="y-table-wrapper">
-    <div :style="{ height: height, overflow: 'auto' }">
+    <div
+      :style="{ height: height + 'px', overflow: 'auto' }"
+      ref="tableWrapper"
+    >
       <table ref="table" class="y-table" :class="{ border, compact, stripe }">
         <thead>
           <tr>
-            <th>
+            <th :style="{ width: '50px' }">
               <input
                 type="checkbox"
                 ref="allChecked"
@@ -12,8 +15,12 @@
                 :checked="areSelectedAll"
               />
             </th>
-            <th v-if="numberVisible">#</th>
-            <th v-for="column in columns" :key="column.key">
+            <th :style="{ width: '50px' }" v-if="numberVisible">#</th>
+            <th
+              v-for="column in columns"
+              :key="column.key"
+              :style="{ width: column.width + 'px' }"
+            >
               <div class="y-table-header">
                 {{ column.text }}
                 <span
@@ -36,7 +43,7 @@
         </thead>
         <tbody>
           <tr v-for="(row, index) in dataSource" :key="row.id">
-            <td>
+            <td :style="{ width: '50px' }">
               <input
                 type="checkbox"
                 name=""
@@ -48,9 +55,13 @@
               />
               <!-- 不能通过selectedItems.indexOf(item)>0来判断，因为selectedItems是深拷贝后的，与dataSource是不同的对象 -->
             </td>
-            <td v-if="numberVisible">{{ index + 1 }}</td>
+            <td :style="{ width: '50px' }" v-if="numberVisible">
+              {{ index + 1 }}
+            </td>
             <template v-for="(column, index) in columns">
-              <td :key="index">{{ row[column.key] }}</td>
+              <td :key="index" :style="{ width: column.width + 'px' }">
+                {{ row[column.key] }}
+              </td>
             </template>
           </tr>
         </tbody>
@@ -79,7 +90,7 @@ export default {
       default: false,
     },
     height: {
-      type: [Number, String],
+      type: Number,
     },
     stripe: {
       type: Boolean,
@@ -139,37 +150,20 @@ export default {
     },
   },
   mounted() {
-    let table2 = this.$refs.table.cloneNode(true)
+    let table2 = this.$refs.table.cloneNode(false)
     this.table2 = table2
     table2.classList.add('y-table-copy')
+    let thead = this.$refs.table.children[0]
+    let { height } = thead.getBoundingClientRect()
+    this.$refs.tableWrapper.style.marginTop = height + 'px'
+    this.$refs.tableWrapper.style.height = this.height - height + 'px'
+    table2.appendChild(thead)
     this.$refs.wrapper.appendChild(table2)
-    this.updateWidth()
-    this.update = () => this.updateWidth()
-    window.addEventListener('resize', this.update)
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.update)
     this.table2.remove()
   },
   methods: {
-    updateWidth() {
-      let table2 = this.table2
-      let tableHeader = Array.from(this.$refs.table.children).filter(
-        (node) => node.tagName.toLowerCase() === 'thead'
-      )[0]
-      let tableHeader2
-      Array.from(table2.children).map((node) => {
-        if (node.tagName.toLowerCase() !== 'thead') {
-          node.remove()
-        } else {
-          tableHeader2 = node
-        }
-      })
-      Array.from(tableHeader.children[0].children).map((th, i) => {
-        let { width } = th.getBoundingClientRect()
-        tableHeader2.children[0].children[i].style.width = width + 'px'
-      })
-    },
     changeOrderBy(key) {
       let temp = JSON.parse(JSON.stringify(this.orderBy))
       let oldValue = this.orderBy[key]

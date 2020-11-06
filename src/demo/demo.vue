@@ -9,7 +9,7 @@
         :selected-items.sync="selectedItems"
         :order-by.sync="orderBy"
         :loading="loading"
-        height="400px"
+        :height="400"
         @update:orderBy="changeOrderBy"
       ></y-table>
     </div>
@@ -47,7 +47,7 @@ export default {
       currentPage: 1,
       selectedItems: [],
       columns: [
-        { text: '姓名', key: 'name' },
+        { text: '姓名', key: 'name', width: 100 },
         { text: '分数', key: 'score' },
       ],
       orderBy: {
