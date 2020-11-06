@@ -1,6 +1,5 @@
 <template>
-  <div id="app" style="padding: 100px;">
-    <!-- {{ selectedItems }} -->
+  <div id="app" style="margin-top: 100px;">
     <div style="margin: 20px;">
       <y-table
         :columns="columns"
@@ -10,35 +9,28 @@
         :order-by.sync="orderBy"
         :loading="loading"
         :height="400"
-        expand-key="description"
         @update:orderBy="changeOrderBy"
-      ></y-table>
+        expand-key="description"
+      >
+        <template slot-scope="row">
+          <y-button style="margin-right: 5px" @click="edit(row.item)"
+            >编辑</y-button
+          >
+          <y-button @click="view(row.item)">查看</y-button>
+        </template>
+      </y-table>
     </div>
-    <!-- <div style="margin: 20px;">
-      <y-table
-        :columns="columns"
-        :data-source="dataSource"
-        border
-        compact
-        :stripe="false"
-      ></y-table>
-    </div> -->
-    <!-- <div>
-      <y-pagination
-        :total-page="totalPage"
-        :current-page.sync="currentPage"
-        :hide-on-single-page="false"
-      ></y-pagination>
-    </div> -->
   </div>
 </template>
 
 <script>
+import Button from '../button'
 import Table from '../table/table'
 import Pagination from '../pagination'
 export default {
   name: 'TestDemo',
   components: {
+    'y-button': Button,
     'y-table': Table,
     'y-pagination': Pagination,
   },
@@ -48,6 +40,7 @@ export default {
       currentPage: 1,
       selectedItems: [],
       columns: [
+        // { type: 'selection' },
         { text: '姓名', key: 'name', width: 100 },
         { text: '分数', key: 'score' },
       ],
@@ -62,15 +55,6 @@ export default {
         { id: 4, name: '小陈', score: 99 },
         { id: 5, name: '小黄', score: 100 },
         { id: 6, name: '小张', score: 100 },
-        { id: 7, name: '小红', score: 99 },
-        { id: 8, name: '小李', score: 100 },
-        { id: 9, name: '小陈', score: 99 },
-        { id: 10, name: '小黄', score: 100 },
-        { id: 11, name: '小张', score: 100 },
-        { id: 12, name: '小红', score: 99 },
-        { id: 13, name: '小李', score: 100 },
-        { id: 14, name: '小陈', score: 99 },
-        { id: 15, name: '小黄', score: 100 },
       ],
     }
   },
@@ -86,21 +70,21 @@ export default {
     //     this.selected.splice(index, 1)
     //   }
     // },
+    edit(item) {
+      alert(`编辑${item.id}`)
+    },
+    view(item) {
+      alert(`查看${item.id}`)
+    },
     changeOrderBy() {
       this.loading = true
       setTimeout(() => {
         this.loading = false
-      }, 3000)
+      }, 1000)
     },
   },
   created() {},
   mounted() {},
 }
 </script>
-<style lang="scss" scoped>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-</style>
+<style lang="scss" scoped></style>

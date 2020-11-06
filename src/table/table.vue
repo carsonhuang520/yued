@@ -7,8 +7,16 @@
       <table ref="table" class="y-table" :class="{ border, compact, stripe }">
         <thead>
           <tr>
-            <th :style="{ width: '50px' }" class="y-table-center"></th>
-            <th :style="{ width: '50px' }" class="y-table-center">
+            <th
+              v-if="expandKey"
+              :style="{ width: '50px' }"
+              class="y-table-center"
+            ></th>
+            <th
+              v-if="isChecked"
+              :style="{ width: '50px' }"
+              class="y-table-center"
+            >
               <input
                 type="checkbox"
                 ref="allChecked"
@@ -18,7 +26,7 @@
             </th>
             <th :style="{ width: '50px' }" v-if="numberVisible">#</th>
             <th
-              v-for="column in columns"
+              v-for="column in computedColumns"
               :key="column.key"
               :style="{ width: column.width + 'px' }"
             >
@@ -40,19 +48,30 @@
                 </span>
               </div>
             </th>
+            <th v-if="$scopedSlots.default" ref="actionHeader">操作</th>
           </tr>
         </thead>
         <tbody>
           <template v-for="(row, index) in dataSource">
             <tr :key="row.id">
-              <td :style="{ width: '50px' }" class="y-table-center">
-                <y-icon
+              <td
+                v-if="expandKey"
+                :style="{ width: '50px' }"
+                class="y-table-center"
+              >
+                <span
+                  class="y-table-expandWrapper"
                   @click="expandItem(row.id)"
-                  class="y-table-expandIcon"
-                  name="right"
-                ></y-icon>
+                  :class="{ opened: inExpandItems(row.id) }"
+                >
+                  <y-icon class="y-table-expandIcon" name="right"></y-icon>
+                </span>
               </td>
-              <td :style="{ width: '50px' }" class="y-table-center">
+              <td
+                v-if="isChecked"
+                :style="{ width: '50px' }"
+                class="y-table-center"
+              >
                 <input
                   type="checkbox"
                   name=""
@@ -68,11 +87,16 @@
               <td :style="{ width: '50px' }" v-if="numberVisible">
                 {{ index + 1 }}
               </td>
-              <template v-for="(column, index) in columns">
+              <template v-for="(column, index) in computedColumns">
                 <td :key="index" :style="{ width: column.width + 'px' }">
                   {{ row[column.key] }}
                 </td>
               </template>
+              <td v-if="$scopedSlots.default">
+                <div ref="actions" style="display: inline-block;">
+                  <slot :item="row"> </slot>
+                </div>
+              </td>
             </tr>
             <tr v-if="inExpandItems(row.id)" :key="`${row.id}-expand`">
               <td :style="{ width: '50px' }" style="border-right: none;"></td>
@@ -148,6 +172,7 @@ export default {
   data() {
     return {
       expandIds: [],
+      opened: false,
     }
   },
   computed: {
@@ -165,6 +190,26 @@ export default {
         }
       }
       return equal
+    },
+    computedColumns() {
+      let result = []
+      this.columns.forEach((item) => {
+        if (!item.type) {
+          result.push(item)
+        }
+      })
+      return result
+    },
+    isChecked() {
+      let flag = false
+      this.columns.forEach((item) => {
+        console.log(item)
+        if (item.type && item.type === 'selection') {
+          flag = true
+          return
+        }
+      })
+      return flag
     },
   },
   watch: {
@@ -188,6 +233,27 @@ export default {
     this.$refs.tableWrapper.style.height = this.height - height + 'px'
     table2.appendChild(thead)
     this.$refs.wrapper.appendChild(table2)
+    if (this.$scopedSlots.default) {
+      let div = this.$refs.actions[0]
+      const { width } = div.getBoundingClientRect()
+      let parent = div.parentNode
+      let styles = getComputedStyle(parent)
+      let paddingLeft = styles.getPropertyValue('padding-left')
+      let paddingRight = styles.getPropertyValue('padding-right')
+      let borderLeft = styles.getPropertyValue('border-left-width')
+      let borderRight = styles.getPropertyValue('border-right-width')
+      let width2 =
+        width +
+        parseInt(paddingLeft) +
+        parseInt(paddingRight) +
+        parseInt(borderLeft) +
+        parseInt(borderRight)
+      this.$refs.actionHeader.style.width = width2 + 'px'
+      this.$refs.actions.map((item) => {
+        item.parentNode.style.width = width2 + 'px'
+      })
+      console.log(paddingLeft)
+    }
   },
   beforeDestroy() {
     this.table2.remove()
@@ -197,6 +263,7 @@ export default {
       return this.expandIds.indexOf(id) >= 0
     },
     expandItem(id) {
+      this.opened = !this.opened
       if (this.inExpandItems(id)) {
         this.expandIds.splice(this.expandIds.indexOf(id), 1)
       } else {
@@ -293,7 +360,8 @@ export default {
       height: 12px;
       fill: #e1e1e1;
       &.active {
-        fill: red;
+        // fill: red;
+        fill: #2d8cf0;
       }
       &:first-child {
         position: relative;
@@ -307,6 +375,7 @@ export default {
   }
   &-wrapper {
     position: relative;
+    overflow: auto;
   }
   &-loading {
     position: absolute;
@@ -318,6 +387,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 2;
     svg {
       width: 50px;
       height: 50px;
@@ -333,8 +403,21 @@ export default {
     background: #ffffff;
   }
   &-expandIcon {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
+  }
+  &-expandWrapper {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    transition: transform 250ms;
+    transform: rotate(0deg);
+    cursor: pointer;
+    &.opened {
+      transform: rotate(90deg);
+    }
   }
   & &-center {
     //前面加&表示再加一级y-table，可以提升优先级
