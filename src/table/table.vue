@@ -7,7 +7,8 @@
       <table ref="table" class="y-table" :class="{ border, compact, stripe }">
         <thead>
           <tr>
-            <th :style="{ width: '50px' }">
+            <th :style="{ width: '50px' }" class="y-table-center"></th>
+            <th :style="{ width: '50px' }" class="y-table-center">
               <input
                 type="checkbox"
                 ref="allChecked"
@@ -42,32 +43,52 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(row, index) in dataSource" :key="row.id">
-            <td :style="{ width: '50px' }">
-              <input
-                type="checkbox"
-                name=""
-                id=""
-                :checked="
-                  selectedItems.filter((item) => item.id === row.id).length > 0
-                "
-                @change="onChangeItem(row, index, $event)"
-              />
-              <!-- 不能通过selectedItems.indexOf(item)>0来判断，因为selectedItems是深拷贝后的，与dataSource是不同的对象 -->
-            </td>
-            <td :style="{ width: '50px' }" v-if="numberVisible">
-              {{ index + 1 }}
-            </td>
-            <template v-for="(column, index) in columns">
-              <td :key="index" :style="{ width: column.width + 'px' }">
-                {{ row[column.key] }}
+          <template v-for="(row, index) in dataSource">
+            <tr :key="row.id">
+              <td :style="{ width: '50px' }" class="y-table-center">
+                <y-icon
+                  @click="expandItem(row.id)"
+                  class="y-table-expandIcon"
+                  name="right"
+                ></y-icon>
               </td>
-            </template>
-          </tr>
+              <td :style="{ width: '50px' }" class="y-table-center">
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  :checked="
+                    selectedItems.filter((item) => item.id === row.id).length >
+                      0
+                  "
+                  @change="onChangeItem(row, index, $event)"
+                />
+                <!-- 不能通过selectedItems.indexOf(item)>0来判断，因为selectedItems是深拷贝后的，与dataSource是不同的对象 -->
+              </td>
+              <td :style="{ width: '50px' }" v-if="numberVisible">
+                {{ index + 1 }}
+              </td>
+              <template v-for="(column, index) in columns">
+                <td :key="index" :style="{ width: column.width + 'px' }">
+                  {{ row[column.key] }}
+                </td>
+              </template>
+            </tr>
+            <tr v-if="inExpandItems(row.id)" :key="`${row.id}-expand`">
+              <td :style="{ width: '50px' }" style="border-right: none;"></td>
+              <td
+                :style="{ width: '50px' }"
+                style="border-left: none;border-right: none;"
+              ></td>
+              <td :colspan="columns.length + 2" style="border-left: none;">
+                {{ row[expandKey] }}
+                测试
+              </td>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
-
     <div v-if="loading" class="y-table-loading">
       <y-icon name="loading"></y-icon>
     </div>
@@ -81,6 +102,9 @@ export default {
     'y-icon': Icon,
   },
   props: {
+    expandKey: {
+      type: String,
+    },
     compact: {
       type: Boolean,
       default: false,
@@ -120,6 +144,11 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  data() {
+    return {
+      expandIds: [],
+    }
   },
   computed: {
     areSelectedAll() {
@@ -164,6 +193,16 @@ export default {
     this.table2.remove()
   },
   methods: {
+    inExpandItems(id) {
+      return this.expandIds.indexOf(id) >= 0
+    },
+    expandItem(id) {
+      if (this.inExpandItems(id)) {
+        this.expandIds.splice(this.expandIds.indexOf(id), 1)
+      } else {
+        this.expandIds.push(id)
+      }
+    },
     changeOrderBy(key) {
       let temp = JSON.parse(JSON.stringify(this.orderBy))
       let oldValue = this.orderBy[key]
@@ -292,6 +331,14 @@ export default {
     left: 0;
     width: 100%;
     background: #ffffff;
+  }
+  &-expandIcon {
+    width: 12px;
+    height: 12px;
+  }
+  & &-center {
+    //前面加&表示再加一级y-table，可以提升优先级
+    text-align: center;
   }
 }
 @keyframes spin {

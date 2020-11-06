@@ -10,6 +10,7 @@
         :order-by.sync="orderBy"
         :loading="loading"
         :height="400"
+        expand-key="description"
         @update:orderBy="changeOrderBy"
       ></y-table>
     </div>
@@ -55,8 +56,8 @@ export default {
       },
       loading: false,
       dataSource: [
-        { id: 1, name: '小张', score: 100 },
-        { id: 2, name: '小红', score: 99 },
+        { id: 1, name: '小张', score: 100, description: 'xxxx xxxx' },
+        { id: 2, name: '小红', score: 99, description: 'xxxx xxxx' },
         { id: 3, name: '小李', score: 100 },
         { id: 4, name: '小陈', score: 99 },
         { id: 5, name: '小黄', score: 100 },
