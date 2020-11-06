@@ -29,6 +29,7 @@ module.exports = {
           '/components/carousel',
           '/components/menu',
           '/components/pagination',
+          '/components/table',
         ],
       },
     ],

@@ -1,7 +1,7 @@
 <template>
   <div id="app" style="margin-top: 100px;">
     <div style="margin: 20px;">
-      <y-table
+      <!-- <y-table
         :columns="columns"
         :data-source="dataSource"
         border
@@ -18,7 +18,16 @@
           >
           <y-button @click="view(row.item)">查看</y-button>
         </template>
-      </y-table>
+      </y-table> -->
+      <y-table
+        :columns="columns"
+        :data-source="dataSource"
+        :selected-items.sync="selectedItems"
+        :order-by.sync="orderBy"
+        :loading="loading"
+        :height="400"
+        @update:orderBy="changeOrderBy"
+      ></y-table>
     </div>
   </div>
 </template>
@@ -42,19 +51,52 @@ export default {
       columns: [
         // { type: 'selection' },
         { text: '姓名', key: 'name', width: 100 },
-        { text: '分数', key: 'score' },
+        // { text: '分数', key: 'score' },
+        { text: '分数', key: 'score', width: 100 },
+        {
+          text: '学校',
+          key: 'company',
+        },
       ],
       orderBy: {
         score: 'desc',
       },
       loading: false,
+      // dataSource: [
+      //   { id: 1, name: '小张', score: 100, description: 'xxxx xxxx' },
+      //   { id: 2, name: '小红', score: 99, description: 'xxxx xxxx' },
+      //   { id: 3, name: '小李', score: 100 },
+      //   { id: 4, name: '小陈', score: 99 },
+      //   { id: 5, name: '小黄', score: 100 },
+      //   { id: 6, name: '小张', score: 100 },
+      // ],
       dataSource: [
-        { id: 1, name: '小张', score: 100, description: 'xxxx xxxx' },
-        { id: 2, name: '小红', score: 99, description: 'xxxx xxxx' },
-        { id: 3, name: '小李', score: 100 },
-        { id: 4, name: '小陈', score: 99 },
-        { id: 5, name: '小黄', score: 100 },
-        { id: 6, name: '小张', score: 100 },
+        {
+          id: 1,
+          name: '小张',
+          company: '浙江工业大学',
+          score: 100,
+          description: 'xxxx xxxx',
+        },
+        {
+          id: 2,
+          name: '小红',
+          company: '浙江工业大学',
+          score: 99,
+          description: 'xxxx xxxx',
+        },
+        { id: 3, name: '小李', company: '浙江工业大学', score: 100 },
+        { id: 4, name: '小陈', company: '浙江工业大学', score: 99 },
+        { id: 5, name: '小黄', company: '浙江工业大学', score: 100 },
+        { id: 6, name: '小张', company: '浙江工业大学', score: 100 },
+        { id: 3, name: '小李', company: '浙江工业大学', score: 100 },
+        { id: 4, name: '小陈', company: '浙江工业大学', score: 99 },
+        { id: 5, name: '小黄', company: '浙江工业大学', score: 100 },
+        { id: 6, name: '小张', company: '浙江工业大学', score: 100 },
+        { id: 3, name: '小李', company: '浙江工业大学', score: 100 },
+        { id: 4, name: '小陈', company: '浙江工业大学', score: 99 },
+        { id: 5, name: '小黄', company: '浙江工业大学', score: 100 },
+        { id: 6, name: '小张', company: '浙江工业大学', score: 100 },
       ],
     }
   },

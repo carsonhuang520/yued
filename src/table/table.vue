@@ -33,7 +33,7 @@
               <div class="y-table-header">
                 {{ column.text }}
                 <span
-                  v-if="column.key in orderBy"
+                  v-if="orderBy && column.key in orderBy"
                   class="y-table-sorter"
                   @click="changeOrderBy(column.key)"
                 >
@@ -142,7 +142,7 @@ export default {
     },
     stripe: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     orderBy: {
       type: Object,
@@ -172,7 +172,6 @@ export default {
   data() {
     return {
       expandIds: [],
-      opened: false,
     }
   },
   computed: {
@@ -203,7 +202,6 @@ export default {
     isChecked() {
       let flag = false
       this.columns.forEach((item) => {
-        console.log(item)
         if (item.type && item.type === 'selection') {
           flag = true
           return
@@ -263,7 +261,6 @@ export default {
       return this.expandIds.indexOf(id) >= 0
     },
     expandItem(id) {
-      this.opened = !this.opened
       if (this.inExpandItems(id)) {
         this.expandIds.splice(this.expandIds.indexOf(id), 1)
       } else {
@@ -276,8 +273,6 @@ export default {
       if (oldValue === 'asc') {
         temp[key] = 'desc'
       } else if (oldValue === 'desc') {
-        temp[key] = false
-      } else {
         temp[key] = 'asc'
       }
       this.$emit('update:orderBy', temp)
@@ -304,7 +299,7 @@ export default {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  border-bottom: 1px solid #e1e1e1;
+  // border-bottom: 1px solid #e1e1e1;
   &.border {
     border: 1px solid #e1e1e1;
     td,
@@ -324,10 +319,18 @@ export default {
     padding: 8px;
     text-align: left;
   }
+  tr {
+    &:last-child {
+      td {
+        border-bottom: none;
+      }
+    }
+  }
   tbody {
     > tr {
+      background: white;
       &:hover {
-        background: #f5f7fa;
+        background: #ebf7ff;
       }
     }
   }
@@ -341,7 +344,7 @@ export default {
           background: #fafafa;
         }
         &:hover {
-          background: #f5f7fa;
+          background: #ebf7ff;
         }
       }
     }
@@ -376,6 +379,7 @@ export default {
   &-wrapper {
     position: relative;
     overflow: auto;
+    border-bottom: 1px solid #e1e1e1;
   }
   &-loading {
     position: absolute;
@@ -400,7 +404,7 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
-    background: #ffffff;
+    background: #f8f8f9;
   }
   &-expandIcon {
     width: 14px;
