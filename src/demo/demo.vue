@@ -1,128 +1,43 @@
 <template>
   <div id="app" style="margin-top: 100px;">
     <div style="margin: 20px;">
-      <!-- <y-table
-        :columns="columns"
-        :data-source="dataSource"
-        border
-        :selected-items.sync="selectedItems"
-        :order-by.sync="orderBy"
-        :loading="loading"
-        :height="400"
-        @update:orderBy="changeOrderBy"
-        expand-key="description"
+      <y-uploader
+        action="http://127.0.0.1:3000/upload"
+        name="file"
+        method="POST"
+        :parse-response="parseResponse"
+        :file-list.sync="fileList"
       >
-        <template slot-scope="row">
-          <y-button style="margin-right: 5px" @click="edit(row.item)"
-            >编辑</y-button
-          >
-          <y-button @click="view(row.item)">查看</y-button>
-        </template>
-      </y-table> -->
-      <y-table
-        :columns="columns"
-        :data-source="dataSource"
-        :selected-items.sync="selectedItems"
-        :order-by.sync="orderBy"
-        :loading="loading"
-        :height="400"
-        @update:orderBy="changeOrderBy"
-      ></y-table>
+        <y-button type="primary">上传</y-button>
+        <div slot="tips">
+          只能上传jpeg
+        </div>
+      </y-uploader>
     </div>
   </div>
 </template>
 
 <script>
+import Uploader from '../uploader'
 import Button from '../button'
-import Table from '../table/table'
-import Pagination from '../pagination'
 export default {
   name: 'TestDemo',
   components: {
+    'y-uploader': Uploader,
     'y-button': Button,
-    'y-table': Table,
-    'y-pagination': Pagination,
   },
   data() {
     return {
-      totalPage: 100,
-      currentPage: 1,
-      selectedItems: [],
-      columns: [
-        // { type: 'selection' },
-        { text: '姓名', key: 'name', width: 100 },
-        // { text: '分数', key: 'score' },
-        { text: '分数', key: 'score', width: 100 },
-        {
-          text: '学校',
-          key: 'company',
-        },
-      ],
-      orderBy: {
-        score: 'desc',
-      },
-      loading: false,
-      // dataSource: [
-      //   { id: 1, name: '小张', score: 100, description: 'xxxx xxxx' },
-      //   { id: 2, name: '小红', score: 99, description: 'xxxx xxxx' },
-      //   { id: 3, name: '小李', score: 100 },
-      //   { id: 4, name: '小陈', score: 99 },
-      //   { id: 5, name: '小黄', score: 100 },
-      //   { id: 6, name: '小张', score: 100 },
-      // ],
-      dataSource: [
-        {
-          id: 1,
-          name: '小张',
-          company: '浙江工业大学',
-          score: 100,
-          description: 'xxxx xxxx',
-        },
-        {
-          id: 2,
-          name: '小红',
-          company: '浙江工业大学',
-          score: 99,
-          description: 'xxxx xxxx',
-        },
-        { id: 3, name: '小李', company: '浙江工业大学', score: 100 },
-        { id: 4, name: '小陈', company: '浙江工业大学', score: 99 },
-        { id: 5, name: '小黄', company: '浙江工业大学', score: 100 },
-        { id: 6, name: '小张', company: '浙江工业大学', score: 100 },
-        { id: 3, name: '小李', company: '浙江工业大学', score: 100 },
-        { id: 4, name: '小陈', company: '浙江工业大学', score: 99 },
-        { id: 5, name: '小黄', company: '浙江工业大学', score: 100 },
-        { id: 6, name: '小张', company: '浙江工业大学', score: 100 },
-        { id: 3, name: '小李', company: '浙江工业大学', score: 100 },
-        { id: 4, name: '小陈', company: '浙江工业大学', score: 99 },
-        { id: 5, name: '小黄', company: '浙江工业大学', score: 100 },
-        { id: 6, name: '小张', company: '浙江工业大学', score: 100 },
-      ],
+      fileList: [],
     }
   },
   computed: {},
   watch: {},
   methods: {
-    // onChangeItem(obj) {
-    //   let { selected, item, index } = obj
-    //   if (selected) {
-    //     this.selected.push(item)
-    //   } else {
-    //     let index = this.selected.indexOf(item)
-    //     this.selected.splice(index, 1)
-    //   }
-    // },
-    edit(item) {
-      alert(`编辑${item.id}`)
-    },
-    view(item) {
-      alert(`查看${item.id}`)
-    },
-    changeOrderBy() {
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 1000)
+    parseResponse(response) {
+      let obj = JSON.parse(response)
+      let url = `http://127.0.0.1:3000/preview/${obj.id}`
+      return url
     },
   },
   created() {},
