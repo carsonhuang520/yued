@@ -8,13 +8,18 @@
     <ol>
       <li v-for="file in fileList" :key="file.name">
         <img :src="file.url" width="100" height="100" />{{ file.name }}
+        <y-button @click="onRemoveFile(file)">X</y-button>
       </li>
     </ol>
   </div>
 </template>
 <script>
+import Button from './button'
 export default {
   name: 'YueUploader',
+  components: {
+    'y-button': Button,
+  },
   props: {
     method: {
       type: String,
@@ -51,6 +56,15 @@ export default {
         input.remove()
       })
       input.click()
+    },
+    onRemoveFile(file) {
+      let res = window.confirm('你确定要删除吗?')
+      if (res) {
+        let copy = [...this.fileList]
+        let index = copy.indexOf(file)
+        copy.splice(index, 1)
+        this.$emit('update:fileList', copy)
+      }
     },
     uploadFile(file) {
       let formData = new FormData()
