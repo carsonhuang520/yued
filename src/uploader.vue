@@ -7,6 +7,7 @@
     <!-- <img :src="url" /> -->
     <ol>
       <li v-for="file in fileList" :key="file.name">
+        <span v-if="file.status === 'uploading'">加载中</span>
         <img :src="file.url" width="100" height="100" />{{ file.name }}
         <y-button @click="onRemoveFile(file)">X</y-button>
       </li>
@@ -66,24 +67,43 @@ export default {
         this.$emit('update:fileList', copy)
       }
     },
+    beforeUploadFile(file, newName) {
+      let { size, type } = file
+      this.$emit('update:fileList', [
+        ...this.fileList,
+        { name: newName, type, size, status: 'uploading' },
+      ])
+    },
     uploadFile(file) {
+      let { name, size, type } = file
+      let newName = this.generateName(name)
+      this.beforeUploadFile(file, newName)
       let formData = new FormData()
       formData.append(this.name, file)
-      let { name, size, type } = file
       this.ajax(formData, (response) => {
         let url = this.parseResponse(response)
         this.url = url
-        while (this.fileList.filter((item) => item.name === name).length > 0) {
-          let dotIndex = name.lastIndexOf('.')
-          let nameWithoutExtension = name.substring(0, dotIndex)
-          let extension = name.substring(dotIndex)
-          name = nameWithoutExtension + '(1)' + extension
-        }
-        this.$emit('update:fileList', [
-          ...this.fileList,
-          { name, type, size, url },
-        ])
+        this.afterUploadFile(newName, url)
       })
+    },
+    afterUploadFile(newName, url) {
+      let tempFile = this.fileList.filter((item) => item.name === newName)[0]
+      let index = this.fileList.indexOf(tempFile)
+      let copy = JSON.parse(JSON.stringify(tempFile))
+      copy.url = url
+      copy.status = 'success'
+      let fileListCopy = [...this.fileList]
+      fileListCopy.splice(index, 1, copy)
+      this.$emit('update:fileList', fileListCopy)
+    },
+    generateName(name) {
+      while (this.fileList.filter((item) => item.name === name).length > 0) {
+        let dotIndex = name.lastIndexOf('.')
+        let nameWithoutExtension = name.substring(0, dotIndex)
+        let extension = name.substring(dotIndex)
+        name = nameWithoutExtension + '(1)' + extension
+      }
+      return name
     },
     ajax(formData, success) {
       let xhr = new XMLHttpRequest()
