@@ -3,24 +3,37 @@
     <div @click="onClickUpload">
       <slot></slot>
     </div>
-    <div ref="temp" style="width: 0;height: 0;overflow:hidden;"></div>
-    <!-- <img :src="url" /> -->
-    <ol>
+    <slot name="tips"></slot>
+    <ol class="y-uploader-fileList">
       <li v-for="file in fileList" :key="file.name">
-        <span v-if="file.status === 'uploading'">加载中</span>
-        <img :src="file.url" width="100" height="100" />{{ file.name }}
-        <y-button @click="onRemoveFile(file)">X</y-button>
-        <span>{{ file.status }}</span>
+        <template v-if="file.status === 'uploading'">
+          <y-icon class="y-uploader-loading" name="loading"></y-icon>
+        </template>
+        <template v-else-if="file.type.indexOf('image') === 0">
+          <img class="y-uploader-img" :src="file.url" width="32" height="32" />
+        </template>
+        <template v-else>
+          <div class="y-uploader-defaultImg"></div>
+        </template>
+        <span class="y-uploader-name" :class="{ [file.status]: file.status }">{{
+          file.name
+        }}</span>
+        <y-button class="y-uploader-remove" @click="onRemoveFile(file)"
+          >X</y-button
+        >
       </li>
     </ol>
+    <div ref="temp" style="width: 0;height: 0;overflow:hidden;"></div>
   </div>
 </template>
 <script>
 import Button from './button'
+import Icon from './icon'
 export default {
   name: 'YueUploader',
   components: {
     'y-button': Button,
+    'y-icon': Icon,
   },
   props: {
     method: {
@@ -125,8 +138,11 @@ export default {
       let xhr = new XMLHttpRequest()
       xhr.open(this.method, this.action)
       xhr.onload = () => {
-        success(xhr.response)
-        // fail()
+        if (Math.random() > 0.5) {
+          success(xhr.response)
+        } else {
+          fail()
+        }
       }
       xhr.send(formData)
     },
@@ -141,8 +157,43 @@ export default {
 </script>
 <style lang="scss" scoped>
 .y-uploader {
-  > ol {
+  &-fileList {
     list-style: none;
+    > li {
+      display: flex;
+      align-items: center;
+      margin: 8px 0;
+      border: 1px solid #e1e1e1;
+    }
+  }
+  &-img {
+    margin-right: 8px;
+  }
+  &-defaultImg {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+  }
+  &-name {
+    margin-right: auto;
+    &.success {
+      color: green;
+    }
+    &.fail {
+      color: red;
+    }
+  }
+  &-loading {
+    margin-right: 8px;
+    animation: spin 1s linear infinite;
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>

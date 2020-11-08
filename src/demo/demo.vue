@@ -10,7 +10,7 @@
       >
         <y-button type="primary">上传</y-button>
         <div slot="tips">
-          只能上传jpeg
+          只能上传300KBy以内的 png、jpeg 文件
         </div>
       </y-uploader>
     </div>
