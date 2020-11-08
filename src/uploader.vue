@@ -10,6 +10,7 @@
         <span v-if="file.status === 'uploading'">加载中</span>
         <img :src="file.url" width="100" height="100" />{{ file.name }}
         <y-button @click="onRemoveFile(file)">X</y-button>
+        <span>{{ file.status }}</span>
       </li>
     </ol>
   </div>
@@ -80,11 +81,17 @@ export default {
       this.beforeUploadFile(file, newName)
       let formData = new FormData()
       formData.append(this.name, file)
-      this.ajax(formData, (response) => {
-        let url = this.parseResponse(response)
-        this.url = url
-        this.afterUploadFile(newName, url)
-      })
+      this.ajax(
+        formData,
+        (response) => {
+          let url = this.parseResponse(response)
+          this.url = url
+          this.afterUploadFile(newName, url)
+        },
+        () => {
+          this.uploadError(newName)
+        }
+      )
     },
     afterUploadFile(newName, url) {
       let tempFile = this.fileList.filter((item) => item.name === newName)[0]
@@ -92,6 +99,15 @@ export default {
       let copy = JSON.parse(JSON.stringify(tempFile))
       copy.url = url
       copy.status = 'success'
+      let fileListCopy = [...this.fileList]
+      fileListCopy.splice(index, 1, copy)
+      this.$emit('update:fileList', fileListCopy)
+    },
+    uploadError(newName) {
+      let tempFile = this.fileList.filter((item) => item.name === newName)[0]
+      let index = this.fileList.indexOf(tempFile)
+      let copy = JSON.parse(JSON.stringify(tempFile))
+      copy.status = 'fail'
       let fileListCopy = [...this.fileList]
       fileListCopy.splice(index, 1, copy)
       this.$emit('update:fileList', fileListCopy)
@@ -105,11 +121,12 @@ export default {
       }
       return name
     },
-    ajax(formData, success) {
+    ajax(formData, success, fail) {
       let xhr = new XMLHttpRequest()
       xhr.open(this.method, this.action)
       xhr.onload = () => {
         success(xhr.response)
+        // fail()
       }
       xhr.send(formData)
     },
