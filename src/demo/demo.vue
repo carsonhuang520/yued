@@ -10,6 +10,7 @@
         :file-list.sync="fileList"
         :size-limit="1024 * 1024"
         @error="error = $event"
+        @add-file="addFile"
       >
         <y-button type="primary">上传</y-button>
         <div slot="tips">
@@ -42,6 +43,9 @@ export default {
       let obj = JSON.parse(response)
       let url = `http://127.0.0.1:3000/preview/${obj.id}`
       return url
+    },
+    addFile(file) {
+      this.fileList.push(file)
     },
   },
   created() {},

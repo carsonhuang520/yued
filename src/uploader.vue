@@ -70,8 +70,8 @@ export default {
     onClickUpload() {
       let input = this.createInput()
       input.addEventListener('change', () => {
-        let file = input.files[0]
-        this.uploadFile(file)
+        let files = input.files
+        this.uploadFile(files)
         input.remove()
       })
       input.click()
@@ -91,32 +91,41 @@ export default {
         this.$emit('error', '文件太大')
         return false
       } else {
-        this.$emit('update:fileList', [
-          ...this.fileList,
-          { name: newName, type, size, status: 'uploading' },
-        ])
+        // this.$emit('update:fileList', [
+        //   ...this.fileList,
+        //   { name: newName, type, size, status: 'uploading' },
+        // ])
+        this.$emit('add-file', {
+          name: newName,
+          type,
+          size,
+          status: 'uploading',
+        })
         return true
       }
     },
-    uploadFile(file) {
-      let { name, size, type } = file
-      let newName = this.generateName(name)
-      if (!this.beforeUploadFile(file, newName)) {
-        return
-      }
-      let formData = new FormData()
-      formData.append(this.name, file)
-      this.ajax(
-        formData,
-        (response) => {
-          let url = this.parseResponse(response)
-          this.url = url
-          this.afterUploadFile(newName, url)
-        },
-        (xhr) => {
-          this.uploadError(xhr, newName)
+    uploadFile(files) {
+      for (let i = 0; i < files.length; i++) {
+        let file = files[i]
+        let { name, size, type } = file
+        let newName = this.generateName(name)
+        if (!this.beforeUploadFile(file, newName)) {
+          return
         }
-      )
+        let formData = new FormData()
+        formData.append(this.name, file)
+        this.ajax(
+          formData,
+          (response) => {
+            let url = this.parseResponse(response)
+            this.url = url
+            this.afterUploadFile(newName, url)
+          },
+          (xhr) => {
+            this.uploadError(xhr, newName)
+          }
+        )
+      }
     },
     afterUploadFile(newName, url) {
       let tempFile = this.fileList.filter((item) => item.name === newName)[0]
@@ -163,6 +172,7 @@ export default {
     createInput() {
       let input = document.createElement('input')
       input.type = 'file'
+      input.multiple = true
       this.$refs.temp.appendChild(input)
       return input
     },
