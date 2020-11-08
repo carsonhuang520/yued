@@ -7,7 +7,9 @@
     <ol class="y-uploader-fileList">
       <li v-for="file in fileList" :key="file.name">
         <template v-if="file.status === 'uploading'">
-          <y-icon class="y-uploader-loading" name="loading"></y-icon>
+          <span class="y-uploader-loadingWrapper">
+            <y-icon class="y-uploader-loading" name="loading"></y-icon>
+          </span>
         </template>
         <template v-else-if="file.type.indexOf('image') === 0">
           <img class="y-uploader-img" :src="file.url" width="32" height="32" />
@@ -18,8 +20,8 @@
         <span class="y-uploader-name" :class="{ [file.status]: file.status }">{{
           file.name
         }}</span>
-        <y-button class="y-uploader-remove" @click="onRemoveFile(file)"
-          >X</y-button
+        <span type="text" class="y-uploader-remove" @click="onRemoveFile(file)"
+          >X</span
         >
       </li>
     </ol>
@@ -36,6 +38,10 @@ export default {
     'y-icon': Icon,
   },
   props: {
+    accept: {
+      type: String,
+      default: '',
+    },
     method: {
       type: String,
       default: 'POST',
@@ -59,6 +65,10 @@ export default {
     sizeLimit: {
       type: Number,
       default: 0,
+    },
+    multiple: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -85,33 +95,37 @@ export default {
         this.$emit('update:fileList', copy)
       }
     },
-    beforeUploadFile(file, newName) {
-      let { size, type } = file
-      if (size > this.sizeLimit) {
-        this.$emit('error', '文件太大')
-        return false
-      } else {
-        // this.$emit('update:fileList', [
-        //   ...this.fileList,
-        //   { name: newName, type, size, status: 'uploading' },
-        // ])
-        this.$emit('add-file', {
-          name: newName,
-          type,
-          size,
-          status: 'uploading',
-        })
-        return true
+    beforeUploadFile(files, newNames) {
+      files = Array.from(files)
+      for (let i = 0; i < files.length; i++) {
+        let file = files[i]
+        let { size, type } = file
+        if (size > this.sizeLimit) {
+          this.$emit('error', '文件太大')
+          return false
+        }
       }
+      let x = files.map((item, i) => {
+        let { size, type } = item
+        return { name: newNames[i], type, size, status: 'uploading' }
+      })
+      this.$emit('update:fileList', [...this.fileList, ...x])
+      return true
     },
     uploadFile(files) {
+      let newNames = []
       for (let i = 0; i < files.length; i++) {
         let file = files[i]
         let { name, size, type } = file
         let newName = this.generateName(name)
-        if (!this.beforeUploadFile(file, newName)) {
-          return
-        }
+        newNames[i] = newName
+      }
+      if (!this.beforeUploadFile(files, newNames)) {
+        return
+      }
+      for (let i = 0; i < files.length; i++) {
+        let file = files[i]
+        let newName = newNames[i]
         let formData = new FormData()
         formData.append(this.name, file)
         this.ajax(
@@ -171,8 +185,9 @@ export default {
     },
     createInput() {
       let input = document.createElement('input')
+      input.accept = this.accept
       input.type = 'file'
-      input.multiple = true
+      input.multiple = this.multiple
       this.$refs.temp.appendChild(input)
       return input
     },
@@ -188,6 +203,14 @@ export default {
       align-items: center;
       margin: 8px 0;
       border: 1px solid #e1e1e1;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover {
+        background: #f5f7fa;
+        .y-uploader-remove {
+          display: block;
+        }
+      }
     }
   }
   &-img {
@@ -201,17 +224,27 @@ export default {
   &-name {
     margin-right: auto;
     &.success {
-      color: green;
+      color: #13ce66;
     }
     &.fail {
-      color: red;
+      color: #ff4d4f;
     }
   }
-  &-loading {
-    // width: 32px;
-    // height: 32px;
+  &-loadingWrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
     margin-right: 8px;
+  }
+  &-loading {
     animation: spin 1s linear infinite;
+  }
+  &-remove {
+    color: darken(#e1e1e1, 20%);
+    margin-right: 8px;
+    display: none;
   }
 }
 @keyframes spin {
