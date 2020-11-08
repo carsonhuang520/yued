@@ -56,6 +56,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    sizeLimit: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
@@ -83,15 +87,23 @@ export default {
     },
     beforeUploadFile(file, newName) {
       let { size, type } = file
-      this.$emit('update:fileList', [
-        ...this.fileList,
-        { name: newName, type, size, status: 'uploading' },
-      ])
+      if (size > this.sizeLimit) {
+        this.$emit('error', '文件太大')
+        return false
+      } else {
+        this.$emit('update:fileList', [
+          ...this.fileList,
+          { name: newName, type, size, status: 'uploading' },
+        ])
+        return true
+      }
     },
     uploadFile(file) {
       let { name, size, type } = file
       let newName = this.generateName(name)
-      this.beforeUploadFile(file, newName)
+      if (!this.beforeUploadFile(file, newName)) {
+        return
+      }
       let formData = new FormData()
       formData.append(this.name, file)
       this.ajax(
@@ -101,8 +113,8 @@ export default {
           this.url = url
           this.afterUploadFile(newName, url)
         },
-        () => {
-          this.uploadError(newName)
+        (xhr) => {
+          this.uploadError(xhr, newName)
         }
       )
     },
@@ -116,7 +128,7 @@ export default {
       fileListCopy.splice(index, 1, copy)
       this.$emit('update:fileList', fileListCopy)
     },
-    uploadError(newName) {
+    uploadError(xhr, newName) {
       let tempFile = this.fileList.filter((item) => item.name === newName)[0]
       let index = this.fileList.indexOf(tempFile)
       let copy = JSON.parse(JSON.stringify(tempFile))
@@ -124,6 +136,9 @@ export default {
       let fileListCopy = [...this.fileList]
       fileListCopy.splice(index, 1, copy)
       this.$emit('update:fileList', fileListCopy)
+      if (xhr.status === 0) {
+        this.$emit('error', '网络无法连接')
+      }
     },
     generateName(name) {
       while (this.fileList.filter((item) => item.name === name).length > 0) {
@@ -138,11 +153,10 @@ export default {
       let xhr = new XMLHttpRequest()
       xhr.open(this.method, this.action)
       xhr.onload = () => {
-        if (Math.random() > 0.5) {
-          success(xhr.response)
-        } else {
-          fail()
-        }
+        success(xhr.response)
+      }
+      xhr.onerror = () => {
+        fail(xhr)
       }
       xhr.send(formData)
     },
@@ -184,6 +198,8 @@ export default {
     }
   }
   &-loading {
+    // width: 32px;
+    // height: 32px;
     margin-right: 8px;
     animation: spin 1s linear infinite;
   }

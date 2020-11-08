@@ -1,16 +1,19 @@
 <template>
   <div id="app" style="margin-top: 100px;">
     <div style="margin: 20px;">
+      {{ error }}
       <y-uploader
         action="http://127.0.0.1:3000/upload"
         name="file"
         method="POST"
         :parse-response="parseResponse"
         :file-list.sync="fileList"
+        :size-limit="1024 * 1024"
+        @error="error = $event"
       >
         <y-button type="primary">上传</y-button>
         <div slot="tips">
-          只能上传300KBy以内的 png、jpeg 文件
+          只能上传300KB以内的 png、jpeg 文件
         </div>
       </y-uploader>
     </div>
@@ -29,6 +32,7 @@ export default {
   data() {
     return {
       fileList: [],
+      error: '',
     }
   },
   computed: {},
