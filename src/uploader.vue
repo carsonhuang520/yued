@@ -31,6 +31,7 @@
 <script>
 import Button from './button'
 import Icon from './icon'
+import http from './http'
 export default {
   name: 'YueUploader',
   components: {
@@ -64,7 +65,7 @@ export default {
     },
     sizeLimit: {
       type: Number,
-      default: 0,
+      default: 1024 * 1024,
     },
     multiple: {
       type: Boolean,
@@ -150,8 +151,10 @@ export default {
       let fileListCopy = [...this.fileList]
       fileListCopy.splice(index, 1, copy)
       this.$emit('update:fileList', fileListCopy)
+      this.$emit('uploaded')
     },
     uploadError(xhr, newName) {
+      console.log('kk')
       let tempFile = this.fileList.filter((item) => item.name === newName)[0]
       let index = this.fileList.indexOf(tempFile)
       let copy = JSON.parse(JSON.stringify(tempFile))
@@ -173,15 +176,20 @@ export default {
       return name
     },
     ajax(formData, success, fail) {
-      let xhr = new XMLHttpRequest()
-      xhr.open(this.method, this.action)
-      xhr.onload = () => {
-        success(xhr.response)
-      }
-      xhr.onerror = () => {
-        fail(xhr)
-      }
-      xhr.send(formData)
+      http[this.method.toLowerCase()](this.action, {
+        success,
+        fail,
+        data: formData,
+      })
+      // let xhr = new XMLHttpRequest()
+      // xhr.open(this.method, this.action)
+      // xhr.onload = () => {
+      //   success(xhr.response)
+      // }
+      // xhr.onerror = () => {
+      //   fail(xhr)
+      // }
+      // xhr.send(formData)
     },
     createInput() {
       let input = document.createElement('input')
