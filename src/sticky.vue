@@ -1,6 +1,6 @@
 <template>
   <div class="y-sticky-wrapper" ref="sticky" :style="{ height }">
-    <div class="y-sticky" :class="classes" :style="{ left, width }">
+    <div class="y-sticky" :class="classes" :style="{ left, width, top }">
       <slot></slot>
     </div>
   </div>
@@ -14,7 +14,15 @@ export default {
       height: undefined,
       width: undefined,
       left: undefined,
+      top: undefined,
+      timerId: null,
     }
+  },
+  props: {
+    distance: {
+      type: Number,
+      default: 0,
+    },
   },
   computed: {
     classes() {
@@ -25,29 +33,45 @@ export default {
   },
   created() {},
   mounted() {
-    let { top } = this.top()
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > top) {
-        let { height, left, width } = this.$refs.sticky.getBoundingClientRect()
-        // this.$refs.sticky.style.height = `${height}px`
-        this.height = height + 'px'
-        this.width = width + 'px'
-        this.left = left + 'px'
-        this.isSticky = true
-      } else {
-        this.isSticky = false
-      }
-    })
+    this.windowScrollHandler = this._windowScrollHandler.bind(this)
+    window.addEventListener('scroll', this.windowScrollHandler)
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.windowScrollHandler)
   },
   methods: {
-    top() {
+    getTop() {
       let { top } = this.$refs.sticky.getBoundingClientRect()
       return { top: top + window.scrollY }
     },
-    // height() {
-    //   let { height } = this.$refs.sticky.getBoundingClientRect()
-    //   return { height }
-    // },
+    _windowScrollHandler() {
+      let x = () => {
+        let { top } = this.getTop()
+        if (window.scrollY > top - this.distance) {
+          let {
+            height,
+            left,
+            width,
+          } = this.$refs.sticky.getBoundingClientRect()
+          this.height = height + 'px'
+          this.width = width + 'px'
+          this.left = left + 'px'
+          this.top = this.distance + 'px'
+          this.isSticky = true
+        } else {
+          this.height = undefined
+          this.width = undefined
+          this.left = undefined
+          this.top = undefined
+          this.isSticky = false
+        }
+      }
+      // if (this.timerId) {
+      //   window.clearTimeout(this.timerId)
+      // }
+      // this.timerId = setTimeout(x, 1000)
+      x()
+    },
   },
 }
 </script>
@@ -56,7 +80,6 @@ export default {
   border: 1px solid red;
   &.sticky {
     position: fixed;
-    top: 0;
   }
 }
 </style>
