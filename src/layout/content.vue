@@ -3,6 +3,11 @@
     <slot></slot>
   </div>
 </template>
+<script>
+export default {
+  name: 'YueContent',
+}
+</script>
 <style lang="scss" scoped>
 .y-content {
   flex-grow: 1;

@@ -1,0 +1,7 @@
+/.idea/
+/.temp/
+/.vscode/
+/docs/
+/node_modules/
+/src/
+/tests/
