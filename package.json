@@ -11,7 +11,9 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "vue": "^2.5.17"
+    "highlight.js": "^9.12.0",
+    "vue": "^2.6.12",
+    "vue-highlight.js": "^2.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0",
@@ -33,7 +35,7 @@
     "sass-loader": "^7.0.1",
     "sinon": "^6.1.5",
     "sinon-chai": "^3.2.0",
-    "vue-template-compiler": "^2.5.17",
+    "vue-template-compiler": "^2.6.12",
     "vuepress": "^1.7.1"
   },
   "postcss": {

@@ -120,10 +120,12 @@
 </template>
 <script>
 import Icon from '../icon'
+import TableColumn from './table-column'
 export default {
   name: 'YueTable',
   components: {
     'y-icon': Icon,
+    'y-table-column': TableColumn,
   },
   props: {
     expandKey: {

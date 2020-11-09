@@ -31,8 +31,8 @@
   </div>
 </template>
 <script>
-import Row from '../../../src/row'
-import Col from '../../../src/col'
+import Row from '../../../src/grid/row'
+import Col from '../../../src/grid/col'
 export default {
   components: {
     'y-row': Row,
