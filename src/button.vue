@@ -2,7 +2,7 @@
   <button
     class="y-button"
     :class="classes"
-    @click="$emit('click')"
+    @click="onClick"
     :disabled="disabled"
   >
     <y-icon class="icon" v-if="icon && !loading" :name="icon"></y-icon>
@@ -38,9 +38,9 @@ export default {
     },
     size: {
       type: String,
-      default: 'default',
+      default: 'middle',
       validator(value) {
-        return ['large', 'default', 'small'].indexOf(value) >= 0
+        return ['large', 'middle', 'small'].indexOf(value) >= 0
       },
     },
     type: {
@@ -79,7 +79,16 @@ export default {
     },
   },
   watch: {},
-  methods: {},
+  methods: {
+    onClick() {
+      console.log('kk')
+      if (this.disabled) {
+        console.log('kk')
+        return
+      }
+      this.$emit('click')
+    },
+  },
   created() {},
   mounted() {},
 }
@@ -113,7 +122,7 @@ $border-color-hover: #666666;
   font-size: $font-size;
   height: $button-height;
   padding: 0 1em;
-  font: inherit;
+  // font: inherit;
   border-radius: $border-radius;
   border: 1px solid $border-color;
   background: $button-bg;
@@ -122,11 +131,21 @@ $border-color-hover: #666666;
   align-items: center;
   vertical-align: middle;
   cursor: pointer;
-  &:hover {
-    border-color: $border-color-hover;
+  // &-default {
+  //   &:hover {
+  //     border-color: $border-color-hover;
+  //   }
+  // }
+  &:not(.disabled) {
+    &:hover {
+      border-color: $border-color-hover;
+      background: $button-active-bg;
+    }
   }
-  &:active {
-    background: $button-active-bg;
+  &:not(.disabled) {
+    &:active {
+      background: $button-active-bg;
+    }
   }
   &:focus {
     outline: none;
@@ -150,10 +169,12 @@ $border-color-hover: #666666;
   }
   &.disabled {
     cursor: not-allowed;
-    color: #b7b7b7;
-    &:hover {
-      border-color: $border-color;
+    &.default {
+      color: #b7b7b7;
     }
+    // &:hover {
+    //   border-color: $border-color;
+    // }
   }
   .loading {
     animation: spin 2s infinite linear;
@@ -169,49 +190,108 @@ $border-color-hover: #666666;
   &-error,
   &-warning,
   &-success {
-    border: none;
+    // border: none;
     color: #ffffff;
   }
   &-text {
     border: none;
-    &:hover {
-      color: #57a3f3;
+    &:not(.disabled) {
+      &:hover {
+        color: #57a3f3;
+      }
     }
   }
   &-dashed {
     border-style: dashed;
-    &:hover {
-      color: #57a3f3;
+    &:not(.disabled) {
+      &:hover {
+        color: #57a3f3;
+      }
     }
   }
   &-primary {
+    border-color: $button-primary-bg;
     background: $button-primary-bg;
-    &:hover {
-      background: #57a3f3;
+    &.disabled {
+      border-color: lighten($button-primary-bg, 15%);
+      background: lighten($button-primary-bg, 15%);
+    }
+    &:not(.disabled) {
+      &:hover {
+        border-color: #57a3f3;
+        background: #57a3f3;
+      }
+    }
+    > .icon {
+      fill: #ffffff;
     }
   }
   &-info {
+    border-color: $button-info-bg;
     background: $button-info-bg;
-    &:hover {
-      background: #57c5f7;
+    &.disabled {
+      border-color: lighten($button-info-bg, 15%);
+      background: lighten($button-info-bg, 15%);
+    }
+    &:not(.disabled) {
+      &:hover {
+        border-color: #57c5f7;
+        background: #57c5f7;
+      }
+    }
+    > .icon {
+      fill: #ffffff;
     }
   }
   &-success {
+    border-color: $button-success-bg;
     background: $button-success-bg;
-    &:hover {
-      background: #47cb89;
+    &.disabled {
+      border-color: lighten($button-success-bg, 15%);
+      background: lighten($button-success-bg, 15%);
+    }
+    &:not(.disabled) {
+      &:hover {
+        border-color: #47cb89;
+        background: #47cb89;
+      }
+    }
+    > .icon {
+      fill: #ffffff;
     }
   }
   &-warning {
+    border-color: $button-warning-bg;
     background: $button-warning-bg;
-    &:hover {
-      background: #ffad33;
+    &.disabled {
+      border-color: lighten($button-warning-bg, 15%);
+      background: lighten($button-warning-bg, 15%);
+    }
+    &:not(.disabled) {
+      &:hover {
+        border-color: #ffad33;
+        background: #ffad33;
+      }
+    }
+    > .icon {
+      fill: #ffffff;
     }
   }
   &-error {
+    border-color: $button-error-bg;
     background: $button-error-bg;
-    &:hover {
-      background: #f16643;
+    &.disabled {
+      border-color: lighten($button-error-bg, 15%);
+      background: lighten($button-error-bg, 15%);
+    }
+    &:not(.disabled) {
+      &:hover {
+        border-color: #f16643;
+        background: #f16643;
+      }
+    }
+    > .icon {
+      fill: #ffffff;
     }
   }
 }

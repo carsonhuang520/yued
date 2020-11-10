@@ -1,7 +1,8 @@
 {
   "name": "yued-test",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "这是一个 UI 框架",
+  "main": "dist/yued.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name yued src/index.js",
