@@ -17,13 +17,13 @@ module.exports = {
       {
         title: '组件',
         children: [
-          '/components/button',
           '/components/button-test',
           '/components/cascader',
           '/components/collapse',
-          '/components/grid',
+          '/components/grid-test',
           '/components/input',
           '/components/layout',
+          '/components/layout-test',
           '/components/popover',
           '/components/tabs',
           '/components/toast',
