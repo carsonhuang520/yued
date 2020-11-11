@@ -5,8 +5,12 @@
   </div>
 </template>
 <script>
+import Icon from '../icon'
 export default {
   name: 'YueTabsItem',
+  components: {
+    'y-icon': Icon,
+  },
   inject: ['eventBus'],
   data() {
     return {
@@ -90,6 +94,9 @@ $blue: #2d8cf0;
     }
   }
   &.active {
+    > svg {
+      fill: $blue;
+    }
     color: $blue;
   }
   &.tabs-item-vertical {

@@ -42,10 +42,12 @@ title: Layout 布局
 
   </highlight-code>
 </grid-test>
+
 <style>
 table th { width: 100px;text-align:left } 
 table th:nth-of-type(4){width:200px}
 </style>
+
 ### Header Attributes
 
 | 参数   | 说明     | 类型   | 可选值 | 默认值 |
