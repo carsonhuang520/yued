@@ -25,3 +25,23 @@ title: Collapse 折叠面板
     </y-collapse>
   </highlight-code>
 </grid-test>
+
+<style>
+table th { width: 100px; text-align: left; background: #f7f7f7; } 
+table th:nth-of-type(2){ width: 200px; }
+table td { font-size: 14px; }
+</style>
+
+### Collapse Attributes
+
+| 参数      | 说明           | 类型    | 可选值 | 默认值 |
+| --------- | -------------- | ------- | ------ | ------ |
+| selected  | 展开项的 name  | array   | —      | —      |
+| accordion | 是否手风琴模式 | boolean | —      | false  |
+
+### CollapseItem Attributes
+
+| 参数  | 说明                           | 类型   | 可选值 | 默认值 |
+| ----- | ------------------------------ | ------ | ------ | ------ |
+| title | 面板标题                       | string | —      | —      |
+| name  | 与 collapse 的 selected 中对应 | string | —      | —      |

@@ -2,7 +2,8 @@
   <div class="y-cascader" ref="cascader" v-click-outside="close">
     <!-- 点击 cascader 里面时 document 不管，点击外面让 document 关闭 popover -->
     <div class="trigger" @click="toggle">
-      {{ result || '&nbsp;' }}
+      <span v-if="result" class="active">{{ result }}</span>
+      <span v-else>请选择</span>
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
       <y-cascader-item
@@ -68,17 +69,13 @@ export default {
     },
     open() {
       this.popoverVisible = true
-      // this.$nextTick(() => {
-      //   document.addEventListener('click', this.onClickDocument)
-      // })
     },
     close() {
       this.popoverVisible = false
-      // document.removeEventListener('click', this.onClickDocument)
     },
     toggle() {
       if (this.popoverVisible) {
-        this.close
+        this.close()
       } else {
         this.open()
       }
@@ -125,6 +122,9 @@ export default {
         // this.$set(toUpdate, 'children', result)
         this.$emit('update:source', copy)
       }
+      if (lastItem.isLeaf) {
+        this.close()
+      }
       if (!lastItem.isLeaf && this.loadData) {
         this.loadData(lastItem, update)
         this.loadingItem = lastItem
@@ -140,6 +140,8 @@ export default {
   position: relative;
   display: inline-block;
   .trigger {
+    font-size: 14px;
+    color: #c0c4cc;
     display: flex;
     align-items: center;
     width: 200px;
@@ -147,6 +149,9 @@ export default {
     padding: 0 1em;
     border: 1px solid #dddddd;
     border-radius: 4px;
+    > .active {
+      color: #606266;
+    }
   }
   .popover-wrapper {
     position: absolute;

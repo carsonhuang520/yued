@@ -20,6 +20,7 @@ module.exports = {
         children: [
           '/components/button-test',
           '/components/cascader',
+          '/components/cascader-test',
           '/components/collapse-test',
           '/components/grid-test',
           '/components/input',

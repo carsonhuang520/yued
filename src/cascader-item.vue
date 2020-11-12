@@ -16,7 +16,7 @@
             <y-icon
               class="icon"
               v-if="loadData ? !item.isLeaf : item.children"
-              name="left"
+              name="right"
             ></y-icon>
           </template>
         </span>
