@@ -95,7 +95,7 @@ title: Tabs 标签页
 </grid-test>
 
 <style>
-table th { width: 100px; text-align: left; } 
+table th { width: 100px; text-align: left; background: #f7f7f7; } 
 table th:nth-of-type(2){ width: 200px; }
 table td { font-size: 14px; }
 </style>
@@ -121,3 +121,7 @@ table td { font-size: 14px; }
 | 参数 | 说明                                                 | 类型   | 可选值 | 默认值 |
 | ---- | ---------------------------------------------------- | ------ | ------ | ------ |
 | name | 与选项卡绑定值 selected 对应的标识符，表示选项卡别名 | string | —      | —      |
+
+::: tip
+y-tabs-item 和 对应的 y-tabs-pane 的 name 要相同
+:::

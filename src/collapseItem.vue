@@ -1,14 +1,20 @@
 <template>
   <div class="y-collapse-item">
-    <div class="title" @click="toggle">{{ title }}</div>
+    <div class="title" @click="toggle">
+      {{ title }}<y-icon name="right" :class="{ active: open }"></y-icon>
+    </div>
     <div class="content" v-if="open">
       <slot></slot>
     </div>
   </div>
 </template>
 <script>
+import Icon from './icon'
 export default {
   name: 'YueCollapseItem',
+  components: {
+    'y-icon': Icon,
+  },
   props: {
     title: {
       type: String,
@@ -61,7 +67,14 @@ export default {
     min-height: 32px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0 8px;
+    > svg {
+      transition: transform 250ms linear;
+      &.active {
+        transform: rotate(90deg);
+      }
+    }
   }
   &:first-child {
     > .title {

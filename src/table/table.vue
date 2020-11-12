@@ -304,6 +304,7 @@ export default {
   // border-bottom: 1px solid #e1e1e1;
   &.border {
     border: 1px solid #e1e1e1;
+    border-bottom: none;
     td,
     th {
       border: 1px solid #e1e1e1;
