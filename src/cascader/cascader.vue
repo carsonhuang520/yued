@@ -21,7 +21,7 @@
 
 <script>
 import YCascaderItem from './cascader-item'
-import ClickOutside from './click-outside'
+import ClickOutside from '../click-outside'
 export default {
   name: 'YueCascader',
   components: {

@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import Button from './button'
+import Button from './button/button'
 import Icon from './icon'
 import http from './http'
 export default {

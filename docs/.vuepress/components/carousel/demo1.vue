@@ -14,8 +14,8 @@
   </div>
 </template>
 <script>
-import Slides from '../../../../src/slides'
-import SlidesItem from '../../../../src/slides-item'
+import Slides from '../../../../src/slides/slides'
+import SlidesItem from '../../../../src/slides/slides-item'
 export default {
   components: {
     'y-slides': Slides,

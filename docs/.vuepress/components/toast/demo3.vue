@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import Button from '../../../../src/button'
+import Button from '../../../../src/button/button'
 import Vue from 'vue'
 import plugin from '../../../../src/plugin'
 Vue.use(plugin)

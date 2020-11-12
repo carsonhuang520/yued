@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import Cascader from '../../../../src/cascader'
+import Cascader from '../../../../src/cascader/cascader'
 import db from '../../../../src/db'
 function ajax(parentId = 0) {
   return new Promise((success, fail) => {

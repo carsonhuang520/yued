@@ -1,5 +1,5 @@
 import chai, { expect } from 'chai'
-import Button from '@/button.vue'
+import Button from '@/button/button.vue'
 import sinon from 'sinon'
 import Vue from 'vue'
 import sinonChai from 'sinon-chai'

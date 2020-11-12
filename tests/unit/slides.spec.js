@@ -1,6 +1,6 @@
 import chai, { expect } from 'chai'
-import Slides from '@/slides.vue'
-import SlidesItem from '@/slides-item.vue'
+import Slides from '@/slides/slides.vue'
+import SlidesItem from '@/slides/slides-item.vue'
 import sinon from 'sinon'
 import Vue from 'vue'
 import sinonChai from 'sinon-chai'

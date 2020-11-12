@@ -8,8 +8,8 @@
   </div>
 </template>
 <script>
-import Collapse from '../../../../src/collapse'
-import CollapseItem from '../../../../src/collapseItem'
+import Collapse from '../../../../src/collapse/collapse'
+import CollapseItem from '../../../../src/collapse/collapseItem'
 export default {
   components: {
     'y-collapse': Collapse,

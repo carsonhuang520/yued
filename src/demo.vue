@@ -24,10 +24,10 @@
   </div>
 </template>
 <script>
-import Cascader from './cascader'
+import Cascader from './cascader/cascader'
 import db from './db'
 import FormRow from './form-row'
-import Button from './button'
+import Button from './button/button'
 import Input from './input'
 import formMixn from './form-mixin'
 function ajax2(parentId = 0, success, fail) {

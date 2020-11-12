@@ -83,7 +83,7 @@
 
 <script>
 import Uploader from '../uploader'
-import Button from '../button'
+import Button from '../button/button'
 import Icon from '../icon'
 import Sticky from '../sticky'
 export default {

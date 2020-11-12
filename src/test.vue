@@ -48,8 +48,8 @@
 </template>
 <script>
 import Icon from './icon'
-import Slides from './slides'
-import SlidesItem from './slides-item'
+import Slides from './slides/slides'
+import SlidesItem from './slides/slides-item'
 export default {
   name: 'test',
   components: {

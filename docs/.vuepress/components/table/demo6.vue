@@ -16,7 +16,7 @@
 </template>
 <script>
 import Table from '../../../../src/table/table'
-import Button from '../../../../src/button'
+import Button from '../../../../src/button/button'
 export default {
   components: {
     'y-table': Table,

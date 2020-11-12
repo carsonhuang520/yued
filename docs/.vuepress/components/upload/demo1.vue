@@ -18,7 +18,7 @@
 </template>
 <script>
 import Icon from '../../../../src/icon'
-import Button from '../../../../src/button'
+import Button from '../../../../src/button/button'
 import Uploader from '../../../../src/uploader'
 export default {
   components: {

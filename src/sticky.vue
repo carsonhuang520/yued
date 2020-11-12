@@ -47,6 +47,7 @@ export default {
     _windowScrollHandler() {
       let x = () => {
         let { top } = this.getTop()
+        console.log(window.scrollY, top - this.distance)
         if (window.scrollY > top - this.distance) {
           let {
             height,
@@ -77,6 +78,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .y-sticky {
+  background: #ffffff;
   border: 1px solid red;
   &.sticky {
     position: fixed;

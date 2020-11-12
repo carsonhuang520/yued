@@ -16,7 +16,7 @@
 </template>
 <script>
 import FormRow from '../../../../src/form-row'
-import Button from '../../../../src/button'
+import Button from '../../../../src/button/button'
 import Input from '../../../../src/input'
 import formMixn from '../../../../src/form-mixin'
 export default {
