@@ -47,7 +47,7 @@ class Validator {
   }
   minLength = (value, minLength) => {
     if (value.length < minLength) {
-      return '太短'
+      return '密码太短'
     }
   }
 }

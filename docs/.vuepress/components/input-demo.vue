@@ -2,6 +2,8 @@
   <div>
     <h4>示例1 传入 value 值</h4>
     <y-input value="hello world"></y-input>
+    <y-input v-model="value"></y-input>
+    value: {{ value }}
     <pre><code>{{ content1 }}</code></pre>
     <h4>示例2 disabled</h4>
     <y-input value="hello world" disabled></y-input>
@@ -28,6 +30,7 @@ export default {
   },
   data() {
     return {
+      value: '你好',
       content1: `<y-input value="hello world"></y-input>`,
       content2: `<y-input value="hello world" disabled></y-input>`,
       content3: `<y-input value="hello world" readonly></y-input>`,

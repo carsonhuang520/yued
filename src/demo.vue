@@ -1,18 +1,35 @@
 <template>
   <div id="app" style="padding: 100px;">
-    <y-cascader
+    <div class="form-wrapper">
+      <form class="form" @submit.prevent="onSubmit">
+        <h1>登录</h1>
+        <form-row label="邮箱" :error="errors.email">
+          <y-input type="text" v-model="user.email"></y-input>
+        </form-row>
+        <form-row label="密码" :error="errors.password">
+          <y-input type="password" v-model="user.password"></y-input>
+        </form-row>
+        <div>
+          <y-button class="ok" type="submit">提交</y-button>
+        </div>
+      </form>
+    </div>
+    <!-- <y-cascader
       :source.sync="source"
       popover-height="200px"
       :selected.sync="selected"
       :load-data="loadData"
-    ></y-cascader>
+    ></y-cascader> -->
     <!-- <div>{{ source }}</div> -->
   </div>
 </template>
 <script>
 import Cascader from './cascader'
 import db from './db'
-
+import FormRow from './form-row'
+import Button from './button'
+import Input from './input'
+import formMixn from './form-mixin'
 function ajax2(parentId = 0, success, fail) {
   let id = setTimeout(() => {
     let result = db.filter((item) => item.parent_id === parentId)
@@ -37,16 +54,27 @@ function ajax(parentId = 0) {
     }, 200)
   })
 }
-
 export default {
   name: 'demo',
   components: {
     'y-cascader': Cascader,
+    'y-button': Button,
+    'y-input': Input,
+    FormRow,
   },
+  mixins: [formMixn],
   data() {
     return {
       selected: [],
       source: [],
+      user: {
+        email: '',
+        password: '',
+      },
+      rules: [
+        { key: 'email', pattern: 'email', required: true },
+        { key: 'password', minLength: 6, required: true },
+      ],
     }
   },
   created() {
@@ -55,6 +83,10 @@ export default {
     })
   },
   methods: {
+    onSubmit() {
+      this.validate(this.user)
+      console.log(this.errors)
+    },
     handleUpdateSelected() {
       ajax(this.selected[0].id).then((result) => {
         let lastLevelSelected = this.source.filter(
@@ -93,5 +125,24 @@ export default {
 
 body {
   font-size: var(--font-size);
+  background: #888;
+}
+.form {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  margin-top: 36px;
+  min-height: 60vh;
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  .controls {
+  }
+  .ok {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+  }
 }
 </style>

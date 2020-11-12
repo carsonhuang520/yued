@@ -7,5 +7,5 @@ import './index.scss'
 Vue.config.productionTip = false
 
 new Vue({
-  render: (h) => h(TestDemo),
+  render: (h) => h(Demo),
 }).$mount('#app')
