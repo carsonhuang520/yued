@@ -32,11 +32,11 @@ $border-color-hover: #666666;
   > .y-button {
     border-radius: 0;
     &:not(:first-child) {
-      .y-button-primary,
-      .y-button-info,
-      .y-button-error,
-      .y-button-success,
-      .y-button-warning {
+      &.y-button-primary,
+      &.y-button-info,
+      &.y-button-error,
+      &.y-button-success,
+      &.y-button-warning {
         border-left-color: hsla(0, 0%, 100%, 0.5);
       }
       margin-left: -1px;
