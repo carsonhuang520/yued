@@ -14,7 +14,7 @@
       @input="$emit('input', $event.target.value)"
     />
     <template v-if="error">
-      <y-icon name="settings" class="icon-error"></y-icon>
+      <y-icon name="error" class="icon-error"></y-icon>
       <span class="message-error">{{ error }}</span>
     </template>
   </div>
